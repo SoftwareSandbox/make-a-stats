@@ -1,0 +1,26 @@
+service: make-a-stats
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    dontPrintOutput: true
+
+functions:
+  hello:
+    handler: src/Stats/api.handler # Refers to function `handler` exported from `Stats/api.js`
+    events:
+      - http:
+          integration: lambda-proxy
+          path: /api/stats/
+          method: ANY
+      # - http:
+      #     integration: lambda-proxy
+      #     path: /api/stats/{proxy+}
+      #     method: ANY

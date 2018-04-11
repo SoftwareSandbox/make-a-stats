@@ -1,0 +1,27 @@
+{
+  "name": "make-a-stats",
+  "version": "1.0.0",
+  "description": "Elm Serverless PUBG API mapper",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoftwareSandbox/make-a-stats.git"
+  },
+  "keywords": [
+    "elm",
+    "serverless",
+    "pubg"
+  ],
+  "author": "swsb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SoftwareSandbox/make-a-stats/issues"
+  },
+  "homepage": "https://github.com/SoftwareSandbox/make-a-stats#readme",
+  "dependencies": {
+    "elm-serverless": "^4.0.0"
+  }
+}
