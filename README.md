@@ -10,3 +10,15 @@ Statically generated site with [hugo](https://gohugo.io), containing 1 page with
 
 ### Flow
 ![](docs/flow.png)
+
+## Contributing
+### Frontend
+Install frontend dependencies:
+```sh
+npm install
+```
+
+Initialize frontend application locally:
+```sh
+npm run serve
+```
