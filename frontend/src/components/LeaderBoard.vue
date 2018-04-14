@@ -1,43 +1,38 @@
 <template>
   <section>
     <h1>LeaderBoard</h1>
-    <section v-for="player in players" v-bind:key="player">
-      {{ player.name }} kills: {{ player.kills }}
+    <section class="players">
+      <Player v-for="playerName in playerNames" v-bind:key="playerName" v-bind:name="playerName"/>
     </section>
   </section>
 </template>
 
 <script>
+import Player from './Player'
+import PlayerNames from '../assets/data/users.json'
+
 export default {
   name: 'LeaderBoard',
-  props: {
-    players: []
+  components: {
+    Player
   },
-  created: function () {
-    this.players = [];
-    this.$http.get('./users.json').then(playersResponse => {
-      var players = playersResponse.body;
-
-      players.forEach(playerName => {
-        this.$http.get('./match-response.json').then(matchResponse => {
-          var playerParticipants = matchResponse.body.included.filter(p => {
-            return p.type === "participant" && p.attributes.stats.name == playerName;
-          });
-          
-          if (playerParticipants.length == 0) {
-            return;
-          }
-          
-          this.players.push({
-              name: playerName,
-              kills: playerParticipants[0].attributes.stats.kills
-          });
-        });
-      });
-    });
-  }
+  data: function () {
+    return {
+      playerNames: PlayerNames
+    }
+  },
 }
 </script>
 
 <style scoped>
+  h1 {
+    font-weight: 700;
+    font-size: 3rem;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .players {
+    display: flex;
+    flex-direction: row;
+  }
 </style>
