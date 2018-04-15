@@ -19,5 +19,14 @@ Make sure the `AWS_ACCESS_KEY_ID` maps to a user with [restricted privileges](ht
 
 ```bash
 cd make-a-stats/backend
-npm deploy
+npm run deploy
 ```
+
+You can also choose your aws profile to deploy with:
+
+```bash
+cd make-a-stats/backend
+npm run deploy -- --profile <your local aws profile>
+```
+
+Read more about this configuration on the [Serverless docs site](https://serverless.com/framework/docs/providers/aws/cli-reference/config-credentials/).
