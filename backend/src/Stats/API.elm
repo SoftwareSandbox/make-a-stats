@@ -27,8 +27,8 @@ main =
             UrlParser.parseString <|
                 oneOf
                     [ map Home top
-                    , map BlogList (s "blog")
-                    , map Blog (s "blog" </> string)
+                    , map Leaderboard (s "leaderboard")
+                    , map Player (s "player" </> string)
                     ]
 
         -- Entry point for new connections.
@@ -40,8 +40,8 @@ main =
 -}
 type Route
     = Home
-    | BlogList
-    | Blog String
+    | Leaderboard
+    | Player String
 
 
 {-| Just a big "case of" on the request method and route.
@@ -58,13 +58,36 @@ router conn =
         )
     of
         ( GET, Home ) ->
-            respond ( 200, textBody "The home page" ) conn
+            respond ( 302, textBody "leaderboard" ) conn
 
-        ( GET, BlogList ) ->
-            respond ( 200, textBody "List of recent posts..." ) conn
+        ( GET, Leaderboard ) ->
+            respond ( 200, textBody """
+            [
+                {
+                    "playerId": "account.2b95c68272fd467db565f5134277993b",
+                    "name": "Jooones",
+                    "kills": "8"
+                },
+                {
+                    "playerId": "account.2b95c68272fd467db565f5134277993a",
+                    "name": "Hahain",
+                    "kills": "5"
+                },
+                {
+                    "playerId": "account.2b95c68272fd467db565f5134277993c",
+                    "name": "Daxude",
+                    "kills": "6"
+                },
+                {
+                    "playerId": "account.2b95c68272fd467db565f5134277993f",
+                    "name": "Sch3lp",
+                    "kills": "0"
+                }
+            ]
+            """ ) conn
 
-        ( GET, Blog slug ) ->
-            respond ( 200, textBody <| (++) "Specific post: " slug ) conn
+        ( GET, Player name ) ->
+            respond ( 200, textBody <| (++) "More detailed stats for player: " name ) conn
 
         _ ->
             respond ( 405, textBody "Method not allowed" ) conn
