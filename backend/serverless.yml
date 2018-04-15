@@ -16,11 +16,13 @@ functions:
   hello:
     handler: src/Stats/api.handler # Refers to function `handler` exported from `Stats/api.js`
     events:
+      # Enable root path /api/stats to get handled
       - http:
           integration: lambda-proxy
           path: /api/stats/
           method: ANY
-      # - http:
-      #     integration: lambda-proxy
-      #     path: /api/stats/{proxy+}
-      #     method: ANY
+      # Also enable paths like /api/stats/blog to get handled
+      - http:
+          integration: lambda-proxy
+          path: /api/stats/{proxy+}
+          method: ANY
