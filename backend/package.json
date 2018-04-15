@@ -4,7 +4,7 @@
   "description": "Elm Serverless PUBG API mapper",
   "main": "webpack.config.js",
   "scripts": {
-    "deploy": "cross-env NODE_ENV=production serverless deploy",
+    "deploy": "cross-env NODE_ENV=production serverless deploy --region eu-west-1",
     "start": "serverless offline",
     "test": "elm-doc-test && elm test"
   },
