@@ -1,35 +1,16 @@
 <template>
   <section class="player">
-    <h2>{{ name }}</h2>
+    <h2>{{ player.name }}</h2>
     <section class="statistics">
-      <span>kills</span><span>{{ kills }}</span>
+      <span>kills</span><span>{{ player.kills }}</span>
     </section>
   </section>
 </template>
 
 <script>
-import MatchData from '../assets/data/match-response.json'
-
 export default {
   name: 'Player',
-  props: ['name'],
-  data: function () {
-    return {
-        kills: 0,
-        matchData: MatchData
-    }
-  },
-  created: function () {
-    var playerAsParticipant = this.matchData.included.filter(p => {
-        return p.type === "participant" && p.attributes.stats.name == this.name;
-    });
-    
-    if (playerAsParticipant.length == 0) {
-        return;
-    }
-    
-    this.kills = playerAsParticipant[0].attributes.stats.kills
-  }
+  props: ['player'],
 }
 </script>
 

@@ -2,14 +2,13 @@
   <section>
     <h1>LeaderBoard</h1>
     <section class="players">
-      <Player v-for="playerName in playerNames" v-bind:key="playerName" v-bind:name="playerName"/>
+      <Player v-for="player in players" v-bind:key="player.playerId" v-bind:player="player"/>
     </section>
   </section>
 </template>
 
 <script>
 import Player from './Player'
-import PlayerNames from '../assets/data/users.json'
 
 export default {
   name: 'LeaderBoard',
@@ -18,9 +17,13 @@ export default {
   },
   data: function () {
     return {
-      playerNames: PlayerNames
+      players: []
     }
   },
+  created: function () {
+    this.$http.get('api/stats/leaderboard')
+      .then(response => this.players = response.body);
+  }
 }
 </script>
 
