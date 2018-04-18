@@ -1,5 +1,6 @@
 package com.softwaresandbox.makeastats;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +14,12 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping("/backend/")
 public class MakeAStatsController {
 
-    @GetMapping(value = "/player/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity getPlayer(@PathVariable("id") String playerId) {
-        return ok().body("Retrieving stats for player not implemented yet. Made request for player=" + playerId);
+    @Autowired
+    private PlayerService playerService;
+
+    @GetMapping(value = "/player/{name}", produces = APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity getPlayer(@PathVariable("name") String playerName) {
+        return ok().body(playerService.getPlayer(playerName));
     }
 
 }
