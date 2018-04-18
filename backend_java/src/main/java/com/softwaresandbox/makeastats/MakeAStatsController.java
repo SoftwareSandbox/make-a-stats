@@ -19,7 +19,7 @@ public class MakeAStatsController {
 
     @GetMapping(value = "/player/{name}", produces = APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity getPlayer(@PathVariable("name") String playerName) {
-        return ok().body(playerService.getPlayer(playerName));
+        return ok().body(playerService.getPlayerStats(playerName));
     }
 
 }
