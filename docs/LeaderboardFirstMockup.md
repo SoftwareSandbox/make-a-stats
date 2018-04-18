@@ -1,2 +1,2 @@
 # Leaderboard first mockup
-![](ui-mockups/LeaderboardFirstMockup.png)
+![](ui-mockups/LeaderboardFirstMockup.jpg)
