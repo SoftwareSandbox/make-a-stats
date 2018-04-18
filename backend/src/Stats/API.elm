@@ -70,7 +70,7 @@ router conn =
                 },
                 {
                     "playerId": "account.2b95c68272fd467db565f5134277993a",
-                    "name": "Hahain",
+                    "name": "Hahawin",
                     "kills": "5"
                 },
                 {
