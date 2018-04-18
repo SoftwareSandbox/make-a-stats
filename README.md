@@ -60,7 +60,7 @@ Read more about this configuration on the [Serverless docs site](https://serverl
 ### Backend Java
 Build code:
 ```sh
-cd make-a-stats/frontend
+cd make-a-stats/backend_java
 ./gradlew clean build
 ```
 
