@@ -39,20 +39,23 @@ export default {
     flex-direction: column;
     align-items: center;
   }
-  h1 {
+  .leaderboard > h1 {
     color: #303030;
     font-weight: 700;
     font-size: 2.5rem;
     text-transform: uppercase;
     text-align: center;
   }
-  .players {
+  .leaderboard > .players {
     display: flex;
     flex-direction: column;
     width: 400px;
   }
   @media screen and (max-width: 400px) {
-    .players {
+    .leaderboard > h1 {
+      font-size: 2rem;
+    }
+    .leaderboard > .players {
       width: 100%;
     }
   }

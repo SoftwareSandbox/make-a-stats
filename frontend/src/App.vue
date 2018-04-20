@@ -21,5 +21,6 @@ export default {
   body {
     font-weight: 400;
     font-family: 'Open Sans', sans-serif;
+    background-color: rgba(255, 255, 255, 0.6);
   }
 </style>
