@@ -1,0 +1,12 @@
+{"player":{"playerName":"Evsx","matchIds":[]},          "totalKills":153,"amountOfMatches":100,"killsPerMatch":1.53}
+{"player":{"playerName":"Daxude","matchIds":[]},        "totalKills":125,"amountOfMatches":43, "killsPerMatch":2.91}
+{"player":{"playerName":"Jooones","matchIds":[]},       "totalKills":125,"amountOfMatches":68, "killsPerMatch":1.84}
+{"player":{"playerName":"impulseBE","matchIds":[]},     "totalKills":120,"amountOfMatches":72, "killsPerMatch":1.67}
+{"player":{"playerName":"Sch3lp","matchIds":[]},        "totalKills":117,"amountOfMatches":52, "killsPerMatch":2.25}
+{"player":{"playerName":"NeatRevenge","matchIds":[]},   "totalKills":29, "amountOfMatches":34, "killsPerMatch":0.86}
+{"player":{"playerName":"1nst1nct2be","matchIds":[]},   "totalKills":48, "amountOfMatches":30, "killsPerMatch":1.60}
+{"player":{"playerName":"hahawin","matchIds":[]},       "totalKills":32, "amountOfMatches":15, "killsPerMatch":2.14}
+{"player":{"playerName":"Spekkie","matchIds":[]},       "totalKills":27, "amountOfMatches":26, "killsPerMatch":1.04}
+{"player":{"playerName":"gueledebois","matchIds":[]},   "totalKills":17, "amountOfMatches":114,"killsPerMatch":0.15}
+{"player":{"playerName":"zwiep","matchIds":[]},         "totalKills":9,  "amountOfMatches":8,  "killsPerMatch":1.13}
+{"player":{"playerName":"sch3lm","matchIds":[]},        "totalKills":2,  "amountOfMatches":11, "killsPerMatch":0.19}
