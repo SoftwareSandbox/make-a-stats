@@ -41,7 +41,9 @@ public class PlayerService {
                     .header("Authorization", "Bearer " + readPubgApiKey())
                     .header("Accept", "application/vnd.api+json")
                     .asString();
-            return new PlayerMapper().map(playerName, response.getBody());
+            Player player = new PlayerMapper().map(playerName, response.getBody());
+            LOGGER.info("Matches found for player=" + player.getPlayerName() + " -> " + player.getMatchIds().size());
+            return player;
         } catch (UnirestException e) {
             throw new RuntimeException(e);
         }
