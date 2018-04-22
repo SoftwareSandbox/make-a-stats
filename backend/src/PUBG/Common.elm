@@ -15,23 +15,15 @@ type alias Links =
     { self : URL }
 
 
+type alias Meta =
+    {}
+
+
 type alias Wrapper a =
     { data : List a
     , links : Links
+    , meta : Meta
     }
-
-
-wrap : Decoder a -> Decoder (Wrapper a)
-wrap decoder =
-    decode Wrapper
-        |> required "data" (list decoder)
-        |> required "links" linksDecoder
-
-
-linksDecoder : Decoder Links
-linksDecoder =
-    decode Links
-        |> required "self" string
 
 
 unwrap : Wrapper a -> List a
@@ -44,3 +36,22 @@ unwrapFirst wrapper =
     wrapper
         |> .data
         |> List.head
+
+
+wrap : Decoder a -> Decoder (Wrapper a)
+wrap decoder =
+    decode Wrapper
+        |> required "data" (list decoder)
+        |> required "links" linksDecoder
+        |> optional "meta" metaDecoder {}
+
+
+linksDecoder : Decoder Links
+linksDecoder =
+    decode Links
+        |> required "self" string
+
+
+metaDecoder : Decoder Meta
+metaDecoder =
+    decode Meta

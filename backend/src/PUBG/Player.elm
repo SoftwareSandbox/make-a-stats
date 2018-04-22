@@ -94,5 +94,5 @@ decodeMatchesContainer =
 matchDecoder : Decoder Match
 matchDecoder =
     decode Match
-        |> required "matchType" string
+        |> required "type" string
         |> required "id" string

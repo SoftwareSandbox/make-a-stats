@@ -14,8 +14,9 @@ suite =
         [ test "can decode a Player from a PUBG response" <|
             \_ ->
                 decodeString (wrap playerDecoder) playerResponse
+                    |> Debug.log "actualResponse"
                     |> Result.toMaybe
                     |> Maybe.andThen unwrapFirst
                     |> Maybe.map .id
-                    |> Expect.equal (Just "1")
+                    |> Expect.equal (Just "account.2b95c68272fd467db565f5134277993b")
         ]
