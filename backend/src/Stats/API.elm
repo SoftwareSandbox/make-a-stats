@@ -1,17 +1,18 @@
 port module Stats.API exposing (..)
 
 import Serverless
-import Serverless.Conn exposing (method, respond, route, textBody)
+import Serverless.Conn exposing (method, respond, route, textBody, jsonBody)
 import Serverless.Conn.Request exposing (Method(..))
 import UrlParser exposing ((</>), map, oneOf, s, string, top)
 import Http exposing (Request)
 import Platform.Cmd as PCmd exposing (Cmd)
+import Json.Encode exposing (encode, object, Value, null)
 
 
 -- our deps
 
 import PUBG.Call exposing (..)
-import PUBG.API.Player exposing (..)
+import PUBG.API.Player as PUBGPlayer exposing (..)
 import PUBG.API.Common exposing (..)
 
 
@@ -37,7 +38,7 @@ main =
                 oneOf
                     [ map Home top
                     , map Leaderboard (s "leaderboard")
-                    , map Player (s "player" </> string)
+                    , map PlayerRoute (s "player" </> string)
                     ]
 
         -- Entry point for new connections.
@@ -52,35 +53,43 @@ update msg conn =
             ( conn, Cmd.none )
 
         PlayersFetched result ->
-            respond ( 200, textBody """
-            [
-                {
-                    "playerId": "account.2b95c68272fd467db565f5134277993b",
-                    "name": "Jooones",
-                    "kills": "8"
-                },
-                {
-                    "playerId": "account.2b95c68272fd467db565f5134277993a",
-                    "name": "Hahawin",
-                    "kills": "5"
-                },
-                {
-                    "playerId": "account.2b95c68272fd467db565f5134277993c",
-                    "name": "Daxude",
-                    "kills": "6"
-                },
-                {
-                    "playerId": "account.2b95c68272fd467db565f5134277993f",
-                    "name": "Sch3lp",
-                    "kills": "0"
-                }
-            ]
-            """ ) conn
+            case result of
+                Ok playerWrapper ->
+                    respond ( 200, jsonBody <| encodePlayers <| mapToPlayers playerWrapper ) conn
+
+                _ ->
+                    respond ( 500, textBody "shit gone haywire" ) conn
+
+
+
+--TODO: this should become the expected response in our frontend, and should be moved probably
+
+
+type alias Player =
+    {}
+
+
+
+--TODO: transform the wrapper into a list of Player representations (expected response)
+
+
+mapToPlayers : Wrapper PUBGPlayer.Player -> List Player
+mapToPlayers wrapper =
+    [ {} ]
+
+
+
+--TODO: Make an encoder for our representation of a Player (expected response)
+
+
+encodePlayers : List Player -> Value
+encodePlayers players =
+    object [ ( "snarf", null ) ]
 
 
 type Msg
     = NoOp
-    | PlayersFetched (Result Http.Error (Wrapper Player))
+    | PlayersFetched (Result Http.Error (Wrapper PUBGPlayer.Player))
 
 
 {-| Routes are represented using an Elm type.
@@ -88,7 +97,7 @@ type Msg
 type Route
     = Home
     | Leaderboard
-    | Player String
+    | PlayerRoute String
 
 
 {-| Just a big "case of" on the request method and route.
@@ -110,7 +119,7 @@ router conn =
         ( GET, Leaderboard ) ->
             ( conn, fetchPlayers )
 
-        ( GET, Player name ) ->
+        ( GET, PlayerRoute name ) ->
             respond ( 200, textBody <| (++) "More detailed stats for player: " name ) conn
 
         _ ->
