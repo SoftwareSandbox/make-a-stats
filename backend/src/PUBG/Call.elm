@@ -1,15 +1,16 @@
 module PUBG.Call exposing (..)
 
-import Platform.Cmd.Cmd exposing (..)
 import Http exposing (Request)
-import PUBG.Player exposing (..)
+import PUBG.API.Player exposing (..)
+import PUBG.API.Common exposing (..)
 
 
-getPlayers : Http.Request Player
+getPlayers : Http.Request (Wrapper Player)
 getPlayers =
-    Http.get ("http://localhost:3000/pubg-stub/player") (playerDecoder)
+    Http.get ("http://localhost:3333/pubg-stub/player") (wrap playerDecoder)
 
 
-player : Cmd PlayerId
-player =
-    Http.send (Result.toMaybe >> Maybe.map .id >> Maybe.withDefault ("0")) getPlayers
+
+-- player : Cmd PlayerId
+-- player =
+--     Http.send (Result.toMaybe >> Maybe.map .id >> Maybe.withDefault ("0")) getPlayers

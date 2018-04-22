@@ -33,8 +33,8 @@ app.get('/pubg-stub/players', (req, res) => {
     res.json(players);
 })
 
-app.listen(3000, function() {
-    console.log('API listening on http://localhost:3000/pubg-stub')
+app.listen(3333, function() {
+    console.log('API listening on http://localhost:3333/pubg-stub')
 })
 
 function initPlayer(){
