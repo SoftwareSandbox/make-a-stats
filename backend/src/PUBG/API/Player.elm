@@ -1,4 +1,4 @@
-module PUBG.Player exposing (..)
+module PUBG.API.Player exposing (..)
 
 import Json.Decode exposing (Decoder, decodeValue, int, map, string, list)
 import Json.Decode.Pipeline exposing (decode, required)
