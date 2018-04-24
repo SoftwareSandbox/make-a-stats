@@ -30,6 +30,7 @@ public class PlayerService {
         Player player = getPlayer(playerName);
         Set<Match> matches = new HashSet<>();
         player.getMatchIds().forEach(matchId -> matches.add(getMatch(playerName, matchId)));
+        LOGGER.info("Done retrieving stats for player=" + player.getPlayerName());
         return new PlayerStats(player, matches);
     }
 
