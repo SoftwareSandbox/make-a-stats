@@ -1,0 +1,16 @@
+{
+    "/api/leaderboard/1" : 
+    //leaderboard
+    {
+        "name": "Team t3h suck",
+        "playerstats": [
+            //playerstats
+            {
+                "player": "Daxude",
+                "kills": 1,
+                "amountOfMatchesPlayed": 3,
+                "killsPerMatch": 0.33
+            }
+        ]
+    }
+}
