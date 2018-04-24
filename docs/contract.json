@@ -1,9 +1,11 @@
+//route
 {
     "/api/leaderboard/1" : 
     //leaderboard
     {
+        "id": "1",
         "name": "Team t3h suck",
-        "playerstats": [
+        "playerStats": [
             //playerstats
             {
                 "player": "Daxude",
