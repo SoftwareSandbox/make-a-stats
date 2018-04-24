@@ -14,6 +14,7 @@ import Json.Encode exposing (encode, object, Value, null)
 import PUBG.Call exposing (..)
 import PUBG.API.Player as PUBGPlayer exposing (..)
 import PUBG.API.Common exposing (..)
+import Stats.Player exposing (..)
 
 
 {-| This is the route parser demo.
@@ -55,35 +56,34 @@ update msg conn =
         PlayersFetched result ->
             case result of
                 Ok playerWrapper ->
-                    respond ( 200, jsonBody <| encodePlayers <| mapToPlayers playerWrapper ) conn
+                    let
+                        jsonResult =
+                            mapToPlayerStats playerWrapper
+                                |> encodePlayerStats
+                                |> jsonBody
+                    in
+                        respond ( 200, jsonResult ) conn
 
                 _ ->
                     respond ( 500, textBody "shit gone haywire" ) conn
 
 
 
---TODO: this should become the expected response in our frontend, and should be moved probably
-
-
-type alias Player =
-    {}
-
-
-
 --TODO: transform the wrapper into a list of Player representations (expected response)
 
 
-mapToPlayers : Wrapper PUBGPlayer.Player -> List Player
-mapToPlayers wrapper =
-    [ {} ]
+mapToPlayerStats : Wrapper PUBGPlayer.Player -> List PlayerStats
+mapToPlayerStats wrapper =
+    [ { amountOfMatchesPlayed = 1
+      , killsPerMatch = 1
+      , player = "fuck"
+      , totalKills = 100
+      }
+    ]
 
 
-
---TODO: Make an encoder for our representation of a Player (expected response)
-
-
-encodePlayers : List Player -> Value
-encodePlayers players =
+encodePlayerStats : List PlayerStats -> Value
+encodePlayerStats playerstats =
     object [ ( "snarf", null ) ]
 
 
