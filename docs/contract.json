@@ -7,7 +7,7 @@
             //playerstats
             {
                 "player": "Daxude",
-                "kills": 1,
+                "totalKills": 1,
                 "amountOfMatchesPlayed": 3,
                 "killsPerMatch": 0.33
             }
