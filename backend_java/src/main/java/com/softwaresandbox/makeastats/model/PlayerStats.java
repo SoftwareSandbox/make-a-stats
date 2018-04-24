@@ -6,16 +6,16 @@ import java.util.Set;
 
 public class PlayerStats {
 
-    private final Player player;
+    private final String player;
     private final int totalKills;
-    private final int amountOfMatches;
+    private final int amountOfMatchesPlayed;
     private final BigDecimal killsPerMatch;
 
-    public PlayerStats(Player player, Set<Match> matches) {
+    public PlayerStats(String player, Set<Match> matches) {
         this.player = player;
         this.totalKills = calculateKills(matches);
-        this.amountOfMatches = matches.size();
-        this.killsPerMatch = calculateKillsPerMatch(totalKills, amountOfMatches);
+        this.amountOfMatchesPlayed = matches.size();
+        this.killsPerMatch = calculateKillsPerMatch(totalKills, amountOfMatchesPlayed);
     }
 
     private int calculateKills(Set<Match> matches) {
@@ -28,7 +28,7 @@ public class PlayerStats {
         return new BigDecimal(Integer.toString(totalKills)).divide(new BigDecimal(Integer.toString(amountOfMatches)), 2, RoundingMode.UP);
     }
 
-    public Player getPlayer() {
+    public String getPlayer() {
         return player;
     }
 
@@ -36,8 +36,8 @@ public class PlayerStats {
         return totalKills;
     }
 
-    public int getAmountOfMatches() {
-        return amountOfMatches;
+    public int getAmountOfMatchesPlayed() {
+        return amountOfMatchesPlayed;
     }
 
     public BigDecimal getKillsPerMatch() {

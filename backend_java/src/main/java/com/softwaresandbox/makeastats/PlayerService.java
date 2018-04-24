@@ -31,7 +31,7 @@ public class PlayerService {
         Set<Match> matches = new HashSet<>();
         player.getMatchIds().forEach(matchId -> matches.add(getMatch(playerName, matchId)));
         LOGGER.info("Done retrieving stats for player=" + player.getPlayerName());
-        return new PlayerStats(player, matches);
+        return new PlayerStats(player.getPlayerName(), matches);
     }
 
     private Player getPlayer(String playerName) {
