@@ -13,18 +13,21 @@ import static java.util.stream.Collectors.toSet;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.http.ResponseEntity.ok;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class MakeAStatsController {
 
+    private final PlayerService playerService;
+
     @Autowired
-    private PlayerService playerService;
+    public MakeAStatsController(PlayerService playerService) {
+        this.playerService = playerService;
+    }
 
     @GetMapping(value = "/leaderboard/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity getLeaderBoard(@PathVariable("id") String leaderBoardId) {
         Set<PlayerStats> playerStats = getPlayersForLeaderBoard(leaderBoardId).stream()
-                .map(playerName -> playerService.getPlayerStats(playerName))
+                .map(playerService::getPlayerStats)
                 .collect(toSet());
         return ok().body(new LeaderBoard(leaderBoardId, "Team th3 suck", playerStats));
     }
