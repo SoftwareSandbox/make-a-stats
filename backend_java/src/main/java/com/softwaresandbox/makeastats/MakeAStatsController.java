@@ -38,6 +38,7 @@ public class MakeAStatsController {
     }
 
     private Set<String> getPlayersForLeaderBoard(@PathVariable("id") String leaderBoardId) {
+        // Hardcoded for now
         if (!"1".equals(leaderBoardId)) {
             throw new IllegalArgumentException("No leaderboard found for id=" + leaderBoardId);
         }
