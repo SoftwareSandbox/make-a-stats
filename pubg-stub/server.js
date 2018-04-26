@@ -18,7 +18,7 @@ app.get('/pubg-stub/players', (req, res) => {
     let playersWithName = players.data
         .filter((player) => playerNames.indexOf(player.attributes.name) > -1);
     let result = isEmpty(playerNames) ? players : {...players, ...{data: playersWithName}};
-    (isEmpty(playerNames) || playersWithName.length) > 0 ? res.json(result) : res.sendStatus(404);
+    (isEmpty(playerNames) || !isEmpty(playersWithName)) ? res.json(result) : res.sendStatus(404);
 });
 
 app.get('/pubg-stub/matches/:id', (req, res) => {
@@ -26,7 +26,7 @@ app.get('/pubg-stub/matches/:id', (req, res) => {
     console.log(`Returning match for id: ${id}`);
     res.set('Access-Control-Allow-Origin', '*');
     let matchesWithId = matches.filter((match) => match.data.id === id);
-    matchesWithId.length > 0 ? res.json(matchesWithId[0]) : res.sendStatus(404);
+    !isEmpty(matchesWithId) ? res.json(matchesWithId[0]) : res.sendStatus(404);
 });
 
 app.listen(3333, function () {
