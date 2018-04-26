@@ -22,9 +22,13 @@ public class PlayerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PlayerService.class);
 
-    private static final String BASE_URL = "https://api.playbattlegrounds.com/shards/pc-eu";
-    private static final String PLAYERS_URL = BASE_URL + "/players?filter[playerNames]=";
-    private static final String MATCHES_URL = BASE_URL + "/matches/";
+    private static final String BASE_URL = "https://api.playbattlegrounds.com/shards/pc-eu"; // Actual
+    private static final String BASE_URL_STUB = "http://localhost:3333/pubg-stub"; // Stub
+    private static final String PLAYERS_RESOURCE = "/players?filter[playerNames]=";
+    private static final String MATCHES_RESOURCE = "/matches/";
+
+    // Modify this depending on the requirement to use the stub or the actual api
+    private static final boolean USE_STUB = true;
 
     public PlayerStats getPlayerStats(String playerName) {
         Player player = getPlayer(playerName);
@@ -38,7 +42,7 @@ public class PlayerService {
         sleepForDelay();
         try {
             LOGGER.info("Requesting player info player=" + playerName);
-            HttpResponse<String> response = Unirest.get(PLAYERS_URL + playerName)
+            HttpResponse<String> response = Unirest.get(getBaseUrl() + PLAYERS_RESOURCE + playerName)
                     .header("Authorization", "Bearer " + readPubgApiKey())
                     .header("Accept", "application/vnd.api+json")
                     .asString();
@@ -54,7 +58,7 @@ public class PlayerService {
         sleepForDelay();
         try {
             LOGGER.info("Requesting match info player=" + playerName + " match=" + matchId);
-            HttpResponse<String> response = Unirest.get(MATCHES_URL + matchId)
+            HttpResponse<String> response = Unirest.get(getBaseUrl() + MATCHES_RESOURCE + matchId)
                     .header("Authorization", "Bearer " + readPubgApiKey())
                     .header("Accept", "application/vnd.api+json")
                     .asString();
@@ -64,12 +68,21 @@ public class PlayerService {
         }
     }
 
+    private String getBaseUrl() {
+        if (USE_STUB) {
+            return BASE_URL_STUB;
+        }
+        return BASE_URL;
+    }
+
     private void sleepForDelay() {
         // TODO improve this to have a single thread which sends all the requests and is in charge of adding delays
-        try {
-            Thread.sleep(6000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        if (!USE_STUB) {
+            try {
+                Thread.sleep(6000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

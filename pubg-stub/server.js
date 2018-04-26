@@ -6,12 +6,12 @@ const app = express();
 const {players} = require('./players');
 const {matches} = require('./matches');
 
-//?filter[playernames]=jooones
-app.get('/pubg-stub/player', (req, res) => {
-    let playernames = req.query.filter.playernames.split(',');
-    console.log(`Returning players ${playernames}`);
+///pubg-stub/players?filter[playerNames]=Jooones
+app.get('/pubg-stub/players', (req, res) => {
+    let playerNames = req.query.filter.playerNames.split(',');
+    console.log(`Returning players ${playerNames}`);
     res.set('Access-Control-Allow-Origin', '*');
-    let playersWithName = players.data.filter((player) => playernames.indexOf(player.attributes.name.toLowerCase()) > -1);
+    let playersWithName = players.data.filter((player) => playerNames.indexOf(player.attributes.name) > -1);
     let result = Object.assign(players,{data:playersWithName});
     playersWithName.length > 0 ? res.json(result) : res.sendStatus(404);
 });

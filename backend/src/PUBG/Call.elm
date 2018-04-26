@@ -7,7 +7,7 @@ import PUBG.API.Common exposing (..)
 
 getPlayers : Http.Request (Wrapper Player)
 getPlayers =
-    Http.get ("http://localhost:3333/pubg-stub/player") (wrap playerDecoder)
+    Http.get ("http://localhost:3333/pubg-stub/players") (wrap playerDecoder)
 
 
 
