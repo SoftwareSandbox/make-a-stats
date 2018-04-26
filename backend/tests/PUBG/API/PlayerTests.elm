@@ -1,20 +1,27 @@
-module All exposing (..)
+module PUBG.API.PlayerTests exposing (..)
 
 import Expect exposing (Expectation)
 import Test exposing (..)
 import Json.Decode exposing (decodeString)
+
+
+-- our code
+
 import PUBG.API.Player exposing (..)
 import PUBG.API.Common exposing (..)
+
+
+-- Test data
+
 import Fixtures.Player exposing (..)
 
 
-suite : Test
-suite =
-    describe "Player"
-        [ test "can decode a Player from a PUBG response" <|
+pubgAPI : Test
+pubgAPI =
+    describe "Decoding PUBG API"
+        [ test "we can decode a Player" <|
             \_ ->
                 decodeString (wrap playerDecoder) playerResponse
-                    |> Debug.log "actualResponse"
                     |> Result.toMaybe
                     |> Maybe.andThen unwrapFirst
                     |> Maybe.map .id

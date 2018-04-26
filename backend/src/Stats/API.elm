@@ -6,7 +6,7 @@ import Serverless.Conn.Request exposing (Method(..))
 import UrlParser exposing ((</>), map, oneOf, s, string, top)
 import Http exposing (Request)
 import Platform.Cmd as PCmd exposing (Cmd)
-import Json.Encode exposing (encode, object, Value, null)
+import Round exposing (..)
 
 
 -- our deps
@@ -58,8 +58,8 @@ update msg conn =
                 Ok playerWrapper ->
                     let
                         jsonResult =
-                            mapToPlayerStats playerWrapper
-                                |> encodePlayerStats
+                            mapToLeaderboard playerWrapper
+                                |> encodeLeaderboard
                                 |> jsonBody
                     in
                         respond ( 200, jsonResult ) conn
@@ -72,19 +72,32 @@ update msg conn =
 --TODO: transform the wrapper into a list of Player representations (expected response)
 
 
-mapToPlayerStats : Wrapper PUBGPlayer.Player -> List PlayerStats
-mapToPlayerStats wrapper =
-    [ { amountOfMatchesPlayed = 1
-      , killsPerMatch = 1
-      , player = "fuck"
-      , totalKills = 100
-      }
-    ]
+mapToLeaderboard : Wrapper PUBGPlayer.Player -> LeaderBoard
+mapToLeaderboard wrapper =
+    unwrap wrapper
+        |> List.map mapToPlayerStats
 
 
-encodePlayerStats : List PlayerStats -> Value
-encodePlayerStats playerstats =
-    object [ ( "snarf", null ) ]
+mapToPlayerStats : PUBGPlayer.Player -> PlayerStats
+mapToPlayerStats p =
+    let
+        playerName =
+            p.attributes.name
+
+        matchesPlayed =
+            List.length p.relationships.matches.data
+
+        tk =
+            100
+
+        kpm =
+            Round.roundNum 2 <| (toFloat tk) / (toFloat matchesPlayed)
+    in
+        { player = playerName
+        , totalKills = tk
+        , amountOfMatchesPlayed = matchesPlayed
+        , killsPerMatch = kpm
+        }
 
 
 type Msg
