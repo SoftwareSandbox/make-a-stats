@@ -13,4 +13,16 @@ public class LeaderBoard {
         this.name = name;
         this.playerStats = playerStats;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Set<PlayerStats> getPlayerStats() {
+        return playerStats;
+    }
 }
