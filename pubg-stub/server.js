@@ -12,7 +12,8 @@ app.get('/pubg-stub/players', (req, res) => {
     console.log(`Returning players ${playerNames}`);
     res.set('Access-Control-Allow-Origin', '*');
     let playersWithName = players.data.filter((player) => playerNames.indexOf(player.attributes.name) > -1);
-    playersWithName.length > 0 ? res.json(playersWithName) : res.sendStatus(404);
+    let result = {data:playersWithName};
+    playersWithName.length > 0 ? res.json(result) : res.sendStatus(404);
 });
 
 app.get('/pubg-stub/matches/:id', (req, res) => {
