@@ -88,7 +88,7 @@ mapToPlayerStats p =
             List.length p.relationships.matches.data
 
         tk =
-            100
+            10
 
         kpm =
             Round.roundNum 2 <| (toFloat tk) / (toFloat matchesPlayed)
