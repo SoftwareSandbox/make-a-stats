@@ -1,17 +1,10 @@
 <template>
-  <div id="app">
-    <LeaderBoard />
-  </div>
+  <router-view />
 </template>
 
 <script>
-import LeaderBoard from './components/LeaderBoard.vue'
-
 export default {
-  name: 'app',
-  components: {
-    LeaderBoard
-  }
+    name: 'app'
 }
 </script>
 
@@ -21,6 +14,6 @@ export default {
   body {
     font-weight: 400;
     font-family: 'Open Sans', sans-serif;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(245, 245, 245, 0.6);
   }
 </style>

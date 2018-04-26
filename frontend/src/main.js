@@ -1,14 +1,24 @@
 import Vue from 'vue'
 import App from './App.vue'
+import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+import Leaderboard from './components/LeaderBoard'
 
-Vue.use(VueResource)
+Vue.use(VueRouter);
+Vue.use(VueResource);
 
-let hostname = window.location.hostname
+Vue.url.options.root = 'http://' + window.location.hostname + ':8888/api/';
+Vue.config.productionTip = false;
 
-Vue.config.productionTip = false
-Vue.url.options.root = 'http://' + hostname + ':3000/'
+const router = new VueRouter({
+    routes: [{
+        name: 'leaderboard',
+        path: '/leaderboard/:id',
+        component: Leaderboard
+    }]
+});
 
 new Vue({
-  render: h => h(App)
-}).$mount('#app')
+    router,
+    render: createElement => createElement(App)
+}).$mount('#app');
