@@ -64,8 +64,8 @@ update msg conn =
                     in
                         respond ( 200, jsonResult ) conn
 
-                _ ->
-                    respond ( 500, textBody "shit gone haywire" ) conn
+                Err httpError ->
+                    respond ( 500, textBody <| "shit gone haywire\n" ++ (toString httpError) ) conn
 
 
 
