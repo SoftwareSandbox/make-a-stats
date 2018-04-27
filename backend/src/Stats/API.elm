@@ -130,7 +130,7 @@ router conn =
             respond ( 302, textBody "leaderboard" ) conn
 
         ( GET, Leaderboard ) ->
-            ( conn, fetchPlayers )
+            conn ! [ createLeaderboard ]
 
         ( GET, PlayerRoute name ) ->
             respond ( 200, textBody <| (++) "More detailed stats for player: " name ) conn
@@ -139,8 +139,8 @@ router conn =
             respond ( 405, textBody "Method not allowed" ) conn
 
 
-fetchPlayers : Cmd Msg
-fetchPlayers =
+createLeaderboard : Cmd Msg
+createLeaderboard =
     Http.send PlayersFetched getPlayers
 
 

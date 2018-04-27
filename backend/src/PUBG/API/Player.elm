@@ -2,17 +2,13 @@ module PUBG.API.Player exposing (..)
 
 import Json.Decode exposing (Decoder, decodeValue, int, map, string, list)
 import Json.Decode.Pipeline exposing (decode, required)
+import PUBG.API.Common exposing (..)
+
+
+{- e.g. https://api.playbattlegrounds.com/shards/pc-eu/players?filter[playerNames]=Jooones -}
 
 
 type alias PlayerType =
-    String
-
-
-type alias PlayerId =
-    String
-
-
-type alias MatchId =
     String
 
 
@@ -46,7 +42,7 @@ type alias Attributes =
     }
 
 
-type alias Match =
+type alias PlayerMatch =
     { matchType : String
     , id : MatchId
     }
@@ -57,7 +53,7 @@ type alias Relationships =
 
 
 type alias MatchesContainer =
-    { data : List Match }
+    { data : List PlayerMatch }
 
 
 playerDecoder : Decoder Player
@@ -91,8 +87,8 @@ decodeMatchesContainer =
         |> required "data" (list matchDecoder)
 
 
-matchDecoder : Decoder Match
+matchDecoder : Decoder PlayerMatch
 matchDecoder =
-    decode Match
+    decode PlayerMatch
         |> required "type" string
         |> required "id" string

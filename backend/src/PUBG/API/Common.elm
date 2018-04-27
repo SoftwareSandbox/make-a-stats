@@ -4,9 +4,6 @@ import Json.Decode exposing (Decoder, decodeValue, int, map, string, list)
 import Json.Decode.Pipeline exposing (decode, required, optional)
 
 
-{- e.g. https://api.playbattlegrounds.com/shards/pc-eu/players?filter[playerNames]=Jooones -}
-
-
 type alias URL =
     String
 
@@ -24,6 +21,14 @@ type alias Wrapper a =
     , links : Links
     , meta : Meta
     }
+
+
+type alias PlayerId =
+    String
+
+
+type alias MatchId =
+    String
 
 
 unwrap : Wrapper a -> List a
