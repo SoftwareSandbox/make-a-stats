@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-import Leaderboard from './components/LeaderBoard'
+import Leaderboard from './components/Leaderboard'
 
 Vue.use(VueRouter);
 Vue.use(VueResource);

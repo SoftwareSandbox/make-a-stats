@@ -1,21 +1,21 @@
 <template>
-    <section class="player">
-        <span>{{ playerStats.player }}</span>
-        <span>{{ playerStats.totalKills }}</span>
-        <span>{{ playerStats.amountOfMatchesPlayed }}</span>
-        <span>{{ playerStats.killsPerMatch }}</span>
+    <section class="statistics">
+        <span>{{ statistics.player }}</span>
+        <span>{{ statistics.totalKills }}</span>
+        <span>{{ statistics.amountOfMatchesPlayed }}</span>
+        <span>{{ statistics.killsPerMatch }}</span>
     </section>
 </template>
 
 <script>
     export default {
-        name: 'PlayerStats',
-        props: ['playerStats'],
+        name: 'leaderboard-player-stats',
+        props: ['statistics'],
     }
 </script>
 
 <style scoped>
-    .player {
+    .statistics {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -26,7 +26,7 @@
         background-color: #ffffff;
     }
 
-    .player > span {
+    .statistics > span {
         flex: 1;
         color: #737373;
         font-weight: 700;

@@ -1,29 +1,30 @@
 <template>
     <section class="leaderboard">
         <h1>{{ name }}</h1>
-        <section class="player-stats">
-            <section class="stats">
+        <section class="player-statistics">
+            <section class="statistics">
                 <span>Player</span>
                 <span>Kills</span>
                 <span>Matches</span>
                 <span>Avg</span>
             </section>
             <section class="players">
-                <PlayerStats v-for="playerStat in playerStatsSortedByKills"
-                             v-bind:key="playerStat.player"
-                             v-bind:playerStats="playerStat"/>
+                <leaderboard-player-stats
+                        v-for="statistics in playerStatsSortedByKills"
+                        v-bind:key="statistics.player"
+                        v-bind:statistics="statistics"/>
             </section>
         </section>
     </section>
 </template>
 
 <script>
-    import PlayerStats from './PlayerStats'
+    import LeaderboardPlayerStats from './LeaderboardPlayerStats'
 
     export default {
-        name: 'LeaderBoard',
+        name: 'leader-board',
         components: {
-            PlayerStats
+            LeaderboardPlayerStats: LeaderboardPlayerStats
         },
         data: function () {
             return {
@@ -65,7 +66,7 @@
         align-items: center;
     }
 
-    h1 {
+    .leaderboard > h1 {
         color: #303030;
         font-weight: 700;
         font-size: 2.5rem;
@@ -73,16 +74,12 @@
         text-align: center;
     }
 
-    .player-stats {
+    .player-statistics {
         display: flex;
         flex-direction: column;
     }
 
-    .players {
-        flex-direction: column;
-    }
-
-    .stats {
+    .statistics {
         flex: 1;
         display: flex;
         flex-direction: row;
@@ -93,7 +90,7 @@
         background-color: #ffffff;
     }
 
-    .stats > span {
+    .statistics > span {
         flex: 1;
         color: #737373;
         font-weight: 700;
@@ -103,5 +100,9 @@
         margin: 5px;
         padding: 10px;
         width: 100px;
+    }
+
+    .players {
+        flex-direction: column;
     }
 </style>
