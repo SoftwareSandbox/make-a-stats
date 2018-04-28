@@ -14,6 +14,12 @@ export default {
   body {
     font-weight: 400;
     font-family: 'Open Sans', sans-serif;
+    margin: 0;
     background-color: rgba(245, 245, 245, 0.6);
+  }
+
+  input {
+    font-weight: 400;
+    font-family: 'Open Sans', sans-serif;
   }
 </style>

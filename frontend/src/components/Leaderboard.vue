@@ -72,6 +72,7 @@
         font-size: 2.5rem;
         text-transform: uppercase;
         text-align: center;
+        margin: 20px;
     }
 
     .player-statistics {
