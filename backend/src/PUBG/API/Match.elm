@@ -1,5 +1,7 @@
 module PUBG.API.Match exposing (..)
 
+import Json.Decode exposing (Decoder, decodeValue, int, map, string, list, bool, float, field, succeed)
+import Json.Decode.Pipeline exposing (decode, required, resolve, custom)
 import PUBG.API.Common exposing (..)
 
 
@@ -19,32 +21,39 @@ type alias GameMode =
 
 
 type alias Match =
-    { data :
-        { matchType : String
-        , id : MatchId
-        , attributes :
-            { createdAt : String
-            , duration : Int
-            , gameMode : GameMode
-            , mapName : String
-            }
-        , relationships :
-            { rosters :
-                { data : List RosterLite }
-            }
-        }
+    { data : MatchData
     , included : List MatchInclusion
     }
+
+
+type alias MatchData =
+    { matchType : String
+    , id : MatchId
+    , attributes : MatchDataAttrs
+    , relationships : MatchDataRelationships
+    }
+
+
+type alias MatchDataAttrs =
+    { createdAt : String
+    , duration : Int
+    , gameMode : GameMode
+    , mapName : String
+    }
+
+
+type alias MatchDataRelationships =
+    { rosters : ListData RosterLite }
 
 
 type MatchInclusionAttributes
     = RosterAttr Roster
     | ParticipantAttr Participant
+    | UnknownMatchInclusionAttributes
 
 
 type alias MatchInclusion =
-    { matchInclusionType : MatchInclusionType
-    , matchInclusionId : MatchInclusionId
+    { matchInclusionId : MatchInclusionId
     , attributes : MatchInclusionAttributes
     }
 
@@ -55,11 +64,6 @@ type alias RosterType =
 
 type alias ParticipantType =
     String
-
-
-type MatchInclusionType
-    = RosterType
-    | ParticipantType
 
 
 type alias MatchInclusionId =
@@ -76,18 +80,27 @@ type alias TeamId =
 
 type alias Roster =
     { id : RosterId
-    , attributes :
-        { shardId : String
-        , stats :
-            { rank : Rank
-            , teamId : TeamId
-            }
-        , won : Bool
-        }
-    , relationships :
-        { participants :
-            { data : List ParticipantLite }
-        }
+    , attributes : RosterAttrs
+    , relationships : RosterRelationships
+    }
+
+
+type alias RosterAttrs =
+    { shardId : String
+    , stats : RosterAttrStats
+    , won : Bool
+    }
+
+
+type alias RosterAttrStats =
+    { rank : Rank
+    , teamId : TeamId
+    }
+
+
+type alias RosterRelationships =
+    { participants :
+        { data : List ParticipantLite }
     }
 
 
@@ -101,11 +114,14 @@ type alias ParticipantId =
 
 type alias Participant =
     { id : ParticipantId
-    , attributes :
-        { actor : String
-        , shardId : String
-        , stats : ParticipantStats
-        }
+    , attributes : ParticipantAttrs
+    }
+
+
+type alias ParticipantAttrs =
+    { actor : String
+    , shardId : String
+    , stats : ParticipantStats
     }
 
 
@@ -140,3 +156,152 @@ type alias ParticipantStats =
     , winPoints : Int
     , winPointsDelta : Float
     }
+
+
+
+-- decoders
+
+
+matchDecoder : Decoder Match
+matchDecoder =
+    decode Match
+        |> required "data" matchDataDecoder
+        |> required "included" (list matchInclusionDecoder)
+
+
+matchDataDecoder : Decoder MatchData
+matchDataDecoder =
+    decode MatchData
+        |> required "matchType" string
+        |> required "id" string
+        |> required "attributes" matchDataAttrsDecoder
+        |> required "relationships" matchDataRelationshipsDecoder
+
+
+matchDataAttrsDecoder : Decoder MatchDataAttrs
+matchDataAttrsDecoder =
+    decode MatchDataAttrs
+        |> required "createdAt" string
+        |> required "duration" int
+        |> required "gameMode" string
+        |> required "mapName" string
+
+
+matchDataRelationshipsDecoder : Decoder MatchDataRelationships
+matchDataRelationshipsDecoder =
+    decode MatchDataRelationships
+        |> required "rosters" (listDataDecoder rosterLiteDecoder)
+
+
+rosterLiteDecoder : Decoder RosterLite
+rosterLiteDecoder =
+    decode RosterLite
+        |> required "id" string
+
+
+matchInclusionDecoder : Decoder MatchInclusion
+matchInclusionDecoder =
+    decode MatchInclusion
+        |> required "matchInclusionId" string
+        |> custom (field "attributes" string |> map matchInclusionAttrsDecoder |> resolve)
+
+
+matchInclusionAttrsDecoder : String -> Decoder MatchInclusionAttributes
+matchInclusionAttrsDecoder matchInclusionType =
+    case matchInclusionType of
+        "roster" ->
+            map RosterAttr rosterDecoder
+
+        "participant" ->
+            map ParticipantAttr participantDecoder
+
+        _ ->
+            succeed UnknownMatchInclusionAttributes
+
+
+rosterDecoder : Decoder Roster
+rosterDecoder =
+    decode Roster
+        |> required "id" string
+        |> required "attributes" rosterAttrsDecoder
+        |> required "relationships" rosterRelationshipsDecoder
+
+
+rosterAttrsDecoder : Decoder RosterAttrs
+rosterAttrsDecoder =
+    decode RosterAttrs
+        |> required "shardId" string
+        |> required "stats" rosterAttrStatsDecoder
+        |> required "won" bool
+
+
+rosterAttrStatsDecoder : Decoder RosterAttrStats
+rosterAttrStatsDecoder =
+    decode RosterAttrStats
+        |> required "rank" int
+        |> required "teamId" int
+
+
+rosterRelationshipsDecoder : Decoder RosterRelationships
+rosterRelationshipsDecoder =
+    decode RosterRelationships
+        |> required "participants" (listDataDecoder participantLiteDecoder)
+
+
+participantLiteDecoder : Decoder ParticipantLite
+participantLiteDecoder =
+    decode ParticipantLite
+        |> required "id" string
+
+
+participantDecoder : Decoder Participant
+participantDecoder =
+    decode Participant
+        |> required "id" string
+        |> required "attributes" participantAttrsDecoder
+
+
+participantAttrsDecoder : Decoder ParticipantAttrs
+participantAttrsDecoder =
+    decode ParticipantAttrs
+        |> required "actor" string
+        |> required "shardId" string
+        |> required "stats" participantStatsDecoder
+
+
+participantStatsDecoder : Decoder ParticipantStats
+participantStatsDecoder =
+    decode ParticipantStats
+        |> required "dbnos" int
+        |> required "assists" int
+        |> required "boosts" int
+        |> required "damageDealt" float
+        |> required "deathType" string
+        |> required "headshotKills" int
+        |> required "heals" int
+        |> required "killPlace" int
+        |> required "killPoints" int
+        |> required "killPointsDelta" float
+        |> required "killStreaks" int
+        |> required "kills" int
+        |> required "lastKillPoints" int
+        |> required "lastWinPoints" int
+        |> required "longestKill" int
+        |> required "mostDamage" float
+        |> required "name" string
+        |> required "playerId" string
+        |> required "revives" int
+        |> required "rideDistance" float
+        |> required "roadKills" int
+        |> required "teamKills" int
+        |> required "timeSurvived" int
+        |> required "vehicleDestroys" int
+        |> required "walkDistance" float
+        |> required "weaponsAcquired" int
+        |> required "winPlace" int
+        |> required "winPoints" int
+        |> required "winPointsDelta" float
+
+
+
+--2147012366

@@ -60,3 +60,13 @@ linksDecoder =
 metaDecoder : Decoder Meta
 metaDecoder =
     decode Meta
+
+
+type alias ListData a =
+    { data : List a }
+
+
+listDataDecoder : Decoder a -> Decoder (ListData a)
+listDataDecoder decoder =
+    decode ListData
+        |> required "data" (list decoder)
