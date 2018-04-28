@@ -14,7 +14,7 @@ public class PlayerStatsTest {
         HashSet<Match> matches = new HashSet<>();
         matches.add(new Match("a", 4));
 
-        PlayerStats result = new PlayerStats(new Player("John", null), matches);
+        PlayerStats result = new PlayerStats("John", matches);
 
         assertThat(result.getTotalKills()).isEqualTo(4);
     }
@@ -25,7 +25,7 @@ public class PlayerStatsTest {
         matches.add(new Match("a", 2));
         matches.add(new Match("b", 3));
 
-        PlayerStats result = new PlayerStats(new Player("John", null), matches);
+        PlayerStats result = new PlayerStats("John", matches);
 
         assertThat(result.getTotalKills()).isEqualTo(5);
     }
@@ -35,7 +35,7 @@ public class PlayerStatsTest {
         HashSet<Match> matches = new HashSet<>();
         matches.add(new Match("a", 1));
 
-        PlayerStats result = new PlayerStats(new Player("John", null), matches);
+        PlayerStats result = new PlayerStats("John", matches);
 
         assertThat(result.getKillsPerMatch()).isEqualTo(new BigDecimal("1.00"));
     }
@@ -46,7 +46,7 @@ public class PlayerStatsTest {
         matches.add(new Match("a", 2));
         matches.add(new Match("b", 2));
 
-        PlayerStats result = new PlayerStats(new Player("John", null), matches);
+        PlayerStats result = new PlayerStats("John", matches);
 
         assertThat(result.getKillsPerMatch()).isEqualTo(new BigDecimal("2.00"));
     }
@@ -58,7 +58,7 @@ public class PlayerStatsTest {
         matches.add(new Match("b", 3));
         matches.add(new Match("c", 5));
 
-        PlayerStats result = new PlayerStats(new Player("John", null), matches);
+        PlayerStats result = new PlayerStats("John", matches);
 
         assertThat(result.getKillsPerMatch()).isEqualTo(new BigDecimal("3.34"));
     }
