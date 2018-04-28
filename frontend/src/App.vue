@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <section class="container">
+    <router-view />
+  </section>
 </template>
 
 <script>
@@ -8,18 +10,23 @@ export default {
 }
 </script>
 
-<style>
-  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+<style lang="sass">
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700')
 
-  body {
-    font-weight: 400;
-    font-family: 'Open Sans', sans-serif;
-    margin: 0;
-    background-color: rgba(245, 245, 245, 0.6);
-  }
+  body
+    display: flex
+    flex-direction: column
+    align-items: center
+    font-weight: 400
+    font-family: 'Open Sans', sans-serif
+    margin: 0
+    background-color: rgba(245, 245, 245, 0.6)
 
-  input {
-    font-weight: 400;
-    font-family: 'Open Sans', sans-serif;
-  }
+  .container
+    width: 500px
+    padding: 0 10px
+
+  @media screen and (max-width: 500px)
+    .container
+      width: calc(100% - 20px)
 </style>

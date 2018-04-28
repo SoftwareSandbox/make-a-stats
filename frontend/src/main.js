@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-import Leaderboard from './components/Leaderboard'
+import LeaderboardView from './components/LeaderboardView'
 import LeaderboardCreate from './components/LeaderboardCreate'
 
 Vue.use(VueRouter);
@@ -19,7 +19,7 @@ const router = new VueRouter({
     }, {
         name: 'leaderboard',
         path: '/leaderboard/:id',
-        component: Leaderboard
+        component: LeaderboardView
     }]
 });
 
