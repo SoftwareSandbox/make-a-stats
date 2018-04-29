@@ -6,3 +6,5 @@ elm-stuff/
 
 .idea/
 *.iml
+
+.vscode/

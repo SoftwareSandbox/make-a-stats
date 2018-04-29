@@ -6,7 +6,7 @@
   "scripts": {
     "deploy": "cross-env NODE_ENV=production serverless deploy --region eu-west-1",
     "start": "serverless offline",
-    "test": "elm-doc-test && elm test"
+    "test": "elm-doc-test && elm-test"
   },
   "repository": {
     "type": "git",

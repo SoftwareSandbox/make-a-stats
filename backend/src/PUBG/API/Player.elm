@@ -92,3 +92,8 @@ matchDecoder =
     decode PlayerMatch
         |> required "type" string
         |> required "id" string
+
+
+matchIdsFromPlayers : List Player -> List MatchId
+matchIdsFromPlayers players =
+    []
