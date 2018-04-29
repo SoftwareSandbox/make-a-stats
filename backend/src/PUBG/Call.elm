@@ -1,7 +1,7 @@
 module PUBG.Call exposing (..)
 
 import Http exposing (Request)
-import PUBG.API.Player exposing (playerDecoder, Player, matchIdsFromPlayers)
+import PUBG.API.Player exposing (playerDecoder, Player, matchIdsFromPlayers, matchIdsPerPlayers)
 import PUBG.API.Match exposing (matchDecoder, Match)
 import PUBG.API.Common exposing (..)
 import Task exposing (..)
@@ -35,11 +35,17 @@ fetchMatches matchIds =
         |> Task.sequence
 
 
-fetchPlayerMatches : Task String (List Match)
+fetchMatchesPerPlayer : List ( Player, List MatchId ) -> Task String (List ( Player, List Match ))
+fetchMatchesPerPlayer matchIdsGroupedPerPlayer =
+    List.map (\( p, ms ) -> ( p, fetchMatch ms )) matchIdsGroupedPerPlayer
+        |> Task.sequence
+
+
+fetchPlayerMatches : Task String (List ( Player, List Match ))
 fetchPlayerMatches =
     fetchPlayers
-        |> Task.map (unwrap >> matchIdsFromPlayers)
-        |> Task.andThen fetchMatches
+        |> Task.map (unwrap >> matchIdsPerPlayers)
+        |> Task.andThen fetchMatchesPerPlayer
 
 
 

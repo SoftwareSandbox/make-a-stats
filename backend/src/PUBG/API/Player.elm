@@ -100,3 +100,14 @@ matchIdsFromPlayers players =
         |> List.map (.relationships >> .matches)
         |> List.concatMap .data
         |> List.map .id
+
+
+matchIdsPerPlayers : List Player -> List ( Player, List MatchId )
+matchIdsPerPlayers players =
+    let
+        matchIds =
+            players
+                |> List.map (.relationships >> .matches >> .data)
+                |> List.map (List.map .id)
+    in
+        List.map2 (,) players matchIds
