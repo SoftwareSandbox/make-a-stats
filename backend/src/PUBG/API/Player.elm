@@ -96,4 +96,7 @@ matchDecoder =
 
 matchIdsFromPlayers : List Player -> List MatchId
 matchIdsFromPlayers players =
-    []
+    players
+        |> List.map (.relationships >> .matches)
+        |> List.concatMap .data
+        |> List.map .id
