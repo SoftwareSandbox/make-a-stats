@@ -29,17 +29,20 @@ fetchMatch matchId =
         |> toHttpTask
 
 
-fetchMatches : List MatchId -> List (Task String Match)
+fetchMatches : List MatchId -> Task String (List Match)
 fetchMatches matchIds =
     List.map fetchMatch matchIds
+        |> Task.sequence
+
+
+fetchPlayerMatches : Task String (List Match)
+fetchPlayerMatches =
+    fetchPlayers
+        |> Task.map (unwrap >> matchIdsFromPlayers)
+        |> Task.andThen fetchMatches
 
 
 
--- something like this?
--- fetchPlayerMatches =
---     fetchPlayers
---         |> Task.map (unwrap >> matchIdsFromPlayers)
---         |> Task.andThen fetchMatches
 -- http://tech.allo-media.net/learning/elm/2018/02/05/chaining-http-requests-in-elm.html
 
 
