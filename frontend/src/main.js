@@ -12,18 +12,21 @@ Vue.url.options.root = 'http://' + window.location.hostname + ':8888/api/';
 Vue.config.productionTip = false;
 
 const router = new VueRouter({
-    routes: [{
-        name: 'leaderboard-create',
-        path: '/',
-        component: LeaderboardCreate
-    }, {
-        name: 'leaderboard',
-        path: '/leaderboard/:id',
-        component: LeaderboardView
-    }]
+  routes: [{
+    name: 'leaderboard-create',
+    path: '/leaderboard',
+    component: LeaderboardCreate
+  }, {
+    name: 'leaderboard',
+    path: '/leaderboard/:id',
+    component: LeaderboardView
+  }, {
+    path: '/',
+    redirect: '/leaderboard'
+  }]
 });
 
 new Vue({
-    router,
-    render: createElement => createElement(App)
+  router,
+  render: createElement => createElement(App)
 }).$mount('#app');

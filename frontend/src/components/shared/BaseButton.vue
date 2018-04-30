@@ -1,51 +1,51 @@
 <template>
-    <button @click="onClick"
-            :class="{'primary': primary}">
-        <i class="fas" v-if="icon" :class="icon"></i>
-        {{ name }}
-    </button>
+  <button @click="emitClick"
+          :class="{'primary': isPrimary}">
+    <i class="fas" v-if="icon" :class="icon"></i>
+    {{ name }}
+  </button>
 </template>
 
 <script>
-    export default {
-        name: 'base-button',
-        props: {
-            name: String,
-            icon: String,
-            primary: Boolean,
-            onClick: Function
-        }
+export default {
+  name: 'base-button',
+  props: {
+    name: String,
+    icon: String,
+    isPrimary: Boolean
+  },
+  methods: {
+    emitClick() {
+      this.$emit('click')
     }
+  }
+}
 </script>
 
-<style scoped>
-    .primary {
-        color: #ffffff;
-        background-color: rgb(0, 123, 255);
-        box-shadow: 0 1px 2px 0 rgb(0, 111, 230);
-        border: 1px solid rgb(0, 111, 230);
-    }
+<style lang="sass" scoped>
+button
+  outline: none
+  color: #303030
+  font-size: 0.8rem
+  font-weight: 700
+  font-family: 'Open Sans', sans-serif
+  text-align: center
+  text-transform: uppercase
+  padding: 10px
+  border: 1px solid hsla(0, 0%, 0%, 0.2)
+  box-shadow: 0 1px 2px 0 hsla(0, 0%, 0%, 0.2)
+  background-color: rgba(245, 245, 245, 0.6)
 
-    .primary:hover, .primary:focus {
-        background-color: rgb(0, 111, 230);
-    }
+  &:hover, &:focus
+    cursor: pointer
+    background-color: rgb(240, 240, 240)
 
-    button {
-        outline: none;
-        color: #303030;
-        font-size: 0.8rem;
-        font-weight: 700;
-        font-family: 'Open Sans', sans-serif;
-        text-align: center;
-        text-transform: uppercase;
-        padding: 10px;
-        border: 1px solid hsla(0, 0%, 0%, 0.2);
-        box-shadow: 0 1px 2px 0 hsla(0, 0%, 0%, 0.2);
-        background-color: rgba(245, 245, 245, 0.6);
-    }
+  &.primary
+    color: rgb(255, 255, 255)
+    background-color: rgb(0, 123, 255)
+    box-shadow: 0 1px 2px 0 rgb(0, 111, 230)
+    border: 1px solid rgb(0, 111, 230)
 
-    button:hover, button:focus {
-        cursor: pointer;
-        background-color: rgb(240, 240, 240);
-    }
+    &:hover, &:focus
+      background-color: rgb(0, 111, 230)
 </style>
