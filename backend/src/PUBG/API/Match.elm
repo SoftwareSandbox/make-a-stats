@@ -8,6 +8,32 @@ import PUBG.API.Common exposing (..)
 {- e.g. https://api.playbattlegrounds.com/shards/pc-eu/matches/9cb69d4e-19a1-441a-a367-846023499350 -}
 
 
+totalKills : PlayerId -> List Match -> Int
+totalKills playerId matches =
+    List.filterMap (killsForPlayer playerId) matches
+        |> List.sum
+
+
+killsForPlayer : PlayerId -> Match -> Maybe Int
+killsForPlayer playerId match =
+    List.filterMap (participantWith playerId) match.included
+        |> List.head
+        |> Maybe.map (.attributes >> .stats >> .kills)
+
+
+participantWith : PlayerId -> MatchInclusion -> Maybe Participant
+participantWith playerId incl =
+    case incl.attributes of
+        ParticipantAttr participant ->
+            if participant.id == playerId then
+                Just participant
+            else
+                Nothing
+
+        _ ->
+            Nothing
+
+
 type alias RosterId =
     String
 

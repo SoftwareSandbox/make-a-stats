@@ -4,7 +4,7 @@ import Serverless
 import Serverless.Conn exposing (method, respond, route, textBody, jsonBody)
 import Serverless.Conn.Request exposing (Method(..))
 import UrlParser exposing ((</>), map, oneOf, s, string, top)
-import Http exposing (Request)
+import Task exposing (attempt)
 import Platform.Cmd as PCmd exposing (Cmd)
 import Round exposing (..)
 
@@ -12,8 +12,8 @@ import Round exposing (..)
 -- our deps
 
 import PUBG.Call exposing (..)
-import PUBG.API.Player as PUBGPlayer exposing (..)
-import PUBG.API.Common exposing (..)
+import PUBG.API.Player as PUBGPlayer exposing (Player)
+import PUBG.API.Match as PUBGMatch exposing (Match)
 import Stats.Player exposing (..)
 
 
@@ -53,12 +53,12 @@ update msg conn =
         NoOp ->
             ( conn, Cmd.none )
 
-        PlayersFetched result ->
+        PlayerMatchesFetched result ->
             case result of
-                Ok playerWrapper ->
+                Ok playerMatches ->
                     let
                         jsonResult =
-                            mapToLeaderboard playerWrapper
+                            mapToLeaderboard playerMatches
                                 |> encodeLeaderboard
                                 |> jsonBody
                     in
@@ -68,27 +68,23 @@ update msg conn =
                     respond ( 500, textBody <| "shit gone haywire\n" ++ (toString httpError) ) conn
 
 
-
---TODO: transform the wrapper into a list of Player representations (expected response)
-
-
-mapToLeaderboard : Wrapper PUBGPlayer.Player -> LeaderBoard
-mapToLeaderboard wrapper =
-    unwrap wrapper
+mapToLeaderboard : List ( PUBGPlayer.Player, List PUBGMatch.Match ) -> LeaderBoard
+mapToLeaderboard playerMatches =
+    playerMatches
         |> List.map mapToPlayerStats
 
 
-mapToPlayerStats : PUBGPlayer.Player -> PlayerStats
-mapToPlayerStats p =
+mapToPlayerStats : ( PUBGPlayer.Player, List PUBGMatch.Match ) -> PlayerStats
+mapToPlayerStats ( player, matches ) =
     let
         playerName =
-            p.attributes.name
+            player.attributes.name
 
         matchesPlayed =
-            List.length p.relationships.matches.data
+            List.length player.relationships.matches.data
 
         tk =
-            10
+            PUBGMatch.totalKills player.id matches
 
         kpm =
             Round.roundNum 2 <| (toFloat tk) / (toFloat matchesPlayed)
@@ -102,7 +98,7 @@ mapToPlayerStats p =
 
 type Msg
     = NoOp
-    | PlayersFetched (Result Http.Error (Wrapper PUBGPlayer.Player))
+    | PlayerMatchesFetched (Result String (List ( PUBGPlayer.Player, List PUBGMatch.Match )))
 
 
 {-| Routes are represented using an Elm type.
@@ -141,7 +137,7 @@ router conn =
 
 createLeaderboard : Cmd Msg
 createLeaderboard =
-    Http.send PlayersFetched getPlayers
+    Task.attempt PlayerMatchesFetched getPlayerMatches
 
 
 {-| For convenience we defined our own Conn with arguments to the type parameters
