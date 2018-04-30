@@ -108,7 +108,7 @@ type alias Roster =
 type alias RosterAttrs =
     { shardId : String
     , stats : RosterAttrStats
-    , won : Bool
+    , won : String
     }
 
 
@@ -192,7 +192,7 @@ matchDecoder =
 matchDataDecoder : Decoder MatchData
 matchDataDecoder =
     decode MatchData
-        |> required "matchType" string
+        |> required "type" string
         |> required "id" string
         |> required "attributes" matchDataAttrsDecoder
         |> required "relationships" matchDataRelationshipsDecoder
@@ -250,7 +250,7 @@ rosterAttrsDecoder =
     decode RosterAttrs
         |> required "shardId" string
         |> required "stats" rosterAttrStatsDecoder
-        |> required "won" bool
+        |> required "won" string
 
 
 rosterAttrStatsDecoder : Decoder RosterAttrStats
@@ -290,7 +290,7 @@ participantAttrsDecoder =
 participantStatsDecoder : Decoder ParticipantStats
 participantStatsDecoder =
     decode ParticipantStats
-        |> required "dbnos" int
+        |> required "DBNOs" int
         |> required "assists" int
         |> required "boosts" int
         |> required "damageDealt" float
@@ -319,7 +319,3 @@ participantStatsDecoder =
         |> required "winPlace" int
         |> required "winPoints" int
         |> required "winPointsDelta" float
-
-
-
---2147012366
