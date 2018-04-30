@@ -14,6 +14,7 @@ function gen([minMatchRange, maxMatchRange], [minKillsRange, maxKillsRange], ...
     if (playerNames.length > 4) throw new Error("can't have more than 4 players in a team");
     
     console.log(`Generating between ${minMatchRange} and ${maxMatchRange} matches for ${playerNames.join(', ')}`);
+    console.log(`They'll each have between ${minKillsRange} and ${maxKillsRange} kills`);
 
     let players = playerNames
                     .map((playerName) => createPlayer(uuid(), playerName));
@@ -21,7 +22,7 @@ function gen([minMatchRange, maxMatchRange], [minKillsRange, maxKillsRange], ...
 
     let matches = _.range(minMatchRange, random(minMatchRange, maxMatchRange), 1)
                     .map((unused) => uuid())
-                    .map((matchId) => createMatch(matchId, playerIds, [minKillsRange, maxKillsRange]));
+                    .map((matchId) => createMatch(matchId, playerIds, minKillsRange, maxKillsRange));
     
     let matchIds = matches.map(m => m.data.id);
 
@@ -42,7 +43,8 @@ function createPlayer(playerId, playerName){
     return player;
 }
 
-function createMatch(matchId, playerIds, [minKills, maxKills]) {
+function createMatch(matchId, playerIds, minKills, maxKills) {
+    console.log(`minKills: ${minKills}; maxKills: ${maxKills}`);
     let match = _.cloneDeep(matchTemplate);
     match.data.id = matchId;
     
@@ -50,13 +52,15 @@ function createMatch(matchId, playerIds, [minKills, maxKills]) {
     let participants = participantIds.map(pid => {return {type : "participant", id : pid};} );
     match.included[0].relationships.participants.data = participants;
 
-    _.zip(playerIds, participantIds)
-        .map(([playerId, pid]) => createParticipant(pid, playerId, random(minKills, maxKills)));
-
+    let participantInclusions = _.zip(playerIds, participantIds)
+                    .map(([playerId, pid]) => createParticipant(pid, playerId, random(minKills, maxKills)))
+                    .forEach(p => match.included.push(p));
+    
     return match;
 }
 
 function createParticipant(pid, playerId, randomKills) {
+    console.log(`Player with ${playerId}, should have ${randomKills} kills`);
     let participant = _.cloneDeep(participantTemplate);
 
     participant.id = pid;
@@ -71,7 +75,7 @@ function assignGeneratedMatchIdsToGeneratedPlayers(players, matchIds){
 }
 
 function random(min, max) {
-    _.random(min, max, false);
+    return _.random(min, max, false);
 }
 
 module.exports = { gen: gen }
