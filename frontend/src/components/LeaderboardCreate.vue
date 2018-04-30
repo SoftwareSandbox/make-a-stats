@@ -25,15 +25,6 @@ export default {
     }
   },
   methods: {
-    addPlayerName() {
-      this.playerNames.push('');
-    },
-    deletePlayerName(index) {
-      return this.playerNames.splice(index, 1);
-    },
-    isLastPlayer(index) {
-      return index === this.playerNames.length - 1;
-    },
     createLeaderboard() {
       this.$http.post(`leaderboard`, {
         name: this.name,
