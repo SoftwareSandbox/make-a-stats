@@ -3,8 +3,8 @@ const _ = require('lodash');
 const path = require('path');
 const app = express();
 
-const {players} = require('./players');
-const {matches} = require('./matches');
+const {gen} = require('./gen');
+const {players, matches} = gen([1,6],[2,9], "shroud", "chad", "h1z1survivor", "wadu");
 
 //?filter[playernames]=jooones
 app.get('/pubg-stub/players', (req, res) => {

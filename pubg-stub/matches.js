@@ -9460,4 +9460,289 @@ let matches = [{
     meta: {}
 }];
 
-module.exports = { matches: matches }
+let matchTemplate = {
+    data: {
+        type: "match",
+        id: "9cb69d4e-19a1-441a-a367-846023499350",
+        attributes: {
+            createdAt: "2018-04-09T19:44:40Z",
+            duration: 1886,
+            gameMode: "squad-fpp",
+            mapName: "Erangel_Main",
+            patchVersion: "",
+            shardId: "pc-eu",
+            stats: null,
+            tags: null,
+            titleId: "bluehole-pubg"
+        },
+        relationships: {
+            assets: {
+                data: [
+                    {
+                        type: "asset",
+                        id: "1684d2d1-3c33-11e8-ab65-0a5864601a5d"
+                    }
+                ]
+            },
+            rosters: {
+                data: [
+                    {
+                        type: "roster",
+                        id: "3fd49f3a-e097-45d7-bb8d-d78228fe053a"
+                    }
+                ]
+            },
+            rounds: {
+                data: []
+            },
+            spectators: {
+                data: []
+            }
+        },
+        links: {
+            schema: "",
+            self: "https://api.playbattlegrounds.com/shards/pc-eu/matches/9cb69d4e-19a1-441a-a367-846023499350"
+        }
+    },
+    included: [
+        {
+            type: "roster",
+            id: "3fd49f3a-e097-45d7-bb8d-d78228fe053a",
+            attributes: {
+                shardId: "pc-eu",
+                stats: {
+                    rank: 2,
+                    teamId: 7
+                },
+                won: "false"
+            },
+            relationships: {
+                participants: {
+                    data: [
+                        {
+                            type: "participant",
+                            id: "de5b0d44-8373-4764-8e61-a9bd7329a974"
+                        },
+                        {
+                            type: "participant",
+                            id: "07b11fae-221a-4f69-8657-1fc532b04a8a"
+                        },
+                        {
+                            type: "participant",
+                            id: "0ae9635a-3ea4-425f-829e-22bd75ca79ab"
+                        },
+                        {
+                            type: "participant",
+                            id: "2d00a481-e050-47ee-9eef-0a16e7cc2396"
+                        }
+                    ]
+                },
+                team: {
+                    data: null
+                }
+            }
+        },
+        {
+            type: "participant",
+            id: "de5b0d44-8373-4764-8e61-a9bd7329a974",
+            attributes: {
+                actor: "",
+                shardId: "pc-eu",
+                stats: {
+                    DBNOs: 2,
+                    assists: 2,
+                    boosts: 4,
+                    damageDealt: 129.3233,
+                    deathType: "byplayer",
+                    headshotKills: 1,
+                    heals: 8,
+                    killPlace: 10,
+                    killPoints: 1093,
+                    killPointsDelta: 41.5262146,
+                    killStreaks: 0,
+                    kills: 2,
+                    lastKillPoints: 0,
+                    lastWinPoints: 0,
+                    longestKill: 75,
+                    mostDamage: 0,
+                    name: "Sch3lp",
+                    playerId: "account.5f7384f47c3b4fe092a7f210b4144aa3",
+                    revives: 0,
+                    rideDistance: 1245.09253,
+                    roadKills: 0,
+                    teamKills: 0,
+                    timeSurvived: 1684,
+                    vehicleDestroys: 0,
+                    walkDistance: 4961.657,
+                    weaponsAcquired: 0,
+                    winPlace: 2,
+                    winPoints: 1212,
+                    winPointsDelta: 57.5488167
+                }
+            }
+        },
+        {
+            type: "participant",
+            id: "07b11fae-221a-4f69-8657-1fc532b04a8a",
+            attributes: {
+                actor: "",
+                shardId: "pc-eu",
+                stats: {
+                    DBNOs: 0,
+                    assists: 0,
+                    boosts: 4,
+                    damageDealt: 104.580109,
+                    deathType: "byplayer",
+                    headshotKills: 0,
+                    heals: 11,
+                    killPlace: 23,
+                    killPoints: 1306,
+                    killPointsDelta: 15.0729361,
+                    killStreaks: 0,
+                    kills: 1,
+                    lastKillPoints: 0,
+                    lastWinPoints: 0,
+                    longestKill: 60,
+                    mostDamage: 0,
+                    name: "Jooones",
+                    playerId: "account.2b95c68272fd467db565f5134277993b",
+                    revives: 1,
+                    rideDistance: 1050.89233,
+                    roadKills: 0,
+                    teamKills: 0,
+                    timeSurvived: 1886,
+                    vehicleDestroys: 0,
+                    walkDistance: 4980.812,
+                    weaponsAcquired: 0,
+                    winPlace: 2,
+                    winPoints: 1387,
+                    winPointsDelta: 39.5878677
+                }
+            }
+        },
+        {
+            type: "participant",
+            id: "0ae9635a-3ea4-425f-829e-22bd75ca79ab",
+            attributes: {
+                actor: "",
+                shardId: "pc-eu",
+                stats: {
+                    DBNOs: 3,
+                    assists: 1,
+                    boosts: 4,
+                    damageDealt: 334.5973,
+                    deathType: "byplayer",
+                    headshotKills: 2,
+                    heals: 2,
+                    killPlace: 4,
+                    killPoints: 1381,
+                    killPointsDelta: 43.30744,
+                    killStreaks: 0,
+                    kills: 3,
+                    lastKillPoints: 0,
+                    lastWinPoints: 0,
+                    longestKill: 37,
+                    mostDamage: 0,
+                    name: "Daxude",
+                    playerId: "account.f0bb02b2333249e9bc58f804d745019d",
+                    revives: 1,
+                    rideDistance: 1160.0813,
+                    roadKills: 0,
+                    teamKills: 0,
+                    timeSurvived: 1886,
+                    vehicleDestroys: 0,
+                    walkDistance: 5482.076,
+                    weaponsAcquired: 0,
+                    winPlace: 2,
+                    winPoints: 1296,
+                    winPointsDelta: 39.64829
+                }
+            }
+        },
+        {
+            type: "participant",
+            id: "2d00a481-e050-47ee-9eef-0a16e7cc2396",
+            attributes: {
+                actor: "",
+                shardId: "pc-eu",
+                stats: {
+                    DBNOs: 1,
+                    assists: 0,
+                    boosts: 0,
+                    damageDealt: 160.507721,
+                    deathType: "byplayer",
+                    headshotKills: 0,
+                    heals: 12,
+                    killPlace: 11,
+                    killPoints: 1049,
+                    killPointsDelta: 45.0464935,
+                    killStreaks: 0,
+                    kills: 2,
+                    lastKillPoints: 0,
+                    lastWinPoints: 0,
+                    longestKill: 17,
+                    mostDamage: 0,
+                    name: "hahawin",
+                    playerId: "account.0b483af467634384af672cbdcddb8433",
+                    revives: 0,
+                    rideDistance: 1055.07385,
+                    roadKills: 0,
+                    teamKills: 0,
+                    timeSurvived: 1667,
+                    vehicleDestroys: 0,
+                    walkDistance: 4731.264,
+                    weaponsAcquired: 0,
+                    winPlace: 2,
+                    winPoints: 1041,
+                    winPointsDelta: 63.4881325
+                }
+            }
+        }
+    ],
+    links: {
+        self: "https://api.playbattlegrounds.com/shards/pc-eu/matches/9cb69d4e-19a1-441a-a367-846023499350"
+    },
+    meta: {}
+};
+
+let participantTemplate = {
+    type: "participant",
+    id: "de5b0d44-8373-4764-8e61-a9bd7329a974",
+    attributes: {
+        actor: "",
+        shardId: "pc-eu",
+        stats: {
+            DBNOs: 2,
+            assists: 2,
+            boosts: 4,
+            damageDealt: 129.3233,
+            deathType: "byplayer",
+            headshotKills: 1,
+            heals: 8,
+            killPlace: 10,
+            killPoints: 1093,
+            killPointsDelta: 41.5262146,
+            killStreaks: 0,
+            kills: 2,
+            lastKillPoints: 0,
+            lastWinPoints: 0,
+            longestKill: 75,
+            mostDamage: 0,
+            name: "iamshrood",
+            playerId: "account.5f7384f47c3b4fe092a7f210b4144aa3",
+            revives: 0,
+            rideDistance: 1245.09253,
+            roadKills: 0,
+            teamKills: 0,
+            timeSurvived: 1684,
+            vehicleDestroys: 0,
+            walkDistance: 4961.657,
+            weaponsAcquired: 0,
+            winPlace: 2,
+            winPoints: 1212,
+            winPointsDelta: 57.5488167
+        }
+    }
+};
+
+module.exports = { matches: matches, matchTemplate: matchTemplate, participantTemplate: participantTemplate }
