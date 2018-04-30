@@ -30,6 +30,8 @@ There is some logic to deal with filter queries and path params.
 
 For testing purposes this stub does not have throttling like the PUBG API does.
 
+You can regenerate matches and players by calling `http://localhost:3333/pubg-stub/regen?with[playerNames]=sch3lp,jooones&with[minMaxMatches]=1,4&with[minMaxKills]=2,9`.
+
 ### Frontend
 Install frontend dependencies and run application locally:
 ```sh

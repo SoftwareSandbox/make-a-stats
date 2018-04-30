@@ -4,7 +4,7 @@ const path = require('path');
 const app = express();
 
 const {gen} = require('./gen');
-const {players, matches} = gen([1,6],[2,9], "shroud", "chad", "h1z1survivor", "wadu");
+let {players, matches} = gen([1,6],[2,9], "shroud", "chad", "h1z1survivor", "wadu");
 
 //?filter[playernames]=jooones
 app.get('/pubg-stub/players', (req, res) => {
@@ -27,6 +27,16 @@ app.get('/pubg-stub/matches/:id', (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
     let matchesWithId = matches.filter((match) => match.data.id === id);
     !isEmpty(matchesWithId) ? res.json(matchesWithId[0]) : res.sendStatus(404);
+});
+
+// ?with[playerNames]=shroud,chad&with[minMaxMatches]=1,4&with[minMaxKills]=2,9
+app.get('/pubg-stub/regen', (req, res) => {
+    let playerNames = req.query.with ? req.query.with.playerNames.split(',') : [];
+    let minMaxMatches = req.query.with ? req.query.with.minMaxMatches.split(',') : [];
+    let minMaxKills = req.query.with ? req.query.with.minMaxKills.split(',') : [];
+    players = gen(minMaxMatches, minMaxKills, playerNames).players;
+    matches = gen(minMaxMatches, minMaxKills, playerNames).matches;
+    res.status(200).send("Regenerated matches and players");
 });
 
 app.listen(3333, function () {

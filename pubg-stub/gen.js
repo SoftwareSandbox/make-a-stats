@@ -13,6 +13,8 @@ const {matches, matchTemplate, participantTemplate} = require('./matches.js');
 function gen([minMatchRange, maxMatchRange], [minKillsRange, maxKillsRange], ...playerNames) {
     if (playerNames.length > 4) throw new Error("can't have more than 4 players in a team");
     
+    console.log(`Generating between ${minMatchRange} and ${maxMatchRange} matches for ${playerNames.join(', ')}`);
+
     let players = playerNames
                     .map((playerName) => createPlayer(uuid(), playerName));
     let playerIds = players.map(player => player.id);
