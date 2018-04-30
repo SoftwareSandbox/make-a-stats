@@ -15,6 +15,21 @@ A (temporary?) java backend to consume the PUBG API.
 ![](docs/flow.png)
 
 ## Contributing
+### PUBG Stub
+We've got a semi-functional stub for the PUBG API implemented with [Express](https://expressjs.com/)
+
+```sh
+cd make-a-stats/pubg-stub
+npm install
+npm start
+```
+
+Modify [players.js](pubg-stub/players.js) or [matches.js](pubg-stub/matches.js) to determine what players and matches there are.
+
+There is some logic to deal with filter queries and path params.
+
+For testing purposes this stub does not have throttling like the PUBG API does.
+
 ### Frontend
 Install frontend dependencies and run application locally:
 ```sh
@@ -28,29 +43,33 @@ Loosely basing this code on https://github.com/ktonon/elm-serverless-demo
 
 #### Running locally
 
-```bash
+```sh
 cd make-a-stats/backend
 npm install
 npm start
 ```
+
 #### Things to know
 [src/Stats/API.elm](src/Stats/API.elm) contains the source code that is loaded via the [src/Stats/api.js](src/Stats/api.js) JS bridge.
 
 The JS Bridge is loaded via the [Serverless](https://serverless.com/) JS package.
+
+Chaining http requests to the PUBG API, by first getting the players, and then the matches of those players is done by transforming Http.get's to Tasks.
+Read [this article](http://tech.allo-media.net/learning/elm/2018/02/05/chaining-http-requests-in-elm.html) for an explanation and easier example.
 
 #### Deploying from local
 Setup `AWS_REGION`, `AWS_ACCESS_KEY_ID`, and `AWS_SECRET_ACCESS_KEY` in your environment (`aws configure`).
 
 Make sure the `AWS_ACCESS_KEY_ID` maps to a user with [restricted privileges](https://github.com/serverless/serverless/issues/1439) that are sufficient for Serverless.
 
-```bash
+```sh
 cd make-a-stats/backend
 npm run deploy
 ```
 
 You can also choose your aws profile to deploy with:
 
-```bash
+```sh
 cd make-a-stats/backend
 npm run deploy -- --profile <your local aws profile>
 ```
