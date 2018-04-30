@@ -23,8 +23,8 @@ killsForPlayer playerId match =
 
 participantWith : PlayerId -> MatchInclusion -> Maybe Participant
 participantWith playerId incl =
-    case incl.attributes of
-        ParticipantAttr participant ->
+    case incl of
+        ParticipantInclusion participant ->
             if participant.id == playerId then
                 Just participant
             else
@@ -72,16 +72,10 @@ type alias MatchDataRelationships =
     { rosters : ListData RosterLite }
 
 
-type MatchInclusionAttributes
-    = RosterAttr Roster
-    | ParticipantAttr Participant
-    | UnknownMatchInclusionAttributes
-
-
-type alias MatchInclusion =
-    { matchInclusionId : MatchInclusionId
-    , attributes : MatchInclusionAttributes
-    }
+type MatchInclusion
+    = RosterInclusion Roster
+    | ParticipantInclusion Participant
+    | UnknownMatchInclusion
 
 
 type alias RosterType =
@@ -227,22 +221,20 @@ rosterLiteDecoder =
 
 matchInclusionDecoder : Decoder MatchInclusion
 matchInclusionDecoder =
-    decode MatchInclusion
-        |> required "matchInclusionId" string
-        |> custom (field "attributes" string |> map matchInclusionAttrsDecoder |> resolve)
+    field "type" string |> map matchInclusionAttrsDecoder |> resolve
 
 
-matchInclusionAttrsDecoder : String -> Decoder MatchInclusionAttributes
+matchInclusionAttrsDecoder : String -> Decoder MatchInclusion
 matchInclusionAttrsDecoder matchInclusionType =
     case matchInclusionType of
         "roster" ->
-            map RosterAttr rosterDecoder
+            map RosterInclusion rosterDecoder
 
         "participant" ->
-            map ParticipantAttr participantDecoder
+            map ParticipantInclusion participantDecoder
 
         _ ->
-            succeed UnknownMatchInclusionAttributes
+            succeed UnknownMatchInclusion
 
 
 rosterDecoder : Decoder Roster
