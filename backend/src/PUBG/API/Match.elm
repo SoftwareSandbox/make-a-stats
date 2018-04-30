@@ -25,7 +25,7 @@ participantWith : PlayerId -> MatchInclusion -> Maybe Participant
 participantWith playerId incl =
     case incl of
         ParticipantInclusion participant ->
-            if participant.id == playerId then
+            if participant.attributes.stats.playerId == playerId then
                 Just participant
             else
                 Nothing
