@@ -1,8 +1,6 @@
 package com.softwaresandbox.makeastats;
 
 import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import com.softwaresandbox.makeastats.mapper.MatchMapper;
 import com.softwaresandbox.makeastats.mapper.PlayerMapper;
 import com.softwaresandbox.makeastats.model.Match;
@@ -10,25 +8,27 @@ import com.softwaresandbox.makeastats.model.Player;
 import com.softwaresandbox.makeastats.model.PlayerStats;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import static com.softwaresandbox.makeastats.util.PropertyFileReader.readPubgApiKey;
 
 @Service
 public class PlayerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PlayerService.class);
 
-    private static final String BASE_URL = "https://api.playbattlegrounds.com/shards/pc-eu"; // Actual
-    private static final String BASE_URL_STUB = "http://localhost:3333/pubg-stub"; // Stub
-    private static final String PLAYERS_RESOURCE = "/players?filter[playerNames]=";
-    private static final String MATCHES_RESOURCE = "/matches/";
+    private final PubgApiCaller pubgApiCaller;
+    private final PlayerMapper playerMapper;
+    private final MatchMapper matchMapper;
 
-    // Modify this depending on the requirement to use the stub or the actual api
-    private static final boolean USE_STUB = true;
+    @Autowired
+    public PlayerService(PubgApiCaller pubgApiCaller, PlayerMapper playerMapper, MatchMapper matchMapper) {
+        this.pubgApiCaller = pubgApiCaller;
+        this.playerMapper = playerMapper;
+        this.matchMapper = matchMapper;
+    }
 
     public PlayerStats getPlayerStats(String playerName) {
         Player player = getPlayer(playerName);
@@ -39,50 +39,24 @@ public class PlayerService {
     }
 
     private Player getPlayer(String playerName) {
-        sleepForDelay();
-        try {
-            LOGGER.info("Requesting player info player=" + playerName);
-            HttpResponse<String> response = Unirest.get(getBaseUrl() + PLAYERS_RESOURCE + playerName)
-                    .header("Authorization", "Bearer " + readPubgApiKey())
-                    .header("Accept", "application/vnd.api+json")
-                    .asString();
-            Player player = new PlayerMapper().map(playerName, response.getBody());
-            LOGGER.info("Matches found for player=" + player.getPlayerName() + " -> " + player.getMatchIds().size());
-            return player;
-        } catch (UnirestException e) {
-            throw new RuntimeException(e);
-        }
+        LOGGER.info("Requesting player info player=" + playerName);
+        HttpResponse<String> response = pubgApiCaller.getPlayer(playerName);
+        validateSuccessfulResponse(response, "player");
+        Player player = playerMapper.map(playerName, response.getBody());
+        LOGGER.info("Matches found for player=" + player.getPlayerName() + " -> " + player.getMatchIds().size());
+        return player;
     }
 
     private Match getMatch(String playerName, String matchId) {
-        sleepForDelay();
-        try {
-            LOGGER.info("Requesting match info player=" + playerName + " match=" + matchId);
-            HttpResponse<String> response = Unirest.get(getBaseUrl() + MATCHES_RESOURCE + matchId)
-                    .header("Authorization", "Bearer " + readPubgApiKey())
-                    .header("Accept", "application/vnd.api+json")
-                    .asString();
-            return new MatchMapper().map(playerName, matchId, response.getBody());
-        } catch (UnirestException e) {
-            throw new RuntimeException(e);
-        }
+        LOGGER.info("Requesting match info player=" + playerName + " match=" + matchId);
+        HttpResponse<String> response = pubgApiCaller.getMatch(matchId);
+        validateSuccessfulResponse(response, "match");
+        return matchMapper.map(playerName, matchId, response.getBody());
     }
 
-    private String getBaseUrl() {
-        if (USE_STUB) {
-            return BASE_URL_STUB;
-        }
-        return BASE_URL;
-    }
-
-    private void sleepForDelay() {
-        // TODO improve this to have a single thread which sends all the requests and is in charge of adding delays
-        if (!USE_STUB) {
-            try {
-                Thread.sleep(6000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+    private void validateSuccessfulResponse(HttpResponse<String> response, String subject) {
+        if (response.getStatus() != 200) {
+            throw new RuntimeException("Something went wrong during the retrieval of the " + subject + " information [statusCode=" + response.getStatus() + "]");
         }
     }
 

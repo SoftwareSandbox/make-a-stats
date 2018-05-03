@@ -35,7 +35,7 @@ public class MakeAStatsController {
     @PostMapping(value = "/leaderboard")
     public ResponseEntity createLeaderBoard(@RequestBody CreateLeaderboardTO leaderboard,
                                             UriComponentsBuilder uriBuilder) {
-        int leaderboardId = leaderboardMap.size()   ;
+        int leaderboardId = leaderboardMap.size();
         leaderboardMap.put(leaderboardId, leaderboard);
 
         URI location = uriBuilder.path("leaderboard/{id}")
