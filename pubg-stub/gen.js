@@ -18,11 +18,13 @@ function gen([minMatchRange, maxMatchRange], [minKillsRange, maxKillsRange], ...
 
     let players = playerNames
                     .map((playerName) => createPlayer(uuid(), playerName));
-    let playerIds = players.map(player => player.id);
+    let playerTuples = players.map(player => {
+        return {id: player.id, name: player.attributes.name};
+    });
 
     let matches = _.range(minMatchRange, random(minMatchRange, maxMatchRange), 1)
                     .map((unused) => uuid())
-                    .map((matchId) => createMatch(matchId, playerIds, minKillsRange, maxKillsRange));
+                    .map((matchId) => createMatch(matchId, playerTuples, minKillsRange, maxKillsRange));
     
     let matchIds = matches.map(m => m.data.id);
 
@@ -43,35 +45,43 @@ function createPlayer(playerId, playerName){
     return player;
 }
 
-function createMatch(matchId, playerIds, minKills, maxKills) {
+function createMatch(matchId, playerTuples, minKills, maxKills) {
     console.log(`minKills: ${minKills}; maxKills: ${maxKills}`);
     let match = _.cloneDeep(matchTemplate);
     match.data.id = matchId;
     
-    let participantIds = playerIds.map(playerId => uuid());
-    let participants = participantIds.map(pid => {return {type : "participant", id : pid};} );
+    let participantIds = playerTuples.map(p => uuid());
+    let participants = participantIds.map(pid => {
+        return {type : "participant", id : pid};
+    });
     match.included[0].relationships.participants.data = participants;
 
-    let participantInclusions = _.zip(playerIds, participantIds)
-                    .map(([playerId, pid]) => createParticipant(pid, playerId, random(minKills, maxKills)))
+    let participantInclusions = _.zip(playerTuples, participantIds)
+                    .map(([playerTuple, participantId]) => createParticipant(participantId, playerTuple, random(minKills, maxKills)))
                     .forEach(p => match.included.push(p));
     
     return match;
 }
 
-function createParticipant(pid, playerId, randomKills) {
-    console.log(`Player with ${playerId}, should have ${randomKills} kills`);
+function createParticipant(participantId, playerTuple, randomKills) {
+    console.log(`Player with ${playerTuple.id}, should have ${randomKills} kills`);
     let participant = _.cloneDeep(participantTemplate);
 
-    participant.id = pid;
-    participant.attributes.stats.playerId = playerId;
+    participant.id = participantId;
+    participant.attributes.stats.playerId = playerTuple.id;
     participant.attributes.stats.kills = randomKills;
+    participant.attributes.stats.name = playerTuple.name;
 
     return participant;
 }
 
-function assignGeneratedMatchIdsToGeneratedPlayers(players, matchIds){
-    players.forEach(p => p.relationships.matches.data = matchIds.map(mid => {return {type:"match",id:mid};}));
+function assignGeneratedMatchIdsToGeneratedPlayers(players, matchIds) {
+    players.forEach(player => {
+        player.relationships.matches.data = matchIds.map(mid => {
+            console.log(`Assigning matchId ${mid} to ${player.attributes.name}`);
+            return {type:"match",id:mid};
+        });
+    });
 }
 
 function random(min, max) {
