@@ -1,6 +1,9 @@
 # Make a Stats
 Application to view all kinds of PUBG related statistics for the Make A Stand discord gamers.
 
+[![Build Status](https://travis-ci.org/SoftwareSandbox/make-a-stats.svg)](https://travis-ci.org/SoftwareSandbox/make-a-stats)
+
+
 ## Architecture
 ### Frontend
 Statically generated site with [hugo](https://gohugo.io), containing 1 page with an embedded [VueJS](https://vuejs.org) component to consume and render a REST API, made accessible via AWS Lambda.
