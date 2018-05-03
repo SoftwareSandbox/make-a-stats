@@ -1,4 +1,4 @@
-package com.softwaresandbox.makeastats.util;
+package be.swsb.makeastats.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;

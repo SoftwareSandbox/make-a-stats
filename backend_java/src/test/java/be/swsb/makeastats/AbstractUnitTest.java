@@ -1,4 +1,4 @@
-package com.softwaresandbox.makeastats;
+package be.swsb.makeastats;
 
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;

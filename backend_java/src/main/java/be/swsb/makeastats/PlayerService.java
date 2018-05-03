@@ -1,11 +1,11 @@
-package com.softwaresandbox.makeastats;
+package be.swsb.makeastats;
 
 import com.mashape.unirest.http.HttpResponse;
-import com.softwaresandbox.makeastats.mapper.MatchMapper;
-import com.softwaresandbox.makeastats.mapper.PlayerMapper;
-import com.softwaresandbox.makeastats.model.Match;
-import com.softwaresandbox.makeastats.model.Player;
-import com.softwaresandbox.makeastats.model.PlayerStats;
+import be.swsb.makeastats.mapper.MatchMapper;
+import be.swsb.makeastats.mapper.PlayerMapper;
+import be.swsb.makeastats.model.Match;
+import be.swsb.makeastats.model.Player;
+import be.swsb.makeastats.model.PlayerStats;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

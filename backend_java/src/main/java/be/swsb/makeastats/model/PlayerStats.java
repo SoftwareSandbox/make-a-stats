@@ -1,4 +1,4 @@
-package com.softwaresandbox.makeastats.model;
+package be.swsb.makeastats.model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

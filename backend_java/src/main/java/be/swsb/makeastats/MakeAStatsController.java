@@ -1,8 +1,8 @@
-package com.softwaresandbox.makeastats;
+package be.swsb.makeastats;
 
-import com.softwaresandbox.makeastats.model.Leaderboard;
-import com.softwaresandbox.makeastats.model.PlayerStats;
-import com.softwaresandbox.makeastats.to.CreateLeaderboardTO;
+import be.swsb.makeastats.model.Leaderboard;
+import be.swsb.makeastats.model.PlayerStats;
+import be.swsb.makeastats.to.CreateLeaderboardTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

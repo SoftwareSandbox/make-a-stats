@@ -1,4 +1,4 @@
-package com.softwaresandbox.makeastats.to;
+package be.swsb.makeastats.to;
 
 import java.util.Set;
 

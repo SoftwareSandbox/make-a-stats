@@ -1,11 +1,11 @@
-package com.softwaresandbox.makeastats;
+package be.swsb.makeastats;
 
 import com.mashape.unirest.http.HttpResponse;
-import com.softwaresandbox.makeastats.mapper.MatchMapper;
-import com.softwaresandbox.makeastats.mapper.PlayerMapper;
-import com.softwaresandbox.makeastats.model.Match;
-import com.softwaresandbox.makeastats.model.Player;
-import com.softwaresandbox.makeastats.model.PlayerStats;
+import be.swsb.makeastats.mapper.MatchMapper;
+import be.swsb.makeastats.mapper.PlayerMapper;
+import be.swsb.makeastats.model.Match;
+import be.swsb.makeastats.model.Player;
+import be.swsb.makeastats.model.PlayerStats;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

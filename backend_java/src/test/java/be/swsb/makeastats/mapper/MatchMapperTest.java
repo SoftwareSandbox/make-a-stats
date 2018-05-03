@@ -1,7 +1,7 @@
-package com.softwaresandbox.makeastats.mapper;
+package be.swsb.makeastats.mapper;
 
 import com.jayway.jsonpath.JsonPath;
-import com.softwaresandbox.makeastats.model.Match;
+import be.swsb.makeastats.model.Match;
 import net.minidev.json.JSONArray;
 import org.junit.Test;
 

@@ -1,7 +1,7 @@
-package com.softwaresandbox.makeastats.mapper;
+package be.swsb.makeastats.mapper;
 
+import be.swsb.makeastats.model.Player;
 import com.jayway.jsonpath.JsonPath;
-import com.softwaresandbox.makeastats.model.Player;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

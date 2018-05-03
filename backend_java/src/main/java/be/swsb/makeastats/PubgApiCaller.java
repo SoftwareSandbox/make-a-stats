@@ -1,11 +1,11 @@
-package com.softwaresandbox.makeastats;
+package be.swsb.makeastats;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.stereotype.Component;
 
-import static com.softwaresandbox.makeastats.util.PropertyFileReader.readPubgApiKey;
+import static be.swsb.makeastats.util.PropertyFileReader.readPubgApiKey;
 
 @Component
 public class PubgApiCaller {
