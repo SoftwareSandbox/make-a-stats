@@ -93,7 +93,11 @@ Setup local machine to connect to the pubg developer api:
     - add `development=<dev-api-key>`
 
 Start application locally:
-- Run main MakeAStatsApplication.java
+Build code:
+```sh
+cd make-a-stats/backend_java
+./gradlew bootRun
+```
 
 Navigate to http://localhost:8888/backend/player/ and suffix the url with a player name
 

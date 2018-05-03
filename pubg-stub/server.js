@@ -6,7 +6,7 @@ const app = express();
 const {gen} = require('./gen');
 let {players, matches} = gen([1,6],[2,9], "shroud", "chad", "h1z1survivor", "wadu");
 
-//?filter[playerNames]=jooones
+///pubg-stub/players?filter[playerNames]=Jooones
 app.get('/pubg-stub/players', (req, res) => {
     let playerNames = req.query.filter ? req.query.filter.playerNames.split(',') : [];
     if (isEmpty(playerNames)) {
