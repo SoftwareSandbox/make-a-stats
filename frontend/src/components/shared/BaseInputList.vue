@@ -1,25 +1,28 @@
 <template>
   <section class="base-input-list">
     <section v-for="(_, index) in list" :key="index">
-        <base-input v-model="list[index]" :placeholder="placeholder" ref="list"/>
-        <base-button v-if="isLastInput(index)" icon="fa-plus" @click="addInput()"/>
-        <base-button v-if="!isLastInput(index)" icon="fa-trash-alt" @click="deleteInput(index)"/>
+      <base-input-group 
+        v-bind="$attrs" 
+        v-model="list[index]"
+        :is-required="isRequired"
+        :btn-icon="isLastInput(index) ? 'fa-plus' : 'fa-trash-alt'"
+        @btn-click="isLastInput(index) ? addInput() : deleteInput(index)"
+        ref="list"/>
     </section>
   </section>
 </template>
 
 <script>
-import BaseInput from './BaseInput';
-import BaseButton from './BaseButton';
+import BaseInputGroup from './BaseInputGroup';
 
 export default {
   name: 'base-input-list',
   props: {
     list: Array,
-    placeholder: String
+    isRequired: Boolean
   },
   components: {
-    BaseInput, BaseButton
+    BaseInputGroup
   },
   methods: {
     addInput() {
@@ -34,7 +37,10 @@ export default {
       return index === this.list.length - 1;
     },
     focusInput(index) {
-      this.$nextTick(() => this.$refs.list[index].$el.focus());
+      this.$nextTick(() => this.$refs.list[index].$el.querySelector('input').focus());
+    },
+    validate(event) {
+      this.$refs.list.forEach(item => item.validate(event));
     }
   }
 }

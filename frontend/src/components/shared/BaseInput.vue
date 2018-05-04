@@ -1,40 +1,66 @@
 <template>
-  <input type="text"
-    :value="value"
-    :placeholder="placeholder"
-    @input="emitInput"/>
+  <section class="base-input" :class="hasErrorsClass">
+    <input type="text" 
+      v-bind="$attrs" 
+      :value="value"
+      @input="emitInputEvent"/>
+    <span v-show="hasErrors">{{ errorMessage }}</span>
+  </section>
 </template>
 
 <script>
-  export default {
-    name: 'base-input',
-    props: {
-      value: String,
-      placeholder: String,
-      isRequired: Boolean
-    },
-    methods: {
-      emitInput($event) {
-        this.$emit('input', $event.target.value);
-      },
-      isValid() {
-        if (!this.required) return true;
-        return this.value && this.value.length > 0;
-      }
+import ValidationBehaviour from './behaviour/ValidationBehaviour'
+
+export default {
+  name: 'base-input',
+  inheritAttrs: false,
+  mixins: [
+    ValidationBehaviour
+  ],
+  props: {
+    value: String
+  },
+  computed: {
+    isValid() {
+      return this.value.length > 0
     }
+  },
+  methods: {
+    emitInputEvent($event) {
+      this.$emit('input', $event.target.value);
+    },
+  },
+  watch: {
+    value: 'validate'
   }
+}
 </script>
 
 <style lang="sass" scoped>
-input
+.base-input
   flex: 1
-  outline: none
-  color: #737373
-  font-size: 0.8rem
-  font-weight: 400
-  font-family: 'Open Sans', sans-serif
-  padding: 10px
-  border: 1px solid hsla(0, 0%, 0%, 0.2)
-  box-shadow: 0 1px 2px 0 hsla(0, 0%, 0%, 0.2)
-  background-color: rgb(255, 255, 255)
+  display: flex
+  flex-direction: column
+
+  &.has-errors 
+    > input
+      border: 2px solid rgb(220,53,69)
+
+    > span
+      color: rgb(220,53,69)
+      font-weight: 700
+      font-size: 0.7rem
+      padding: 5px 2px
+
+  input
+    flex: 1
+    outline: none
+    color: #737373
+    font-size: 0.8rem
+    font-weight: 400
+    font-family: 'Open Sans', sans-serif
+    padding: 10px
+    border: 1px solid hsla(0, 0%, 0%, 0.2)
+    box-shadow: 0 1px 2px 0 hsla(0, 0%, 0%, 0.2)
+    background-color: rgb(255, 255, 255)
 </style>

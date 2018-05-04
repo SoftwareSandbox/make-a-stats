@@ -1,11 +1,11 @@
 <template>
-    <section>
+    <form @submit="validateForm($event) && createLeaderboard()">
         <h2>Leaderboard</h2>
-        <base-input is-required v-model="name" placeholder="Name"/>
+        <base-input v-model="name" is-required placeholder="Name" ref="name" default-error-message="Leaderboard name is required"/>
         <h2>Players</h2>
-        <base-input-list :list="playerNames" placeholder="Player name"/>
-        <base-button is-primary name="Create Leaderboard" @click="createLeaderboard"/>
-    </section>
+        <base-input-list :list="playerNames" is-required placeholder="Player name" ref="playerNames" default-error-message="Player name is required"/>
+        <base-button is-primary name="Create Leaderboard"/>
+    </form>
 </template>
 
 <script>
@@ -25,6 +25,10 @@ export default {
     }
   },
   methods: {
+    validateForm(event) {
+      this.$refs.name.validate(event);
+      this.$refs.playerNames.validate(event);
+    },
     createLeaderboard() {
       this.$http.post(`leaderboard`, {
         name: this.name,
@@ -41,7 +45,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-section
+form
   display: flex
   flex-direction: column
 

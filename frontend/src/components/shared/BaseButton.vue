@@ -1,6 +1,7 @@
 <template>
-  <button @click="emitClick"
-          :class="{'primary': isPrimary}">
+  <button :type="type"
+          :class="{'primary': isPrimary}"
+          @click="emitClick">
     <i class="fas" v-if="icon" :class="icon"></i>
     {{ name }}
   </button>
@@ -13,6 +14,11 @@ export default {
     name: String,
     icon: String,
     isPrimary: Boolean
+  },
+  computed: {
+    type() {
+      return this.isPrimary ? 'submit' : 'button';
+    }
   },
   methods: {
     emitClick() {
