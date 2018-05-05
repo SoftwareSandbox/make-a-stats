@@ -1,9 +1,9 @@
 <template>
   <button :type="type"
-          :class="{'primary': isPrimary}"
+          :class="customClass"
           @click="emitClick">
     <i class="fas" v-if="icon" :class="icon"></i>
-    {{ name }}
+    {{ label }}
   </button>
 </template>
 
@@ -11,13 +11,16 @@
 export default {
   name: 'base-button',
   props: {
-    name: String,
     icon: String,
+    label: String,
     isPrimary: Boolean
   },
   computed: {
     type() {
       return this.isPrimary ? 'submit' : 'button';
+    },
+    customClass() {
+      return { 'primary': this.isPrimary };
     }
   },
   methods: {

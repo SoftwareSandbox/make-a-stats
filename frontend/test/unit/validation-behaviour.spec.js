@@ -116,13 +116,13 @@ const expectValidationErrors = component => {
 
 const expectValidationErrorsWithMessage = (component, message) => {
   expect(component.hasErrors).toBeTruthy();
-  expect(component.hasErrorsClass).toBe('has-errors');
+  expect(component.validationClass).toBe('has-errors');
   expect(component.errorMessage).toBe(message);
 };
 
 const expectNoValidationErrors = component => {
   expect(component.hasErrors).toBeFalsy();
-  expect(component.hasErrorsClass).toBe('');
+  expect(component.validationClass).toBe('');
   expect(component.errorMessage).toBeUndefined();
 };
 

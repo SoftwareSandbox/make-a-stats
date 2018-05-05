@@ -4,11 +4,11 @@
       <base-input
         v-bind="$attrs"
         :value="value"
-        :class="{'has-errors': errorMessage}"
+        :class="validationClass"
         @input="emitInput"/>
       <base-button 
-        :class="{'has-errors': errorMessage}"
         :icon="btnIcon" 
+        :class="validationClass"
         @click="emitClick"/>
     </section>
     <span v-show="hasErrors">{{ errorMessage }}</span>
@@ -26,11 +26,6 @@ export default {
   props: {
     value: String,
     btnIcon: String
-  },
-  data() {
-    return {
-      errorMessage: ''
-    }
   },
   methods: {
     emitInput(value) {

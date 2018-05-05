@@ -2,12 +2,12 @@
   <section class="base-input-list">
     <section v-for="(_, index) in list" :key="index">
       <base-input-group 
-        v-bind="$attrs" 
+        ref="list"
+        v-bind="$attrs"
         v-model="list[index]"
         :is-required="isRequired"
-        :btn-icon="isLastInput(index) ? 'fa-plus' : 'fa-trash-alt'"
-        @btn-click="isLastInput(index) ? addInput() : deleteInput(index)"
-        ref="list"/>
+        :btn-icon="iconAtIndex(index)"
+        @btn-click="onClickAtIndex(index)"/>
     </section>
   </section>
 </template>
@@ -20,6 +20,12 @@ export default {
     isRequired: Boolean
   },
   methods: {
+    iconAtIndex(index) {
+      return this.isLastInput(index) ? 'fa-plus' : 'fa-trash-alt';
+    },
+    onClickAtIndex(index) {
+      return this.isLastInput(index) ? this.addInput() : this.deleteInput(index);
+    },
     addInput() {
       this.list.push('');
       this.focusInput(this.list.length - 1);

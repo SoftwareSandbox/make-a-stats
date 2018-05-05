@@ -1,9 +1,9 @@
 <template>
-  <section class="base-input" :class="hasErrorsClass">
+  <section class="base-input" :class="validationClass">
     <input type="text" 
       v-bind="$attrs" 
       :value="value"
-      @input="emitInputEvent"/>
+      @input="emitInput"/>
     <span v-show="hasErrors">{{ errorMessage }}</span>
   </section>
 </template>
@@ -21,7 +21,7 @@ export default {
     value: String
   },
   methods: {
-    emitInputEvent($event) {
+    emitInput($event) {
       this.$emit('input', $event.target.value);
     },
     isValid() {
