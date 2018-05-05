@@ -13,6 +13,7 @@ matrix:
           - $HOME/.gradle/caches/
           - $HOME/.gradle/wrapper/
     - language: node_js
+      node_js: "7"
       before_install:
         - cd frontend
       install:
