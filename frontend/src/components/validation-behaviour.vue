@@ -2,7 +2,7 @@
   export default {
     props: {
       isRequired: Boolean,
-      defaultErrorMessage: {
+      validationMessageTemplate: {
         default: "Field is required",
         type: String
       }
@@ -22,10 +22,10 @@
     },
     methods: {
       validate(event) {
-        if (!this.isRequired || this.isValid) {
+        if (!this.isRequired || this.isValid()) {
           this.errorMessage = undefined;
         } else {
-          this.errorMessage = this.defaultErrorMessage;
+          this.errorMessage = this.validationMessageTemplate;
           event && event.preventDefault();
         }
       }

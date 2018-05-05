@@ -32,17 +32,15 @@ export default {
       errorMessage: ''
     }
   },
-  computed: {
-    isValid() {
-      return this.value.length > 0
-    }
-  },
   methods: {
     emitInput(value) {
       this.$emit('input', value);
     },
     emitClick() {
       this.$emit('btn-click');
+    },
+    isValid() {
+      return this.value.length > 0
     }
   },
   watch: {
@@ -68,8 +66,10 @@ export default {
       border-left: 0
 
       &.has-errors
+        color: rgb(255, 255, 255)
         border: 2px solid rgb(220,53,69)
         border-left: 0
+        background-color: rgb(220,53,69)
 
   > span
     color: rgb(220,53,69)

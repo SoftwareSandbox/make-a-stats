@@ -20,14 +20,12 @@ export default {
   props: {
     value: String
   },
-  computed: {
-    isValid() {
-      return this.value.length > 0
-    }
-  },
   methods: {
     emitInputEvent($event) {
       this.$emit('input', $event.target.value);
+    },
+    isValid() {
+      return this.value.length > 0;
     },
   },
   watch: {

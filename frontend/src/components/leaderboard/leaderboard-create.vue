@@ -1,9 +1,9 @@
 <template>
     <form @submit="validateForm($event) && createLeaderboard()">
         <h2>Leaderboard</h2>
-        <base-input v-model="name" is-required placeholder="Name" ref="name" default-error-message="Name should not be empty"/>
+        <base-input v-model="name" is-required placeholder="Name" ref="name" validation-message-template="Name should not be empty"/>
         <h2>Players</h2>
-        <base-input-list :list="playerNames" is-required placeholder="Player name" ref="playerNames" default-error-message="Player name should not be empty"/>
+        <base-input-list :list="playerNames" is-required placeholder="Player name" ref="playerNames" validation-message-template="Player name should not be empty"/>
         <base-button is-primary name="Create Leaderboard"/>
     </form>
 </template>
