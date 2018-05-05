@@ -14,7 +14,7 @@
     },
     computed: {
       hasErrors() {
-        return this.errorMessage !== undefined;
+        return this.errorMessage;
       },
       hasErrorsClass() {
         return this.hasErrors ? 'has-errors' : '';
