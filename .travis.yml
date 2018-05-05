@@ -1,31 +1,25 @@
 sudo: required
-
-language: java
-
-# services:
-#   - docker
-
-#before_install:
-#  - nvm install node
-
-#before_script:
-#  - docker run -d --name mongotest -p 27017:27017 mongo
-#  - docker ps -a
-
-#install:
-#  - cd frontend && npm install
-
-script:
-  - cd backend_java && ./gradlew check
-
-# as stated in https://docs.travis-ci.com/user/languages/java/#Caching
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-cache:
-  directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
-# after_script:
-#   - docker rm -f mongotest
+matrix:
+  include:
+    - language: java
+      before_install: cd backend_java
+      script:
+        - ./gradlew check
+      before_cache:
+        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+      cache:
+        directories:
+          - $HOME/.gradle/caches/
+          - $HOME/.gradle/wrapper/
+    - language: node_js
+      before_install:
+        - npm i -g npm@5.5.1
+        - cd frontend
+      install:
+        - npm install
+      script:
+        - npm test
+      cache:
+        directories:
+          - node_modules
