@@ -14,7 +14,6 @@ matrix:
           - $HOME/.gradle/wrapper/
     - language: node_js
       before_install:
-        - npm i -g npm@5.5.1
         - cd frontend
       install:
         - npm install
