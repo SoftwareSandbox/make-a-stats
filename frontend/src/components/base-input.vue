@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import ValidationBehaviour from './behaviour/ValidationBehaviour'
+import ValidationBehaviour from './validation-behaviour'
 
 export default {
   name: 'base-input',
@@ -31,7 +31,9 @@ export default {
     },
   },
   watch: {
-    value: 'validate'
+    value() {
+      this.validate();
+    }
   }
 }
 </script>

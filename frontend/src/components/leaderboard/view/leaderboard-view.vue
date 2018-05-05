@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import LeaderboardViewPlayerStats from './LeaderboardViewPlayerStats'
+import LeaderboardViewPlayerStats from './leaderboard-view-player-stats'
 
 export default {
     name: 'leaderboard',
     components: {
-      LeaderboardViewPlayerStats: LeaderboardViewPlayerStats
+      LeaderboardViewPlayerStats
     },
     data() {
       return {

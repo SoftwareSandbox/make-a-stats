@@ -16,9 +16,7 @@
 </template>
 
 <script>
-import BaseInput from './BaseInput';
-import BaseButton from './BaseButton';
-import ValidationBehaviour from './behaviour/ValidationBehaviour'
+import ValidationBehaviour from './validation-behaviour'
 
 export default {
   name: 'base-input-group',
@@ -29,9 +27,6 @@ export default {
     value: String,
     btnIcon: String
   },
-  components: {
-    BaseInput, BaseButton
-  },
   data() {
     return {
       errorMessage: ''
@@ -39,7 +34,7 @@ export default {
   },
   computed: {
     isValid() {
-      return this.value.length > 0;
+      return this.value.length > 0
     }
   },
   methods: {
@@ -51,7 +46,9 @@ export default {
     }
   },
   watch: {
-    value: 'validate'
+    value() {
+      this.validate();
+    }
   }
 }
 </script>

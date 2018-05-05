@@ -1,23 +1,16 @@
 <template>
     <form @submit="validateForm($event) && createLeaderboard()">
         <h2>Leaderboard</h2>
-        <base-input v-model="name" is-required placeholder="Name" ref="name" default-error-message="Leaderboard name is required"/>
+        <base-input v-model="name" is-required placeholder="Name" ref="name" default-error-message="Name should not be empty"/>
         <h2>Players</h2>
-        <base-input-list :list="playerNames" is-required placeholder="Player name" ref="playerNames" default-error-message="Player name is required"/>
+        <base-input-list :list="playerNames" is-required placeholder="Player name" ref="playerNames" default-error-message="Player name should not be empty"/>
         <base-button is-primary name="Create Leaderboard"/>
     </form>
 </template>
 
 <script>
-import BaseInput from './shared/BaseInput';
-import BaseInputList from './shared/BaseInputList';
-import BaseButton from './shared/BaseButton';
-
 export default {
   name: 'leaderboard-create',
-  components: {
-    BaseButton, BaseInput, BaseInputList
-  },
   data() {
     return {
       name: '',
@@ -28,11 +21,12 @@ export default {
     validateForm(event) {
       this.$refs.name.validate(event);
       this.$refs.playerNames.validate(event);
+      return !event.defaultPrevented;
     },
     createLeaderboard() {
       this.$http.post(`leaderboard`, {
-        name: this.name,
-        playerNames: this.playerNames
+        name: this.name.trim(),
+        playerNames: this.playerNames.map(name => name.trim())
       }).then(response => {
         const location = response.headers.get('location');
         const leaderboardPathIndex = location.indexOf("/leaderboard/") + 1;

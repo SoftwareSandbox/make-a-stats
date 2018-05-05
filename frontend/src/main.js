@@ -2,8 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-import LeaderboardView from './components/LeaderboardView'
-import LeaderboardCreate from './components/LeaderboardCreate'
+import LeaderboardView from './components/leaderboard/view/leaderboard-view'
+import LeaderboardCreate from './components/leaderboard/leaderboard-create'
+import './components/_globals'
 
 Vue.use(VueRouter);
 Vue.use(VueResource);

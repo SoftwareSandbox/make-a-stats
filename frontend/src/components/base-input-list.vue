@@ -13,16 +13,11 @@
 </template>
 
 <script>
-import BaseInputGroup from './BaseInputGroup';
-
 export default {
   name: 'base-input-list',
   props: {
     list: Array,
     isRequired: Boolean
-  },
-  components: {
-    BaseInputGroup
   },
   methods: {
     addInput() {

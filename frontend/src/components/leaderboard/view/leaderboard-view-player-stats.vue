@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'leaderboard-player-stats',
+  name: 'leaderboard-view-player-stats',
   props: ['statistics'],
 }
 </script>
