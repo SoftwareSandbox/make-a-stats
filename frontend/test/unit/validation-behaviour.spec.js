@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { shallow } from '@vue/test-utils'
-import ValidationBehaviour from '@/components/validation-behaviour'
+import ValidationBehaviour from '@/components/validation/validation-behaviour'
 
 const CUSTOM_VALIDATION_MESSAGE = 'CUSTOM_VALIDATION_MESSAGE';
 
