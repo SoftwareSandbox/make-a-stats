@@ -3,9 +3,6 @@ module Stats.Player exposing (..)
 import Json.Encode exposing (encode, object, Value, null, string, int, float, list)
 
 
---TODO: this should become the expected response in our frontend, and should be moved probably
-
-
 type alias LeaderBoard =
     List PlayerStats
 
@@ -20,10 +17,6 @@ type alias PlayerStats =
 
 type alias KillsPerMatch =
     Float
-
-
-
---TODO: Make an encoder for our representation of a Player (expected response)
 
 
 toJson : Value -> String
