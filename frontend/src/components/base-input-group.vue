@@ -1,5 +1,5 @@
 <template>
-  <section class="base-input-group">
+  <section class="base-input-group" :class="validationClass">
     <section>
       <base-input
         v-bind="$attrs"
@@ -11,18 +11,22 @@
         :class="validationClass"
         @click="emitClick"/>
     </section>
-    <span v-show="hasErrors">{{ errorMessage }}</span>
+    <validation-messages :behaviour="this"/>
   </section>
 </template>
 
 <script>
-import ValidationBehaviour from './validation-behaviour'
+import ValidationMessages from './validation/validation-messages'
+import ValidationBehaviour from './validation/validation-behaviour'
 
 export default {
   name: 'base-input-group',
   mixins: [
     ValidationBehaviour
   ],
+  components: {
+    ValidationMessages
+  },
   props: {
     value: String,
     btnIcon: String
@@ -56,7 +60,7 @@ export default {
     flex: 1
     display: flex
     flex-direction: row
-
+    
     button
       border-left: 0
 
@@ -65,10 +69,4 @@ export default {
         border: 2px solid rgb(220,53,69)
         border-left: 0
         background-color: rgb(220,53,69)
-
-  > span
-    color: rgb(220,53,69)
-    font-weight: 700
-    font-size: 0.7rem
-    padding: 5px 2px
 </style>

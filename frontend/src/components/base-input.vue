@@ -4,12 +4,13 @@
       v-bind="$attrs" 
       :value="value"
       @input="emitInput"/>
-    <span v-show="hasErrors">{{ errorMessage }}</span>
+    <validation-messages :behaviour="this" />
   </section>
 </template>
 
 <script>
-import ValidationBehaviour from './validation-behaviour'
+import ValidationMessages from './validation/validation-messages'
+import ValidationBehaviour from './validation/validation-behaviour'
 
 export default {
   name: 'base-input',
@@ -17,6 +18,9 @@ export default {
   mixins: [
     ValidationBehaviour
   ],
+  components: {
+    ValidationMessages
+  },
   props: {
     value: String
   },
@@ -45,12 +49,6 @@ export default {
   &.has-errors 
     > input
       border: 2px solid rgb(220,53,69)
-
-    > span
-      color: rgb(220,53,69)
-      font-weight: 700
-      font-size: 0.7rem
-      padding: 5px 2px
 
   input
     flex: 1

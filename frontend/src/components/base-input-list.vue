@@ -1,14 +1,13 @@
 <template>
   <section class="base-input-list">
-    <section v-for="(_, index) in list" :key="index">
-      <base-input-group 
-        ref="list"
-        v-bind="$attrs"
-        v-model="list[index]"
-        :is-required="isRequired"
-        :btn-icon="iconAtIndex(index)"
-        @btn-click="onClickAtIndex(index)"/>
-    </section>
+    <base-input-group 
+      ref="list"
+      v-for="(_, index) in list" :key="index"
+      v-bind="$attrs"
+      v-model="list[index]"
+      :is-required="isRequired"
+      :btn-icon="iconAtIndex(index)"
+      @btn-click="onClickAtIndex(index)"/>
   </section>
 </template>
 
@@ -53,10 +52,10 @@ export default {
   flex-direction: column
 
   > section
-    flex: 1
-    display: flex
-    flex-direction: row
     margin-bottom: 10px
+
+    &.has-errors
+      margin-bottom: 0
 
     button
       border-left: 0
