@@ -56,7 +56,7 @@ public class PlayerService {
 
     private void validateSuccessfulResponse(HttpResponse<String> response, String subject) {
         if (response.getStatus() != 200) {
-            throw new RuntimeException("Something went wrong during the retrieval of the " + subject + " information [statusCode=" + response.getStatus() + "]");
+            throw new RuntimeException("Something went wrong during the retrieval of the " + subject + " information [statusCode=" + response.getStatus() + "]\n"+response.getStatusText()+"\n"+response.getBody());
         }
     }
 
