@@ -4,6 +4,7 @@ import be.swsb.makeastats.model.Leaderboard;
 import be.swsb.makeastats.model.PlayerStats;
 import be.swsb.makeastats.to.CreateLeaderboardTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -21,8 +22,6 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequestMapping("/api")
 public class MakeAStatsController {
-
-    private static final String EXPOSE_HEADER = "access-control-expose-headers";
 
     private final PlayerService playerService;
     private final Map<Integer, CreateLeaderboardTO> leaderboardMap = new HashMap<>();
@@ -43,7 +42,7 @@ public class MakeAStatsController {
                 .toUri();
 
         return created(location)
-                .header(EXPOSE_HEADER, "Location")
+                .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Location")
                 .build();
     }
 
