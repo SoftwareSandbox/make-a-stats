@@ -4,6 +4,11 @@ elm-stuff/
 .webpack/
 .serverless/
 
+.gradle/
+out/
+dist/
+build/
+
 .idea/
 *.iml
 
