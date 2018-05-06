@@ -1,18 +1,19 @@
 <template>
     <form @submit="validateForm($event) && createLeaderboard()">
-        <h2>Leaderboard</h2>
-        <base-input ref="name"
-                    v-model="name"
-                    is-required
-                    placeholder="Name"
-                    validation-message-template="Leaderboard name should not be empty"/>
-        <h2>Players</h2>
-        <base-input-list ref="playerNames"
-                         :list="playerNames"
-                         is-required
-                         placeholder="Player name"
-                         validation-message-template="Player name should not be empty"/>
-        <base-button is-primary label="Create Leaderboard"/>
+      <h1>Create Leaderboard</h1>
+      <h2>Leaderboard name</h2>
+      <base-input ref="name"
+                  v-model="name"
+                  is-required
+                  placeholder="Name"
+                  validation-message-template="Leaderboard name should not be empty"/>
+      <h2>Player names</h2>
+      <base-input-list ref="playerNames"
+                        :list="playerNames"
+                        is-required
+                        placeholder="Player name"
+                        validation-message-template="Player name should not be empty"/>
+      <base-button is-primary label="Create Leaderboard"/>
     </form>
 </template>
 
@@ -50,11 +51,20 @@ export default {
 form
   display: flex
   flex-direction: column
+  padding: 10px
+  margin: 10px 0 
+  border: 1px solid hsla(0, 0%, 0%, 0.2)
+  box-shadow: 0 1px 2px 0 hsla(0, 0%, 0%, 0.2)
+  background-color: rgb(255, 255, 255)
+
+  > h1
+    font-size: 1rem
+    font-weight: 300
+    margin: 5px 0
 
   > h2
     color: #303030
-    font-weight: 700
+    font-weight: 400
     font-size: 0.7rem
-    text-transform: uppercase
     margin: 10px 0
 </style>

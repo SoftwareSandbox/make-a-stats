@@ -54,9 +54,6 @@ export default {
   > section
     margin-bottom: 10px
 
-    &.has-errors
-      margin-bottom: 0
-
     button
       border-left: 0
 </style>

@@ -12,13 +12,14 @@ export default {
 
 <style lang="sass">
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700')
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400')
 
 body
   display: flex
   flex-direction: column
   align-items: center
   font-weight: 400
-  font-family: 'Open Sans', sans-serif
+  font-family: 'Montserrat', sans-serif
   margin: 0
   background-color: rgba(245, 245, 245, 0.6)
 
