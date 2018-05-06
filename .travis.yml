@@ -5,6 +5,7 @@ matrix:
       before_install: cd backend_java
       script:
         - ./gradlew check
+      # as stated in https://docs.travis-ci.com/user/languages/java/#Caching
       before_cache:
         - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
         - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -23,3 +24,6 @@ matrix:
       cache:
         directories:
           - node_modules
+      notifications:
+        slack:
+          secure: kLhT2+sKQZy7ABUv4kNXNAT1WmVTT8ekEvtKjjpMuWJBVYiNjr93BFm3M35B37VegdVfZdYDFANi5/IXQGD0EuErwS3tN17cuPNcufPrv9+2LPAaZqt2pLui6S7ss90TMY0ZLKJ97B/3uudSWwXoVS5mOVQrcmGGwcIu2tA1qHCIsnTvDmJKuFpnY5+mbjjFv0iQk1dvlk+S8gssiyhFkuPhPdy/4/+mudzW58tIzNrQPvHewZpzS/pxKTLm2UD76Y9JoRJjbivUbluCtStjMgdP5yGcpU+OQwT8bFue+UB+jQlv0fx5eN+CVxNNHKo/Q6+Slcwpu5/5mb/55oYOB37R5AcH6rhKF8xSOo5kSACg/9muM3PZhrIb1lPY7IgdlVZyt/k9UrWaOXBvzHYAYb1vy96o37xylboFO90EYGfzB0U+ESBlo1/RtXl7tWK9M+yfjF581t06kP+UZ+IO16412nBY3HoFAoCQuJpK7+3iDdMaBDOLPjkMSIEgUSwPQEF7lYDPGTiSq+E6HWOpgWAnQ1lCQKdg5mt9tvEZb5+FO/ehsRbPT4tIhAn7ruRZLbBVHxpQD3JXXcL0QMssWrb1ihfSzLNyPQksYMqE8X/SLbWAyagrgNM7bWF6Azptld8a5AiXHn8cgUyG63XBQbjkFDWZqz7pAUC3rdb3kek=
