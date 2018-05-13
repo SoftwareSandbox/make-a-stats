@@ -14,9 +14,9 @@ import org.springframework.web.util.UriComponentsBuilder
 class LeaderboardController(val leaderboardService: LeaderboardService) {
 
     @GetMapping("{id}")
-    fun leaderboard(@PathVariable(value = "id", required = true) id: String): ResponseEntity<Leaderboard> {
+    fun getLeaderboard(@PathVariable(value = "id", required = true) id: String): ResponseEntity<Leaderboard> {
         return leaderboardService.getById(id)
-                .map { ResponseEntity.accepted().body(it) }
+                .map { ResponseEntity.ok().body(it) }
                 .orElse(ResponseEntity.notFound().build())
     }
 

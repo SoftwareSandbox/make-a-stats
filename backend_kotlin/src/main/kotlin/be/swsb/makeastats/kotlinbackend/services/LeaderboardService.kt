@@ -2,10 +2,9 @@ package be.swsb.makeastats.kotlinbackend.services
 
 import be.swsb.makeastats.kotlinbackend.model.CreateLeaderBoardCmd
 import be.swsb.makeastats.kotlinbackend.model.Leaderboard
+import be.swsb.makeastats.kotlinbackend.model.LeaderboardId
 import org.springframework.stereotype.Service
 import java.util.*
-
-typealias LeaderboardId = String
 
 @Service
 class LeaderboardService {

@@ -6,3 +6,5 @@ data class PlayerStats(val player: String, val totalKills: Int, val amountOfMatc
                 names.map { name -> PlayerStats(name, 0, 0, 0f) }
     }
 }
+
+typealias PlayerName = String
