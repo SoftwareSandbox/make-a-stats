@@ -1,0 +1,1 @@
+Thanks to [https://github.com/matsurihime/pubg-kotlin](https://github.com/matsurihime/pubg-kotlin) for their `model` classes
