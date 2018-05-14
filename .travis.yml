@@ -1,29 +1,28 @@
 sudo: required
 matrix:
   include:
-    - language: java
-      before_install: cd backend_java
-      script:
-        - ./gradlew check
-      # as stated in https://docs.travis-ci.com/user/languages/java/#Caching
-      before_cache:
-        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-      cache:
-        directories:
-          - $HOME/.gradle/caches/
-          - $HOME/.gradle/wrapper/
-    - language: node_js
-      node_js: "7"
-      before_install:
-        - cd frontend
-      install:
-        - npm install
-      script:
-        - npm test
-      cache:
-        directories:
-          - node_modules
-      notifications:
-        slack:
-          secure: kLhT2+sKQZy7ABUv4kNXNAT1WmVTT8ekEvtKjjpMuWJBVYiNjr93BFm3M35B37VegdVfZdYDFANi5/IXQGD0EuErwS3tN17cuPNcufPrv9+2LPAaZqt2pLui6S7ss90TMY0ZLKJ97B/3uudSWwXoVS5mOVQrcmGGwcIu2tA1qHCIsnTvDmJKuFpnY5+mbjjFv0iQk1dvlk+S8gssiyhFkuPhPdy/4/+mudzW58tIzNrQPvHewZpzS/pxKTLm2UD76Y9JoRJjbivUbluCtStjMgdP5yGcpU+OQwT8bFue+UB+jQlv0fx5eN+CVxNNHKo/Q6+Slcwpu5/5mb/55oYOB37R5AcH6rhKF8xSOo5kSACg/9muM3PZhrIb1lPY7IgdlVZyt/k9UrWaOXBvzHYAYb1vy96o37xylboFO90EYGfzB0U+ESBlo1/RtXl7tWK9M+yfjF581t06kP+UZ+IO16412nBY3HoFAoCQuJpK7+3iDdMaBDOLPjkMSIEgUSwPQEF7lYDPGTiSq+E6HWOpgWAnQ1lCQKdg5mt9tvEZb5+FO/ehsRbPT4tIhAn7ruRZLbBVHxpQD3JXXcL0QMssWrb1ihfSzLNyPQksYMqE8X/SLbWAyagrgNM7bWF6Azptld8a5AiXHn8cgUyG63XBQbjkFDWZqz7pAUC3rdb3kek=
+  - language: java
+    before_install: cd backend_java
+    script:
+    - "./gradlew check"
+    before_cache:
+    - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+    - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+    cache:
+      directories:
+      - "$HOME/.gradle/caches/"
+      - "$HOME/.gradle/wrapper/"
+  - language: node_js
+    node_js: '7'
+    before_install:
+    - cd frontend
+    install:
+    - npm install
+    script:
+    - npm test
+    cache:
+      directories:
+      - node_modules
+notifications:
+  slack:
+    secure: IgT9nitF6XeWTxCZS0lQJWG6D4vBTKSboguME8ssO/KMKTKUI33CYhzWQDihfX3K6Cw22tZJ54fimY9PjVz7jumvQ4AO+rDGqcJl4okdNGEea4nmtxeCjGkD1Oo4jePPMveYQm006JRhvb1gnzORJPiWUjeyFSFvH+1wuHt0AB2P0XjUmDyC0QQWowBV3Ei5Itzs3u17SRvqTAsDJeUGihaA/Sm1i/UwlLh4BNLNj/G141+Ys39olXdSWHGP8oL7VpVNtIYqTqu2DIMvtxcIvuBLzuq8vDDPhTxzGjoWmgVDXwGEi5CfaBQF6RMx6t7GyI8iFf6b/EHjdyYys+RoqdkL42BtHeJC7sZOjWP5nkJ/ww+IhmqRLXnfINafo25tjnC7dm0yBmJbudM6MjwaJQAT0rkRtQ0aptn521NyvknyQm9SmVC52/ik6kDMSakYKSvWKBlMevv3nWNvhJq8PaOld4OBbI3nV20heu+/UlehOz5u1QHWMsaY26kWtvc3S1HFYl8amCASqajtiSCJby/WfATcpaZJUmT3zPT8QFFoxWIO0FQY6KXrufM3TRkQ2MmRiXsT/Zlv8N20JhXUHwFilSOuYVD/amVtMoHOgna3fPFCgSvalMTf9R4w+YRO9k2DUi6lwLabZGO6KKfmP8rqT5yFsZWviSRa6L7ZNY0=
