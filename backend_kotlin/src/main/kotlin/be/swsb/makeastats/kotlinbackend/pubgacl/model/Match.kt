@@ -13,10 +13,10 @@ data class MatchAttributes(
         val duration: Int,
         val gameMode: String,
         val patchVersion: String,
-        val sharedId: String,
+        val shardId: String,
         val stats: Any?,  // null
         val tags: Any?,  // null
-        val tagId: String
+        val titleId: String
 )
 
 data class MatchRelationships(

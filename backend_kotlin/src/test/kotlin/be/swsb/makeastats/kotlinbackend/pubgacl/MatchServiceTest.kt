@@ -4,13 +4,13 @@ import be.swsb.makeastats.kotlinbackend.objectMapper
 import org.assertj.core.api.Assertions
 import org.junit.Test
 
-class PlayerServiceTest {
+class MatchServiceTest {
 
-    val playerService: PlayerService = PlayerService("http://localhost:3333/pubg-stub","", objectMapper())
+    val matchService: MatchService = MatchService("http://localhost:3333/pubg-stub","", objectMapper())
 
     @Test
     fun canCallAndMap() {
-        val model = playerService.findPlayersByNames(listOf("shroud", "chad"))
+        val model = matchService.findMatchById("58d1b02c-b331-40d9-bdd8-0cc56f0b030f")
                 .test()
                 .apply { awaitTerminalEvent() }
                 .assertNoErrors()
