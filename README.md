@@ -102,6 +102,8 @@ cd make-a-stats/backend_java
 ./gradlew bootRun
 ```
 
-Navigate to http://localhost:8888/backend/player/ and suffix the url with a player name
+Navigate to http://localhost:8888/api/player/ and suffix the url with a player name
 
-NOTE: Currently, the request is very slow as we have to wait 6 seconds between each request to the pubg api. For one player with 20 matches played since 14 days, we have to make 1 player request and 20 match requests meaning we will have to wait 1 * 6 + 20 * 6 = 126 seconds. If 2 players are requested at the same time, errors will occur because of too many requests.
+> Change the boolean USE_STUB in the PubgApiCaller class to determine if the backup needs to use the `pubg-stub` or the actual pubg-api.
+
+> Currently, the request is very slow as we have to wait 6 seconds between each request to the pubg api. For one player with 20 matches played since 14 days, we have to make 1 player request and 20 match requests meaning we will have to wait 1 * 6 + 20 * 6 = 126 seconds. If 2 players are requested at the same time, errors will occur because of too many requests.
