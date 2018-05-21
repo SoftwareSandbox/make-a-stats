@@ -15,7 +15,7 @@ class LeaderboardRepoTest {
     @Rule @JvmField
     val db: JdbiRule = JdbiPreparedEmbeddedPostgres.preparedJdbi("db/migration").withPlugins();
 
-    var repo: LeaderboardRepo? = null
+    private var repo: LeaderboardRepo? = null
 
     @Before
     fun setUp() {
@@ -36,5 +36,14 @@ class LeaderboardRepoTest {
         repo?.insert(leaderboard)
         val savedLeaderboard = repo?.findByLeaderboardId(lid)
         Assertions.assertThat(savedLeaderboard).isEqualTo(leaderboard)
+    }
+
+    @Test
+    fun cannotFindLeaderboardByLeaderboardId_ReturnsNull() {
+        val lid = "UvOiox"
+        val leaderboard = Leaderboard(UUID.randomUUID(), lid, "ZF")
+        repo?.insert(leaderboard)
+        val actual = repo?.findByLeaderboardId("snarfsnarf")
+        Assertions.assertThat(actual).isNull()
     }
 }

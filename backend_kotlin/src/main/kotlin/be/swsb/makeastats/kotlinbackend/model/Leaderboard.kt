@@ -12,8 +12,8 @@ import java.util.*
 data class Leaderboard(val id:UUID,
                        val lid: LeaderboardId,
                        val name: String,
-                       val players: List<PlayerStats>?) {
-    constructor(cmd: CreateLeaderBoardCmd) : this(UUID.randomUUID(), generateUniqueId(), cmd.name, PlayerStats.fromPlayernames(cmd.playerNames))
+                       val players: List<PlayerStatsId>?) {
+    constructor(cmd: CreateLeaderBoardCmd) : this(UUID.randomUUID(), generateUniqueId(), cmd.name)
     //TODO look up if one can extend a class with a constructor, because this constructor should only be used by tests
     constructor(id:UUID, lid: LeaderboardId, name: String) : this(UUID.randomUUID(), lid, name, null)
 }

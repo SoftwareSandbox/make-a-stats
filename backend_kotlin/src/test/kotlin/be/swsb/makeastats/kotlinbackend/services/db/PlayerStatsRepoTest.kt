@@ -7,6 +7,7 @@ import org.jdbi.v3.testing.JdbiRule
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.util.*
 
 class PlayerStatsRepoTest {
 
@@ -22,7 +23,7 @@ class PlayerStatsRepoTest {
 
     @Test
     fun canSavePlayerStats() {
-        val playerStats = PlayerStats(1, "shrood", 12, 1, 12f)
+        val playerStats = PlayerStats(UUID.randomUUID(), "shrood", 12, 1, 12f)
         val savedStats = repo?.insertAndFind(playerStats)
         Assertions.assertThat(savedStats).isEqualTo(playerStats)
     }

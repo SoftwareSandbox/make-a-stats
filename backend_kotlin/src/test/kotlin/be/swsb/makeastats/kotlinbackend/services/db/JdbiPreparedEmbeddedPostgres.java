@@ -13,7 +13,10 @@ public class JdbiPreparedEmbeddedPostgres extends JdbiRule {
     private final PreparedDbRule embeddedPreparedDbRule;
 
     private JdbiPreparedEmbeddedPostgres(final String... migrationLocations) {
-        embeddedPreparedDbRule = EmbeddedPostgresRules.preparedDatabase(FlywayPreparer.forClasspathLocation(migrationLocations));
+        String[] locations = migrationLocations != null && migrationLocations.length > 0
+                                ? migrationLocations
+                                : new String[]{"db/migration"};
+        embeddedPreparedDbRule = EmbeddedPostgresRules.preparedDatabase(FlywayPreparer.forClasspathLocation(locations));
     }
 
     public static JdbiPreparedEmbeddedPostgres preparedJdbi(String... migrationLocations){
