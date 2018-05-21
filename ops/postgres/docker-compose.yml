@@ -1,0 +1,15 @@
+version: '3'
+services:
+  make-a-stats-db:
+    build: .
+    restart: always
+    ports:
+      - "5432:5432"
+
+  make-a-stats-testdb:
+    build: .
+    restart: always
+    ports:
+      - "6543:5432"
+    environment:
+      POSTGRES_DB: testdb
