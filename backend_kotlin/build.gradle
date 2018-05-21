@@ -62,6 +62,7 @@ dependencies {
     compile("org.jdbi:jdbi3-spring4:${jdbiVersion}")
     compile("org.jdbi:jdbi3-kotlin:${jdbiVersion}")
     compile("org.jdbi:jdbi3-kotlin-sqlobject:${jdbiVersion}")
+    compile("org.flywaydb:flyway-core:5.0.7")
 
     runtime('org.springframework.boot:spring-boot-devtools')
 
@@ -74,6 +75,8 @@ dependencies {
     //Integration testing vs. an embedded Postgres using a JdbiRule
     testCompile("org.jdbi:jdbi3-testing:${jdbiVersion}")
     testCompile("com.opentable.components:otj-pg-embedded:0.11.3")
+    testCompile("org.flywaydb.flyway-test-extensions:flyway-test-extensions:5.0.0")
+
 }
 
 jar {
