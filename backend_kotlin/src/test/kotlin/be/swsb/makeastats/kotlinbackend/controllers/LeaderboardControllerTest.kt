@@ -45,8 +45,8 @@ class LeaderboardControllerTest {
     @Test
     fun getLeaderboard_ServiceDidFindLeaderboardForGivenId_Returns200() {
         val shrood = PlayerStats(1, "shrood", 19, 1, 19f)
-        val leaderboard = Leaderboard("1", listOf(shrood))
-        whenever(leaderboardService.getById("1")).thenReturn(Optional.of(leaderboard))
+        val leaderboard = Leaderboard(UUID.randomUUID(), "OvOTxT", "shroodSquad", listOf(shrood))
+        whenever(leaderboardService.getById("OvOTxT")).thenReturn(Optional.of(leaderboard))
 
         val contentAsString:String = mockMvc.perform(MockMvcRequestBuilders.get("/leaderboard/{id}", "1"))
                 .andExpect(MockMvcResultMatchers.status().`is`(200))

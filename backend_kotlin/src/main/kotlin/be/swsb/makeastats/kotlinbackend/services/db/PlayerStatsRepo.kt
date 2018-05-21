@@ -5,7 +5,8 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
 interface PlayerStatsRepo {
-    @SqlUpdate("insert into playerstats (id, player, totalKills, amountOfMatchesPlayed, killsPerMatch) values (:playerstats.id, :playerstats.player, :playerstats.totalKills , :playerstats.amountOfMatchesPlayed , :playerstats.killsPerMatch)")
+    @SqlUpdate("insert into playerstats (id, player, totalKills, amountOfMatchesPlayed, killsPerMatch) " +
+            "values (:playerstats.id, :playerstats.player, :playerstats.totalKills , :playerstats.amountOfMatchesPlayed , :playerstats.killsPerMatch)")
     fun insert(playerstats: PlayerStats)
 
     @SqlQuery("select id, player, totalKills, amountOfMatchesPlayed, killsPerMatch from playerstats")

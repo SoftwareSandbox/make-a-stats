@@ -13,10 +13,10 @@ class LeaderboardService {
 
     fun handle(cmd: CreateLeaderBoardCmd): Leaderboard {
         val leaderboard = Leaderboard(cmd)
-        return leaderboards.getOrPut(leaderboard.id, { Optional.of(leaderboard) }).get()
+        return leaderboards.getOrPut(leaderboard.lid, { Optional.of(leaderboard) }).get()
     }
 
-    fun getById(id: LeaderboardId): Optional<Leaderboard> {
-        return leaderboards.getOrDefault(id, Optional.empty())
+    fun getById(lid: LeaderboardId): Optional<Leaderboard> {
+        return leaderboards.getOrDefault(lid, Optional.empty())
     }
 }

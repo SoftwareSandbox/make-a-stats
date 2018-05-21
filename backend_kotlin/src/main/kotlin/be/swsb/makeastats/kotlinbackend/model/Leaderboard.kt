@@ -1,9 +1,25 @@
 package be.swsb.makeastats.kotlinbackend.model
 
+import be.swsb.makeastats.kotlinbackend.util.hashids.Hashids
 import java.util.*
 
-data class Leaderboard(val id:String, val players: List<PlayerStats>) {
-    constructor(cmd: CreateLeaderBoardCmd) : this(UUID.randomUUID().toString(), PlayerStats.fromPlayernames(cmd.playerNames))
+/**
+ * @param id: database id; do not expose
+ * @param lid: exposed hashId (to use in url's)
+ * @param name: name of the leaderboard
+ * @param players: list of players that belong to this leaderboard
+ */
+data class Leaderboard(val id:UUID,
+                       val lid: LeaderboardId,
+                       val name: String,
+                       val players: List<PlayerStats>?) {
+    constructor(cmd: CreateLeaderBoardCmd) : this(UUID.randomUUID(), generateUniqueId(), cmd.name, PlayerStats.fromPlayernames(cmd.playerNames))
+    //TODO look up if one can extend a class with a constructor, because this constructor should only be used by tests
+    constructor(id:UUID, lid: LeaderboardId, name: String) : this(UUID.randomUUID(), lid, name, null)
 }
 
 typealias LeaderboardId = String
+
+fun generateUniqueId(): LeaderboardId {
+    return Hashids("GettingSnipedWhileLooting", 6).encode(Math.random().toLong())
+}
