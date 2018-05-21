@@ -2,6 +2,7 @@ buildscript {
     ext {
         kotlinVersion = '1.2.41'
         springBootVersion = '2.0.1.RELEASE'
+        jdbiVersion = '3.2.1'
     }
     repositories {
         mavenCentral()
@@ -22,6 +23,7 @@ apply plugin: 'io.spring.dependency-management'
 group = 'be.swsb.makeastats'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+
 compileKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjsr305=strict"]
@@ -42,21 +44,36 @@ repositories {
 
 
 dependencies {
+    //REST-API with SpringBoot
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('com.fasterxml.jackson.module:jackson-module-kotlin')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compile("org.jetbrains.kotlin:kotlin-reflect")
 
+    //REST-Client
     compile("com.github.kittinunf.fuel:fuel:1.13.0")
     compile("com.github.kittinunf.fuel:fuel-jackson:1.13.0")
     compile("com.github.kittinunf.fuel:fuel-rxjava:1.13.0")
 
+    //DB
+    compile("org.jdbi:jdbi3-core:${jdbiVersion}")
+    compile("org.jdbi:jdbi3-postgres:${jdbiVersion}")
+    compile("org.jdbi:jdbi3-spring4:${jdbiVersion}")
+    compile("org.jdbi:jdbi3-kotlin:${jdbiVersion}")
+    compile("org.jdbi:jdbi3-kotlin-sqlobject:${jdbiVersion}")
+
     runtime('org.springframework.boot:spring-boot-devtools')
 
+    //All purpose Unit testing stuff like JUnit, but also SpringBoot test classes
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
     testCompile("org.assertj:assertj-core:3.9.1")
     testCompile("com.nhaarman:mockito-kotlin:1.5.0")
+
+    //Integration testing vs. an embedded Postgres using a JdbiRule
+    testCompile("org.jdbi:jdbi3-testing:${jdbiVersion}")
+    testCompile("com.opentable.components:otj-pg-embedded:0.11.3")
 }
 
 jar {
