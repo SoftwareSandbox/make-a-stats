@@ -1,5 +1,7 @@
 package be.swsb.makeastats;
 
+import com.softwaresandbox.pubgclient.PubgApiClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +24,11 @@ public class MakeAStatsApplication {
                 registry.addMapping("/**").allowedOrigins("*");
             }
         };
+    }
+
+    @Bean
+    public PubgApiClient pubgApiClient() {
+        return new PubgApiClient();
     }
 
 }

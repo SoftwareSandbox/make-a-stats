@@ -27,6 +27,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'com.mashape.unirest:unirest-java:1.4.9'
     compile 'com.jayway.jsonpath:json-path:2.4.0'
+    compile "com.github.softwaresandbox:pubg-api-client:0.1.0"
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:3.9.1'
