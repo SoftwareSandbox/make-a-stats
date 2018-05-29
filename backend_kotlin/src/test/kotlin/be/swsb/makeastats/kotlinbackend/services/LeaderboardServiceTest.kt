@@ -9,9 +9,9 @@ import org.assertj.core.api.Assertions
 import org.jdbi.v3.sqlobject.kotlin.onDemand
 import org.jdbi.v3.testing.JdbiRule
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
+import java.util.*
 
 class LeaderboardServiceTest {
 
@@ -38,11 +38,18 @@ class LeaderboardServiceTest {
         Assertions.assertThat(foundLeaderboard?.lid).isEqualTo(leaderboard.lid)
         Assertions.assertThat(foundLeaderboard?.name).isEqualTo("ZF")
         Assertions.assertThat(playerStatsRepo!!.list().map(PlayerStats::player)).containsOnly("womble","cyanide")
+        //TODO verify pubg calls are made
     }
 
     @Test
-    @Ignore
     fun handleLeaderboardCreation_PlayersAlreadyExist_DoesNotRecreatePlayers() {
-        //todo: write test
+        val leaderboard = leaderboardService!!.handle(CreateLeaderBoardCmd("ZF", setOf("womble", "cyanide")))
+        val leaderboard2 = leaderboardService!!.handle(CreateLeaderBoardCmd("ZFShroud", setOf("womble", "cyanide","shroud","chad")))
+
+        val foundLeaderboard = leaderboardRepo!!.findByLeaderboardId(leaderboard.lid)
+        val foundLeaderboard2 = leaderboardRepo!!.findByLeaderboardId(leaderboard2.lid)
+        Assertions.assertThat(foundLeaderboard?.name).isEqualTo("ZF")
+        Assertions.assertThat(foundLeaderboard2?.name).isEqualTo("ZFShroud")
+        Assertions.assertThat(playerStatsRepo!!.list().map(PlayerStats::player)).containsExactlyInAnyOrder("womble","cyanide","shroud","chad")
     }
 }

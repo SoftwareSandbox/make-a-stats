@@ -16,10 +16,18 @@ interface PlayerStatsRepo {
     fun list(): List<PlayerStats>
 
     @SqlQuery("select id, player, totalKills, amountOfMatchesPlayed, killsPerMatch from playerstats where id=:id")
-    fun findById(id: UUID): PlayerStats
+    fun findById(id: UUID): PlayerStats?
+
+    //playername is unique per shard, but we're only keeping data from EU for now.
+    @SqlQuery("select id, player, totalKills, amountOfMatchesPlayed, killsPerMatch from playerstats where player=:playername")
+    fun findByName(playername: String): PlayerStats?
 
     fun insertAndFind(playerStats: PlayerStats): PlayerStats {
         insert(playerStats)
-        return findById(playerStats.id)
+        return findById(playerStats.id)!!
+    }
+
+    fun insertIfNotExistsByName(playerStats: PlayerStats) {
+        this.findByName(playerStats.player) ?: this.insert(playerStats)
     }
 }

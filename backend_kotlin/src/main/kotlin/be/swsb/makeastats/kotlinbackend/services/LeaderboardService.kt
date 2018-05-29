@@ -18,7 +18,7 @@ class LeaderboardService(val leaderboardRepo: LeaderboardRepo,
     fun handle(cmd: CreateLeaderBoardCmd): Leaderboard {
         val leaderboard = Leaderboard(cmd)
         val persistedLeaderboard = leaderboardRepo.insertAndFind(leaderboard)
-        PlayerStats.fromPlayernames(cmd.playerNames).forEach { it -> playerStatsRepo.insert(it) }
+        PlayerStats.fromPlayernames(cmd.playerNames).forEach(playerStatsRepo::insertIfNotExistsByName)
         return leaderboards.getOrPut(persistedLeaderboard.lid, { Optional.of(persistedLeaderboard) }).get()
     }
 
