@@ -1,5 +1,5 @@
 CREATE TABLE playerstats (
-  id                      int,
+  id                      uuid,
   player                  varchar(25),
   totalKills              int,
   amountOfMatchesPlayed   int,
