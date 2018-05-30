@@ -23,6 +23,7 @@ class LeaderboardService(val leaderboardRepo: LeaderboardRepo,
     }
 
     fun getById(lid: LeaderboardId): Optional<Leaderboard> {
-        return leaderboards.getOrDefault(lid, Optional.empty())
+        val leaderboard = leaderboardRepo.findByLeaderboardId(lid)
+        return leaderboard?.let { Optional.of(it) } ?: Optional.empty()
     }
 }
