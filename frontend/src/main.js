@@ -24,7 +24,8 @@ const router = new VueRouter({
   }, {
     path: '/',
     redirect: '/leaderboard'
-  }]
+  }],
+  linkActiveClass: "active",
 });
 
 new Vue({
