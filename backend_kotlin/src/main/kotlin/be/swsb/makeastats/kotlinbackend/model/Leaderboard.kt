@@ -9,13 +9,11 @@ import java.util.*
  * @param name: name of the leaderboard
  * @param players: list of players that belong to this leaderboard
  */
-data class Leaderboard(val id: UUID,
+data class Leaderboard internal constructor(val id: UUID,
                        val lid: LeaderboardId,
                        val name: String,
                        val players: List<PlayerStatsId>?) {
-    constructor(cmd: CreateLeaderBoardCmd) : this(UUID.randomUUID(), generateUniqueId(), cmd.name)
-    //TODO look up if one can extend a class with a constructor, because this constructor should only be used by tests
-    constructor(id:UUID, lid: LeaderboardId, name: String) : this(UUID.randomUUID(), lid, name, null)
+    constructor(cmd: CreateLeaderBoardCmd) : this(UUID.randomUUID(), generateUniqueId(), cmd.name, null)
 
     companion object {
         fun generateUniqueId(): LeaderboardId {
