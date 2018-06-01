@@ -17,8 +17,8 @@ Contract.make {
         status 201
         headers {
             header 'location', value(
-                    p(regex('.+/leaderboard/[0-9]+$')),
-                    c('http://localhost/leaderboard/1'))
+                    p(regex('.+/api/leaderboard/[0-9A-Za-z]+$')),
+                    c('{{{ request.requestLine.baseUrl }}}/api/leaderboard/3kTMd4'))
         }
     }
 }
