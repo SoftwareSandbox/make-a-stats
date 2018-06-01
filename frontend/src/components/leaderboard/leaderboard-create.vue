@@ -51,16 +51,14 @@ export default {
 form
   display: flex
   flex-direction: column
-  padding: 10px
-  margin: 10px 0 
-  border: 1px solid hsla(0, 0%, 0%, 0.2)
-  box-shadow: 0 1px 2px 0 hsla(0, 0%, 0%, 0.2)
-  background-color: rgb(255, 255, 255)
+  margin: 0
+  padding: 0 5px
 
   > h1
-    font-size: 1rem
+    font-size: 1.5rem
     font-weight: 300
-    margin: 5px 0
+    margin: 15px 0 0
+    padding: 5px 0
 
   > h2
     color: #303030
