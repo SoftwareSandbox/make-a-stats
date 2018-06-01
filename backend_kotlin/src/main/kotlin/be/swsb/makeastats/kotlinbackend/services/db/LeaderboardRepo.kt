@@ -5,7 +5,6 @@ import be.swsb.makeastats.kotlinbackend.model.LeaderboardId
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import org.springframework.stereotype.Repository
-import org.springframework.stereotype.Service
 import java.util.*
 
 @Repository
