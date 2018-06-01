@@ -9,7 +9,6 @@ import './components/_globals'
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
-Vue.url.options.root = 'http://' + window.location.hostname + ':8888/api/';
 Vue.config.productionTip = false;
 
 const router = new VueRouter({
