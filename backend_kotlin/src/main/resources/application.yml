@@ -1,0 +1,15 @@
+server:
+  servlet:
+    context-path: /api
+  port: 9999
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:6666/MAS?currentSchema=mas
+    username: makeastats
+    password: devMakeastats
+
+pubgapi:
+  baseurl: http://localhost:3000/pubg-stub/api
+  apikey: 12345678

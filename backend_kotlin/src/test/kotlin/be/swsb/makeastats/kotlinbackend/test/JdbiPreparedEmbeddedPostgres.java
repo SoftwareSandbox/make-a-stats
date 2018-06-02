@@ -1,4 +1,4 @@
-package be.swsb.makeastats.kotlinbackend.services.db;
+package be.swsb.makeastats.kotlinbackend.test;
 
 import com.opentable.db.postgres.embedded.FlywayPreparer;
 import com.opentable.db.postgres.junit.EmbeddedPostgresRules;

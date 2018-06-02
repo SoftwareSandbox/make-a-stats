@@ -1,23 +1,22 @@
 package be.swsb.makeastats.kotlinbackend.controllers
 
-import be.swsb.makeastats.kotlinbackend.model.CreateLeaderBoardCmd
-import be.swsb.makeastats.kotlinbackend.model.Leaderboard
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.CreateLeaderBoardCmd
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.Leaderboard
 import be.swsb.makeastats.kotlinbackend.services.LeaderboardService
 import org.springframework.http.HttpHeaders
-import org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
-@RequestMapping("leaderboard", produces = [APPLICATION_JSON_UTF8_VALUE])
+@RequestMapping("leaderboard")
 class LeaderboardController(val leaderboardService: LeaderboardService) {
 
     @GetMapping("{id}")
     fun getLeaderboard(@PathVariable(value = "id", required = true) id: String): ResponseEntity<Leaderboard> {
         return leaderboardService.getById(id)
-                .map { ResponseEntity.ok().body(it) }
-                .orElse(ResponseEntity.notFound().build())
+                ?.let { ResponseEntity.ok().body(it) }
+                ?: ResponseEntity.notFound().build()
     }
 
     @PostMapping
@@ -25,7 +24,7 @@ class LeaderboardController(val leaderboardService: LeaderboardService) {
         val leaderboard = leaderboardService.handle(cmd)
 
         val location = uriBuilder.path("leaderboard/{id}")
-                .buildAndExpand(leaderboard.id)
+                .buildAndExpand(leaderboard.lid)
                 .toUri()
 
         return ResponseEntity.created(location)

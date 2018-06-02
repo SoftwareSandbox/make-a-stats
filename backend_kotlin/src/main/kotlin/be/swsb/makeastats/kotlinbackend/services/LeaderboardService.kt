@@ -1,11 +1,11 @@
 package be.swsb.makeastats.kotlinbackend.services
 
-import be.swsb.makeastats.kotlinbackend.model.CreateLeaderBoardCmd
-import be.swsb.makeastats.kotlinbackend.model.Leaderboard
-import be.swsb.makeastats.kotlinbackend.model.LeaderboardId
-import be.swsb.makeastats.kotlinbackend.model.PlayerStats
-import be.swsb.makeastats.kotlinbackend.services.db.LeaderboardRepo
-import be.swsb.makeastats.kotlinbackend.services.db.PlayerStatsRepo
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.CreateLeaderBoardCmd
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.Leaderboard
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.LeaderboardHashId
+import be.swsb.makeastats.kotlinbackend.domain.playerstats.PlayerStats
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.LeaderboardRepo
+import be.swsb.makeastats.kotlinbackend.domain.playerstats.PlayerStatsRepo
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -13,7 +13,7 @@ import java.util.*
 class LeaderboardService(val leaderboardRepo: LeaderboardRepo,
                          val playerStatsRepo: PlayerStatsRepo) {
 
-    private val leaderboards: MutableMap<LeaderboardId, Optional<Leaderboard>> = HashMap()
+    private val leaderboards: MutableMap<LeaderboardHashId, Optional<Leaderboard>> = HashMap()
 
     fun handle(cmd: CreateLeaderBoardCmd): Leaderboard {
         val leaderboard = Leaderboard(cmd)
@@ -22,8 +22,7 @@ class LeaderboardService(val leaderboardRepo: LeaderboardRepo,
         return leaderboards.getOrPut(persistedLeaderboard.lid, { Optional.of(persistedLeaderboard) }).get()
     }
 
-    fun getById(lid: LeaderboardId): Optional<Leaderboard> {
-        val leaderboard = leaderboardRepo.findByLeaderboardId(lid)
-        return leaderboard?.let { Optional.of(it) } ?: Optional.empty()
+    fun getById(lid: LeaderboardHashId): Leaderboard? {
+        return leaderboardRepo.findByLeaderboardId(lid)
     }
 }

@@ -14,13 +14,14 @@ import org.springframework.stereotype.Service
 import java.io.Reader
 
 @Service
-class PlayerService(val baseUrl: String, val pubgApiKey: String, val objectMapper: ObjectMapper) {
+class PlayerService(val pubgApiConfig: PubgApiConfig,
+                    val objectMapper: ObjectMapper) {
 
     fun findPlayersByNames(playerNames: List<String>? = null): Single<Result<PubgApiWrapper<List<Player>>, FuelError>> {
         val queryParams:String = playerNameQuery(playerNames)
-        return Fuel.get("$baseUrl/players${queryParams}")
+        return Fuel.get("${pubgApiConfig.baseUrl}/players${queryParams}")
                 .header(mapOf(
-                "Authorization" to "Bearer: $pubgApiKey",
+                "Authorization" to "Bearer: ${pubgApiConfig.apiKey}",
                 "Accept" to "application/vnd.api+json"
         )).rx_object(PlayerDeserializer(objectMapper))
     }

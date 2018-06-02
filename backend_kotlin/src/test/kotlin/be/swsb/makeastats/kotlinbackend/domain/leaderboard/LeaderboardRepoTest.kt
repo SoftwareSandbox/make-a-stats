@@ -1,7 +1,7 @@
-package be.swsb.makeastats.kotlinbackend.services.db
+package be.swsb.makeastats.kotlinbackend.domain.leaderboard
 
-import be.swsb.makeastats.kotlinbackend.model.Leaderboard
-import be.swsb.makeastats.kotlinbackend.model.PlayerStats
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.LeaderboardTestBuilder.Companion.aLeaderboard
+import be.swsb.makeastats.kotlinbackend.test.JdbiPreparedEmbeddedPostgres
 import org.assertj.core.api.Assertions
 import org.jdbi.v3.sqlobject.kotlin.onDemand
 import org.jdbi.v3.testing.JdbiRule
@@ -24,7 +24,7 @@ class LeaderboardRepoTest {
 
     @Test
     fun canSaveLeaderboard() {
-        val leaderboard = Leaderboard(UUID.randomUUID(), "UvOiox", "ZF")
+        val leaderboard = aLeaderboard(UUID.randomUUID(), "UvOiox", "ZF")
         val savedLeaderboard = repo?.insertAndFind(leaderboard)
         Assertions.assertThat(savedLeaderboard).isEqualTo(leaderboard)
     }
@@ -32,7 +32,7 @@ class LeaderboardRepoTest {
     @Test
     fun canFindLeaderboardByLeaderboardId() {
         val lid = "UvOiox"
-        val leaderboard = Leaderboard(UUID.randomUUID(), lid, "ZF")
+        val leaderboard = aLeaderboard(UUID.randomUUID(), lid, "ZF")
         repo?.insert(leaderboard)
         val savedLeaderboard = repo?.findByLeaderboardId(lid)
         Assertions.assertThat(savedLeaderboard).isEqualTo(leaderboard)
@@ -41,7 +41,7 @@ class LeaderboardRepoTest {
     @Test
     fun cannotFindLeaderboardByLeaderboardId_ReturnsNull() {
         val lid = "UvOiox"
-        val leaderboard = Leaderboard(UUID.randomUUID(), lid, "ZF")
+        val leaderboard = aLeaderboard(UUID.randomUUID(), lid, "ZF")
         repo?.insert(leaderboard)
         val actual = repo?.findByLeaderboardId("snarfsnarf")
         Assertions.assertThat(actual).isNull()

@@ -1,8 +1,6 @@
 package be.swsb.makeastats.kotlinbackend.pubgacl
 
 import be.swsb.makeastats.kotlinbackend.pubgacl.model.Match
-import be.swsb.makeastats.kotlinbackend.pubgacl.model.MatchId
-import be.swsb.makeastats.kotlinbackend.pubgacl.model.Player
 import be.swsb.makeastats.kotlinbackend.pubgacl.model.PubgApiWrapper
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
@@ -16,12 +14,13 @@ import org.springframework.stereotype.Service
 import java.io.Reader
 
 @Service
-class MatchService(val baseUrl: String, val pubgApiKey: String, val objectMapper: ObjectMapper) {
+class MatchService(val pubgApiConfig: PubgApiConfig,
+                   val objectMapper: ObjectMapper) {
 
     fun findMatchById(matchId: String): Single<Result<PubgApiWrapper<Match>, FuelError>> {
-        return Fuel.get("$baseUrl/matches/${matchId}")
+        return Fuel.get("${pubgApiConfig.baseUrl}/matches/${matchId}")
                 .header(mapOf(
-                "Authorization" to "Bearer: $pubgApiKey",
+                "Authorization" to "Bearer: ${pubgApiConfig.apiKey}",
                 "Accept" to "application/vnd.api+json"
         )).rx_object(MatchDeserializer(objectMapper))
     }

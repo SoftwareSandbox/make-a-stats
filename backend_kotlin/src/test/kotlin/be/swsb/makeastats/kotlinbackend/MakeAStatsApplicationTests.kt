@@ -6,10 +6,10 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
-@SpringBootTest
+@SpringBootTest(classes = [MakeAStatsApplication::class, EmbeddedPostgresConfig::class])
 class MakeAStatsApplicationTests {
 
-	@Test
+    @Test
 	fun contextLoads() {
 	}
 
