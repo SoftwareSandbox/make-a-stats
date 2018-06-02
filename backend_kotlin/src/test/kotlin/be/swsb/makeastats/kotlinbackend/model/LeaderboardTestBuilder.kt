@@ -4,7 +4,7 @@ import java.util.*
 
 class LeaderboardTestBuilder private constructor() {
     companion object {
-        fun aLeaderboard(id:UUID, lid: LeaderboardId, name: String): Leaderboard{
+        fun aLeaderboard(id:UUID, lid: LeaderboardHashId, name: String): Leaderboard{
             return Leaderboard(id, lid, name, null)
         }
 
@@ -14,7 +14,7 @@ class LeaderboardTestBuilder private constructor() {
     }
 
     private var id: UUID? = null
-    private var lid: LeaderboardId? = null
+    private var lid: LeaderboardHashId? = null
     private var name: String? = null
     private var players: List<PlayerStatsId>? = null
 
@@ -27,7 +27,7 @@ class LeaderboardTestBuilder private constructor() {
         return this
     }
 
-    fun withLid(lid: LeaderboardId): LeaderboardTestBuilder {
+    fun withLid(lid: LeaderboardHashId): LeaderboardTestBuilder {
         this.lid = lid
         return this
     }

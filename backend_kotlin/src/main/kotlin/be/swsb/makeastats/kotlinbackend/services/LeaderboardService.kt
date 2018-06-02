@@ -2,7 +2,7 @@ package be.swsb.makeastats.kotlinbackend.services
 
 import be.swsb.makeastats.kotlinbackend.model.CreateLeaderBoardCmd
 import be.swsb.makeastats.kotlinbackend.model.Leaderboard
-import be.swsb.makeastats.kotlinbackend.model.LeaderboardId
+import be.swsb.makeastats.kotlinbackend.model.LeaderboardHashId
 import be.swsb.makeastats.kotlinbackend.model.PlayerStats
 import be.swsb.makeastats.kotlinbackend.services.db.LeaderboardRepo
 import be.swsb.makeastats.kotlinbackend.services.db.PlayerStatsRepo
@@ -13,7 +13,7 @@ import java.util.*
 class LeaderboardService(val leaderboardRepo: LeaderboardRepo,
                          val playerStatsRepo: PlayerStatsRepo) {
 
-    private val leaderboards: MutableMap<LeaderboardId, Optional<Leaderboard>> = HashMap()
+    private val leaderboards: MutableMap<LeaderboardHashId, Optional<Leaderboard>> = HashMap()
 
     fun handle(cmd: CreateLeaderBoardCmd): Leaderboard {
         val leaderboard = Leaderboard(cmd)
@@ -22,7 +22,7 @@ class LeaderboardService(val leaderboardRepo: LeaderboardRepo,
         return leaderboards.getOrPut(persistedLeaderboard.lid, { Optional.of(persistedLeaderboard) }).get()
     }
 
-    fun getById(lid: LeaderboardId): Leaderboard? {
+    fun getById(lid: LeaderboardHashId): Leaderboard? {
         return leaderboardRepo.findByLeaderboardId(lid)
     }
 }

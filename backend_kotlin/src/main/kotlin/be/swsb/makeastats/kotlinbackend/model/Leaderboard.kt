@@ -10,17 +10,17 @@ import java.util.*
  * @param players: list of players that belong to this leaderboard
  */
 data class Leaderboard internal constructor(val id: UUID,
-                       val lid: LeaderboardId,
-                       val name: String,
-                       val players: List<PlayerStatsId>?) {
+                                            val lid: LeaderboardHashId,
+                                            val name: String,
+                                            val players: List<PlayerStatsId>?) {
     constructor(cmd: CreateLeaderBoardCmd) : this(UUID.randomUUID(), generateUniqueId(), cmd.name, null)
 
     companion object {
-        fun generateUniqueId(): LeaderboardId {
+        fun generateUniqueId(): LeaderboardHashId {
             val alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
             return Hashids("GettingSnipedWhileLooting", 6, alphabet).encode(Random().nextInt(alphabet.length).toLong())
         }
     }
 }
 
-typealias LeaderboardId = String
+typealias LeaderboardHashId = String

@@ -1,7 +1,7 @@
 package be.swsb.makeastats.kotlinbackend.services.db
 
 import be.swsb.makeastats.kotlinbackend.model.Leaderboard
-import be.swsb.makeastats.kotlinbackend.model.LeaderboardId
+import be.swsb.makeastats.kotlinbackend.model.LeaderboardHashId
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import java.util.*
@@ -18,7 +18,7 @@ interface LeaderboardRepo {
     fun findById(id: UUID): Leaderboard
 
     @SqlQuery("select id, lid, name from leaderboard where lid=:lid")
-    fun findByLeaderboardId(lid: LeaderboardId): Leaderboard?
+    fun findByLeaderboardId(lid: LeaderboardHashId): Leaderboard?
 
     fun insertAndFind(leaderboard: Leaderboard): Leaderboard {
         insert(leaderboard)
