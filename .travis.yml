@@ -12,6 +12,17 @@ matrix:
         directories:
           - "$HOME/.gradle/caches/"
           - "$HOME/.gradle/wrapper/"
+    - language: java
+      before_install: cd backend_kotlin
+      script:
+        - "./gradlew check"
+      before_cache:
+        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+      cache:
+        directories:
+          - "$HOME/.gradle/caches/"
+          - "$HOME/.gradle/wrapper/"
     - language: node_js
       node_js: '7'
       before_install:
