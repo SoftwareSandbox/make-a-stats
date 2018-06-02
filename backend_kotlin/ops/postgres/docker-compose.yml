@@ -1,0 +1,17 @@
+version: '3'
+services:
+  mas-db:
+    build: .
+    restart: always
+    ports:
+      - "6666:5432"
+    environment:
+      POSTGRES_DB: MAS
+
+  mas-testdb:
+    build: .
+    restart: always
+    ports:
+      - "6667:5432"
+    environment:
+      POSTGRES_DB: testdb

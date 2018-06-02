@@ -57,14 +57,13 @@ dependencies {
     compile("com.github.kittinunf.fuel:fuel-rxjava:1.13.0")
 
     //DB
+    compile("org.postgresql:postgresql:42.2.1")
+    compile("org.jdbi:jdbi3-postgres:${jdbiVersion}")
     compile("org.jdbi:jdbi3-core:${jdbiVersion}")
     compile("org.jdbi:jdbi3-kotlin:${jdbiVersion}")
     compile("org.jdbi:jdbi3-kotlin-sqlobject:${jdbiVersion}")
-    compile("org.jdbi:jdbi3-postgres:${jdbiVersion}")
-    compile("org.postgresql:postgresql:42.2.1")
-
     compile("org.jdbi:jdbi3-spring4:${jdbiVersion}")
-
+    compile('org.springframework.boot:spring-boot-starter-jdbc')
     compile("org.flywaydb:flyway-core:5.0.7")
 //    runtime('org.springframework.boot:spring-boot-devtools')
 
