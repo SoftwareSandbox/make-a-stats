@@ -1,6 +1,7 @@
-package be.swsb.makeastats.kotlinbackend.services.db
+package be.swsb.makeastats.kotlinbackend.domain.leaderboard
 
-import be.swsb.makeastats.kotlinbackend.model.LeaderboardTestBuilder.Companion.aLeaderboard
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.LeaderboardTestBuilder.Companion.aLeaderboard
+import be.swsb.makeastats.kotlinbackend.test.JdbiPreparedEmbeddedPostgres
 import org.assertj.core.api.Assertions
 import org.jdbi.v3.sqlobject.kotlin.onDemand
 import org.jdbi.v3.testing.JdbiRule

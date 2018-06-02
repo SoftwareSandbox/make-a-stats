@@ -1,11 +1,11 @@
 package be.swsb.makeastats.kotlinbackend.services
 
-import be.swsb.makeastats.kotlinbackend.model.CreateLeaderBoardCmd
-import be.swsb.makeastats.kotlinbackend.model.Leaderboard
-import be.swsb.makeastats.kotlinbackend.model.LeaderboardHashId
-import be.swsb.makeastats.kotlinbackend.model.PlayerStats
-import be.swsb.makeastats.kotlinbackend.services.db.LeaderboardRepo
-import be.swsb.makeastats.kotlinbackend.services.db.PlayerStatsRepo
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.CreateLeaderBoardCmd
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.Leaderboard
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.LeaderboardHashId
+import be.swsb.makeastats.kotlinbackend.domain.playerstats.PlayerStats
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.LeaderboardRepo
+import be.swsb.makeastats.kotlinbackend.domain.playerstats.PlayerStatsRepo
 import org.springframework.stereotype.Service
 import java.util.*
 

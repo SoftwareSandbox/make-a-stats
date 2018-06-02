@@ -1,5 +1,7 @@
-package be.swsb.makeastats.kotlinbackend.services.db
+package be.swsb.makeastats.kotlinbackend.domain
 
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.LeaderboardRepo
+import be.swsb.makeastats.kotlinbackend.domain.playerstats.PlayerStatsRepo
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.sqlobject.kotlin.onDemand
 import org.springframework.context.annotation.Bean

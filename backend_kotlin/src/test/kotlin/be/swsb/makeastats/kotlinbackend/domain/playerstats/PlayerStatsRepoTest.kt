@@ -1,6 +1,6 @@
-package be.swsb.makeastats.kotlinbackend.services.db
+package be.swsb.makeastats.kotlinbackend.domain.playerstats
 
-import be.swsb.makeastats.kotlinbackend.model.PlayerStats
+import be.swsb.makeastats.kotlinbackend.test.JdbiPreparedEmbeddedPostgres
 import org.assertj.core.api.Assertions
 import org.jdbi.v3.sqlobject.kotlin.onDemand
 import org.jdbi.v3.testing.JdbiRule
@@ -64,9 +64,9 @@ class PlayerStatsRepoTest {
 
     @Test
     fun insertIfNotExists_PlayerAlreadyExists_NoPlayerIsInserted() {
-        repo!!.insert(PlayerStats(UUID.randomUUID(),"shroud"))
+        repo!!.insert(PlayerStats(UUID.randomUUID(), "shroud"))
 
-        repo!!.insertIfNotExistsByName(PlayerStats(UUID.randomUUID(),"shroud"))
+        repo!!.insertIfNotExistsByName(PlayerStats(UUID.randomUUID(), "shroud"))
         Assertions.assertThat(repo!!.list().map(PlayerStats::player)).containsExactlyInAnyOrder("shroud")
     }
 

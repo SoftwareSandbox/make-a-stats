@@ -1,4 +1,4 @@
-package be.swsb.makeastats.kotlinbackend.model
+package be.swsb.makeastats.kotlinbackend.domain.playerstats
 
 import java.util.*
 

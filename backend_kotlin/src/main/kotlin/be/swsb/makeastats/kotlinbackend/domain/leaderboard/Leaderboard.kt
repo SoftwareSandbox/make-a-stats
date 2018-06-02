@@ -1,5 +1,6 @@
-package be.swsb.makeastats.kotlinbackend.model
+package be.swsb.makeastats.kotlinbackend.domain.leaderboard
 
+import be.swsb.makeastats.kotlinbackend.domain.playerstats.PlayerStatsId
 import be.swsb.makeastats.kotlinbackend.util.hashids.Hashids
 import java.util.*
 

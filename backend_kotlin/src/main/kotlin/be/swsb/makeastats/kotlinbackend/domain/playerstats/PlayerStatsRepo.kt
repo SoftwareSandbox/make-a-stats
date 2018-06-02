@@ -1,6 +1,6 @@
-package be.swsb.makeastats.kotlinbackend.services.db
+package be.swsb.makeastats.kotlinbackend.domain.playerstats
 
-import be.swsb.makeastats.kotlinbackend.model.PlayerStats
+import be.swsb.makeastats.kotlinbackend.domain.playerstats.PlayerStats
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import java.util.*

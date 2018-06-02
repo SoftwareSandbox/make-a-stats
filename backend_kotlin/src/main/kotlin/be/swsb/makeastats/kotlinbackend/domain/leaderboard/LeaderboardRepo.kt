@@ -1,7 +1,7 @@
-package be.swsb.makeastats.kotlinbackend.services.db
+package be.swsb.makeastats.kotlinbackend.domain.leaderboard
 
-import be.swsb.makeastats.kotlinbackend.model.Leaderboard
-import be.swsb.makeastats.kotlinbackend.model.LeaderboardHashId
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.Leaderboard
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.LeaderboardHashId
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import java.util.*

@@ -1,10 +1,10 @@
 package be.swsb.makeastats.kotlinbackend.services
 
-import be.swsb.makeastats.kotlinbackend.model.CreateLeaderBoardCmd
-import be.swsb.makeastats.kotlinbackend.model.PlayerStats
-import be.swsb.makeastats.kotlinbackend.services.db.JdbiPreparedEmbeddedPostgres
-import be.swsb.makeastats.kotlinbackend.services.db.LeaderboardRepo
-import be.swsb.makeastats.kotlinbackend.services.db.PlayerStatsRepo
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.CreateLeaderBoardCmd
+import be.swsb.makeastats.kotlinbackend.domain.playerstats.PlayerStats
+import be.swsb.makeastats.kotlinbackend.test.JdbiPreparedEmbeddedPostgres
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.LeaderboardRepo
+import be.swsb.makeastats.kotlinbackend.domain.playerstats.PlayerStatsRepo
 import org.assertj.core.api.Assertions
 import org.jdbi.v3.sqlobject.kotlin.onDemand
 import org.jdbi.v3.testing.JdbiRule
@@ -43,7 +43,7 @@ class LeaderboardServiceTest {
     @Test
     fun handleLeaderboardCreation_PlayersAlreadyExist_DoesNotRecreatePlayers() {
         val leaderboard = leaderboardService!!.handle(CreateLeaderBoardCmd("ZF", setOf("womble", "cyanide")))
-        val leaderboard2 = leaderboardService!!.handle(CreateLeaderBoardCmd("ZFShroud", setOf("womble", "cyanide","shroud","chad")))
+        val leaderboard2 = leaderboardService!!.handle(CreateLeaderBoardCmd("ZFShroud", setOf("womble", "cyanide", "shroud", "chad")))
 
         val foundLeaderboard = leaderboardRepo!!.findByLeaderboardId(leaderboard.lid)
         val foundLeaderboard2 = leaderboardRepo!!.findByLeaderboardId(leaderboard2.lid)

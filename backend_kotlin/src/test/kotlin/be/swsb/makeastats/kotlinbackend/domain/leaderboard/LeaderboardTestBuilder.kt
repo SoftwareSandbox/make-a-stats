@@ -1,10 +1,11 @@
-package be.swsb.makeastats.kotlinbackend.model
+package be.swsb.makeastats.kotlinbackend.domain.leaderboard
 
+import be.swsb.makeastats.kotlinbackend.domain.playerstats.PlayerStatsId
 import java.util.*
 
 class LeaderboardTestBuilder private constructor() {
     companion object {
-        fun aLeaderboard(id:UUID, lid: LeaderboardHashId, name: String): Leaderboard{
+        fun aLeaderboard(id:UUID, lid: LeaderboardHashId, name: String): Leaderboard {
             return Leaderboard(id, lid, name, null)
         }
 
