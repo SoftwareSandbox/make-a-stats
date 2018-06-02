@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
-@RequestMapping("leaderboard", produces = [APPLICATION_JSON_UTF8_VALUE])
+@RequestMapping("leaderboard")
 class LeaderboardController(val leaderboardService: LeaderboardService) {
 
     @GetMapping("{id}")
@@ -25,7 +25,7 @@ class LeaderboardController(val leaderboardService: LeaderboardService) {
         val leaderboard = leaderboardService.handle(cmd)
 
         val location = uriBuilder.path("leaderboard/{id}")
-                .buildAndExpand(leaderboard.id)
+                .buildAndExpand(leaderboard.lid)
                 .toUri()
 
         return ResponseEntity.created(location)

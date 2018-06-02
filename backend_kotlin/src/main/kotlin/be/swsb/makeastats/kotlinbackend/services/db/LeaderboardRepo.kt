@@ -4,10 +4,8 @@ import be.swsb.makeastats.kotlinbackend.model.Leaderboard
 import be.swsb.makeastats.kotlinbackend.model.LeaderboardId
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
-import org.springframework.stereotype.Repository
 import java.util.*
 
-@Repository
 interface LeaderboardRepo {
     @SqlUpdate("insert into leaderboard (id, lid, name) " +
             "values (:leaderboard.id, :leaderboard.lid, :leaderboard.name)")

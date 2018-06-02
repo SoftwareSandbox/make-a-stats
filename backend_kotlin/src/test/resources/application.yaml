@@ -6,9 +6,6 @@ server:
 spring:
   datasource:
         driver-class-name: org.postgresql.Driver
-        url: jdbc:postgresql://localhost:5432/MAS
-        username: makeastats
-        password: devMakeastats
 
 pubgapi:
   baseurl: http://localhost:3000/pubg-stub/api

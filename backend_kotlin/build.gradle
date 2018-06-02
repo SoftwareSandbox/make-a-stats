@@ -58,13 +58,15 @@ dependencies {
 
     //DB
     compile("org.jdbi:jdbi3-core:${jdbiVersion}")
-    compile("org.jdbi:jdbi3-postgres:${jdbiVersion}")
-    compile("org.jdbi:jdbi3-spring4:${jdbiVersion}")
     compile("org.jdbi:jdbi3-kotlin:${jdbiVersion}")
     compile("org.jdbi:jdbi3-kotlin-sqlobject:${jdbiVersion}")
-    compile("org.flywaydb:flyway-core:5.0.7")
+    compile("org.jdbi:jdbi3-postgres:${jdbiVersion}")
+    compile("org.postgresql:postgresql:42.2.1")
 
-    runtime('org.springframework.boot:spring-boot-devtools')
+    compile("org.jdbi:jdbi3-spring4:${jdbiVersion}")
+
+    compile("org.flywaydb:flyway-core:5.0.7")
+//    runtime('org.springframework.boot:spring-boot-devtools')
 
     //All purpose Unit testing stuff like JUnit, but also SpringBoot test classes
     testCompile('org.springframework.boot:spring-boot-starter-test')

@@ -6,7 +6,7 @@ import org.junit.Test
 
 class MatchServiceTest {
 
-    val matchService: MatchService = MatchService("http://localhost:3333/pubg-stub","", objectMapper())
+    val matchService: MatchService = MatchService(PubgApiConfig("http://localhost:3333/pubg-stub",""), objectMapper())
 
     @Test
     fun canCallAndMap() {

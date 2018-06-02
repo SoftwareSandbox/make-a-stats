@@ -6,7 +6,7 @@ import org.junit.Test
 
 class PlayerServiceTest {
 
-    val playerService: PlayerService = PlayerService("http://localhost:3333/pubg-stub","", objectMapper())
+    val playerService: PlayerService = PlayerService(PubgApiConfig("http://localhost:3333/pubg-stub",""), objectMapper())
 
     @Test
     fun canCallAndMap() {
