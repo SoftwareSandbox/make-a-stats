@@ -4,7 +4,6 @@ import be.swsb.makeastats.kotlinbackend.model.CreateLeaderBoardCmd
 import be.swsb.makeastats.kotlinbackend.model.Leaderboard
 import be.swsb.makeastats.kotlinbackend.services.LeaderboardService
 import org.springframework.http.HttpHeaders
-import org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder

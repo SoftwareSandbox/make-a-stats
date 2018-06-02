@@ -1,6 +1,6 @@
 package be.swsb.makeastats.kotlinbackend.util.hashids
 
-import java.util.ArrayList
+import java.util.*
 import java.util.regex.Pattern
 
 class Hashids(private var salt: String = "", length: Int = 0, alphabet: String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890") {

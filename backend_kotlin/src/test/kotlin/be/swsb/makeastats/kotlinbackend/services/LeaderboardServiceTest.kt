@@ -11,7 +11,6 @@ import org.jdbi.v3.testing.JdbiRule
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.util.*
 
 class LeaderboardServiceTest {
 
