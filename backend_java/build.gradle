@@ -1,34 +1,28 @@
 buildscript {
     ext {
         springBootVersion = '1.5.6.RELEASE'
+        dependencyManagementPluginVersion = '0.6.0.RELEASE'
     }
     repositories {
+        mavenLocal()
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "io.spring.gradle:dependency-management-plugin:$dependencyManagementPluginVersion"
     }
 }
 
-group 'be.swsb.makeastats'
-version '1.0-SNAPSHOT'
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
 
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
+    group 'be.swsb.makeastats'
+    version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-actuator'
-    compile 'com.mashape.unirest:unirest-java:1.4.9'
-    compile 'com.jayway.jsonpath:json-path:2.4.0'
-
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.assertj:assertj-core:3.9.1'
-    testCompile 'org.mockito:mockito-core:2.18.3'
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
+        }
+    }
 }

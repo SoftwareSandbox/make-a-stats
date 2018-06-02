@@ -37,7 +37,7 @@ public class MakeAStatsController {
         int leaderboardId = leaderboardMap.size();
         leaderboardMap.put(leaderboardId, leaderboard);
 
-        URI location = uriBuilder.path("leaderboard/{id}")
+        URI location = uriBuilder.path("api/leaderboard/{id}")
                 .buildAndExpand(leaderboardId)
                 .toUri();
 
