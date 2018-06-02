@@ -1,7 +1,7 @@
 package be.swsb.makeastats.kotlinbackend.domain.leaderboard
 
 import be.swsb.makeastats.kotlinbackend.domain.leaderboard.LeaderboardTestBuilder.Companion.aLeaderboard
-import be.swsb.makeastats.kotlinbackend.test.JdbiPreparedEmbeddedPostgres
+import be.swsb.makeastats.kotlinbackend.test.JdbiPreparedEmbeddedPostgresKotlin
 import org.assertj.core.api.Assertions
 import org.jdbi.v3.sqlobject.kotlin.onDemand
 import org.jdbi.v3.testing.JdbiRule
@@ -13,7 +13,7 @@ import java.util.*
 class LeaderboardRepoTest {
 
     @Rule @JvmField
-    val db: JdbiRule = JdbiPreparedEmbeddedPostgres.preparedJdbi("db/migration").withPlugins();
+    val db: JdbiRule = JdbiPreparedEmbeddedPostgresKotlin.preparedJdbi("db/migration").withPlugins();
 
     private var repo: LeaderboardRepo? = null
 
