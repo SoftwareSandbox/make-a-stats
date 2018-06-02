@@ -22,8 +22,7 @@ class LeaderboardService(val leaderboardRepo: LeaderboardRepo,
         return leaderboards.getOrPut(persistedLeaderboard.lid, { Optional.of(persistedLeaderboard) }).get()
     }
 
-    fun getById(lid: LeaderboardId): Optional<Leaderboard> {
-        val leaderboard = leaderboardRepo.findByLeaderboardId(lid)
-        return leaderboard?.let { Optional.of(it) } ?: Optional.empty()
+    fun getById(lid: LeaderboardId): Leaderboard? {
+        return leaderboardRepo.findByLeaderboardId(lid)
     }
 }

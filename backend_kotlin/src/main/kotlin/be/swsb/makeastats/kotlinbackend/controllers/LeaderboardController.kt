@@ -16,8 +16,8 @@ class LeaderboardController(val leaderboardService: LeaderboardService) {
     @GetMapping("{id}")
     fun getLeaderboard(@PathVariable(value = "id", required = true) id: String): ResponseEntity<Leaderboard> {
         return leaderboardService.getById(id)
-                .map { ResponseEntity.ok().body(it) }
-                .orElse(ResponseEntity.notFound().build())
+                ?.let { ResponseEntity.ok().body(it) }
+                ?: ResponseEntity.notFound().build()
     }
 
     @PostMapping

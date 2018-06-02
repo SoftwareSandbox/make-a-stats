@@ -37,7 +37,7 @@ class LeaderboardControllerTest {
 
     @Test
     fun getLeaderboard_ServiceDidNotFindLeaderboardForGivenId_Returns404() {
-        whenever(leaderboardService.getById("1")).thenReturn(Optional.empty())
+        whenever(leaderboardService.getById("1")).thenReturn(null)
 
         mockMvc.perform(MockMvcRequestBuilders.get("/leaderboard/{id}", "1"))
                 .andExpect(MockMvcResultMatchers.status().`is`(404))
@@ -46,7 +46,7 @@ class LeaderboardControllerTest {
     @Test
     fun getLeaderboard_ServiceDidFindLeaderboardForGivenId_Returns200() {
         val leaderboard = Leaderboard(UUID.randomUUID(), "OvOTxT", "shroodSquad", listOf(UUID.randomUUID()))
-        whenever(leaderboardService.getById("OvOTxT")).thenReturn(Optional.of(leaderboard))
+        whenever(leaderboardService.getById("OvOTxT")).thenReturn(leaderboard)
 
         val contentAsString: String = mockMvc.perform(MockMvcRequestBuilders.get("/leaderboard/{id}", "OvOTxT"))
                 .andExpect(MockMvcResultMatchers.status().`is`(200))
