@@ -8,10 +8,10 @@ import java.util.*
 @Service
 class PlayerStatsService {
 
-    private val playerstats: MutableMap<PlayerName, Optional<PlayerStats>> = HashMap()
+    private val playerstats: MutableMap<PlayerName, PlayerStats?> = HashMap()
 
-    fun getByName(playerName: String): Optional<PlayerStats> {
-        return playerstats.getOrDefault(playerName, Optional.empty())
+    fun getByName(playerName: String): PlayerStats? {
+        return playerstats.get(playerName)
     }
 
 }
