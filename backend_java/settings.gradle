@@ -1,2 +1,4 @@
 rootProject.name = 'make-a-stats'
+include 'application'
+include 'test-cdc'
 

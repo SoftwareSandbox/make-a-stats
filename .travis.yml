@@ -1,7 +1,16 @@
 sudo: required
 matrix:
   include:
-    - language: java
+    - stage: publish contracts
+      language: java
+      before_install: cd cdc/contracts
+      script:
+        - "./gradlew publishToMavenLocal"
+      cache:
+        directories:
+          - "$HOME/.m2"
+    - stage: backend test
+      language: java
       before_install: cd backend_java
       script:
         - "./gradlew check"
@@ -12,7 +21,9 @@ matrix:
         directories:
           - "$HOME/.gradle/caches/"
           - "$HOME/.gradle/wrapper/"
-    - language: java
+          - "$HOME/.m2"
+    - stage: backend test
+      language: java
       before_install: cd backend_kotlin
       script:
         - "./gradlew check"
@@ -23,7 +34,8 @@ matrix:
         directories:
           - "$HOME/.gradle/caches/"
           - "$HOME/.gradle/wrapper/"
-    - language: node_js
+    - stage: frontend test
+      language: node_js
       node_js: '7'
       before_install:
         - cd frontend

@@ -12,6 +12,9 @@ Contract.make {
                         anyNonBlankString()
                 ]
         ])
+        headers {
+            contentType("application/json")
+        }
     }
     response {
         status 201

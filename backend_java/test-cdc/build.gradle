@@ -1,0 +1,40 @@
+buildscript {
+    ext {
+        contractPluginVersion = '1.1.4.RELEASE'
+    }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:$contractPluginVersion"
+    }
+}
+
+apply plugin: 'spring-cloud-contract'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-contract-dependencies:$contractPluginVersion"
+    }
+}
+
+dependencies {
+    compile project(':application')
+    compile 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
+    compile "org.springframework.cloud:spring-cloud-starter-contract-stub-runner"
+}
+
+contracts {
+    contractDependency {
+        stringNotation 'be.swsb.makeastats:contracts:local:stubs'
+    }
+    contractsPath 'contracts'
+    contractsWorkOffline true
+    baseClassForTests 'be.swsb.makeastats.testcdc.HttpBaseTest'
+}
