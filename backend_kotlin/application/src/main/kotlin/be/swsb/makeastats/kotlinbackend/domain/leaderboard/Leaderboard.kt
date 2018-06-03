@@ -10,7 +10,7 @@ import java.util.*
  * @param name: name of the leaderboard
  * @param players: list of players that belong to this leaderboard
  */
-data class Leaderboard internal constructor(val id: UUID,
+data class Leaderboard constructor(val id: UUID,
                                             val lid: LeaderboardHashId,
                                             val name: String,
                                             val players: List<PlayerStatsId>?) {

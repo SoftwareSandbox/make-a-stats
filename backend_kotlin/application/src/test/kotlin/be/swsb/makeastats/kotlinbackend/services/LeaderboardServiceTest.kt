@@ -30,7 +30,7 @@ class LeaderboardServiceTest {
 
     @Test
     fun handleLeaderboardCreation_CreatesLeaderboard_CreatesPlayers_StartsAsyncPubgCalls() {
-        val leaderboard = leaderboardService!!.handle(CreateLeaderBoardCmd("ZF", setOf("womble", "cyanide")))
+        val leaderboard = leaderboardService!!.handle(CreateLeaderBoardCmd("ZF", setOf("womble", "cyanide")))!!
 
         val foundLeaderboard = leaderboardRepo!!.findByLeaderboardId(leaderboard.lid)
 
@@ -42,8 +42,8 @@ class LeaderboardServiceTest {
 
     @Test
     fun handleLeaderboardCreation_PlayersAlreadyExist_DoesNotRecreatePlayers() {
-        val leaderboard = leaderboardService!!.handle(CreateLeaderBoardCmd("ZF", setOf("womble", "cyanide")))
-        val leaderboard2 = leaderboardService!!.handle(CreateLeaderBoardCmd("ZFShroud", setOf("womble", "cyanide", "shroud", "chad")))
+        val leaderboard = leaderboardService!!.handle(CreateLeaderBoardCmd("ZF", setOf("womble", "cyanide")))!!
+        val leaderboard2 = leaderboardService!!.handle(CreateLeaderBoardCmd("ZFShroud", setOf("womble", "cyanide", "shroud", "chad")))!!
 
         val foundLeaderboard = leaderboardRepo!!.findByLeaderboardId(leaderboard.lid)
         val foundLeaderboard2 = leaderboardRepo!!.findByLeaderboardId(leaderboard2.lid)

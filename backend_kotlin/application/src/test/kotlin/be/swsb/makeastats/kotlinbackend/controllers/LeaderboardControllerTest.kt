@@ -3,6 +3,7 @@ package be.swsb.makeastats.kotlinbackend.controllers
 import be.swsb.makeastats.kotlinbackend.controllers.util.ObjectMapperFactory
 import be.swsb.makeastats.kotlinbackend.domain.leaderboard.CreateLeaderBoardCmd
 import be.swsb.makeastats.kotlinbackend.domain.leaderboard.Leaderboard
+import be.swsb.makeastats.kotlinbackend.domain.leaderboard.LeaderboardTestBuilder.Companion.aLeaderboard
 import be.swsb.makeastats.kotlinbackend.services.LeaderboardService
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
@@ -39,16 +40,16 @@ class LeaderboardControllerTest {
     fun getLeaderboard_ServiceDidNotFindLeaderboardForGivenId_Returns404() {
         whenever(leaderboardService.getById("1")).thenReturn(null)
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/leaderboard/{id}", "1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/leaderboard/{id}", "1"))
                 .andExpect(MockMvcResultMatchers.status().`is`(404))
     }
 
     @Test
     fun getLeaderboard_ServiceDidFindLeaderboardForGivenId_Returns200() {
-        val leaderboard = Leaderboard(UUID.randomUUID(), "OvOTxT", "shroodSquad", listOf(UUID.randomUUID()))
+        val leaderboard = aLeaderboard(UUID.randomUUID(), "OvOTxT", "shroodSquad")
         whenever(leaderboardService.getById("OvOTxT")).thenReturn(leaderboard)
 
-        val contentAsString: String = mockMvc.perform(MockMvcRequestBuilders.get("/leaderboard/{id}", "OvOTxT"))
+        val contentAsString: String = mockMvc.perform(MockMvcRequestBuilders.get("/api/leaderboard/{id}", "OvOTxT"))
                 .andExpect(MockMvcResultMatchers.status().`is`(200))
                 .andReturn().getResponse().getContentAsString()
 
@@ -58,18 +59,18 @@ class LeaderboardControllerTest {
     @Test
     fun createLeaderboard_ReturnsCreatedLeaderboard_WithLeaderboardIdInLocation() {
         val createLeaderBoardCmd = CreateLeaderBoardCmd("shroudSquad", setOf("shroud", "chad"))
-        val leaderboard = Leaderboard(UUID.randomUUID(), "OvOTxT", "shroodSquad", listOf(UUID.randomUUID()))
+        val leaderboard = aLeaderboard(UUID.randomUUID(), "OvOTxT", "shroodSquad")
         whenever(leaderboardService.handle(createLeaderBoardCmd)).thenReturn(leaderboard)
 
         val response = mockMvc
                 .perform(MockMvcRequestBuilders
-                    .post("/leaderboard")
+                    .post("/api/leaderboard")
                     .content(ObjectMapperFactory.json(createLeaderBoardCmd))
                     .contentType(MediaType.APPLICATION_JSON_UTF8)
                 )
                 .andExpect(MockMvcResultMatchers.status().`is`(201))
                 .andReturn().getResponse()
 
-        Ass.assertThat(response.getHeaderValue("Location")).isEqualTo("http://localhost/leaderboard/OvOTxT")
+        Ass.assertThat(response.getHeaderValue("Location")).isEqualTo("http://localhost/api/leaderboard/OvOTxT")
     }
 }
