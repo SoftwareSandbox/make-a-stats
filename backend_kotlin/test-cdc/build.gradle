@@ -16,6 +16,7 @@ apply plugin: 'spring-cloud-contract'
 repositories {
     mavenLocal()
     mavenCentral()
+    jcenter()
 }
 
 dependencyManagement {
@@ -27,7 +28,9 @@ dependencyManagement {
 dependencies {
     compile project(':application')
     compile 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
-    compile 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner'
+    compile "org.springframework.cloud:spring-cloud-starter-contract-stub-runner"
+    compile "com.jayway.restassured:spring-mock-mvc:2.9.0"
+    compile("com.nhaarman:mockito-kotlin:1.5.0")
     testCompile 'javax.xml.bind:jaxb-api'
 }
 
