@@ -24,5 +24,9 @@ subprojects {
         imports {
             mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
         }
+
+        dependencies {
+            dependency "javax.xml.bind:jaxb-api:2.3.0"
+        }
     }
 }

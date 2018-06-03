@@ -17,6 +17,7 @@ fun main(args: Array<String>) {
     runApplication<MakeAStatsApplication>(*args)
 }
 
+
 @Autowired
 fun configureCors(webMvcConfig: WebMvcConfigurer) {
     val registry = CorsRegistry()

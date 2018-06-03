@@ -1,2 +1,3 @@
 rootProject.name = 'kotlinbackend'
-
+include 'application'
+include 'test-cdc'

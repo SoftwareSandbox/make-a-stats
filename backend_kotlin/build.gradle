@@ -1,86 +1,47 @@
 buildscript {
     ext {
-        kotlinVersion = '1.2.41'
         springBootVersion = '2.0.1.RELEASE'
-        jdbiVersion = '3.2.1'
+        dependencyManagementPluginVersion = '0.6.0.RELEASE'
+        kotlinVersion = '1.2.41'
     }
     repositories {
+        mavenLocal()
         mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "io.spring.gradle:dependency-management-plugin:$dependencyManagementPluginVersion"
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
     }
 }
 
-apply plugin: 'kotlin'
-apply plugin: 'kotlin-spring'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
+subprojects {
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'kotlin'
+    apply plugin: 'java'
 
-group = 'be.swsb.makeastats'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+    group = 'be.swsb.makeastats'
+    version = '0.0.1-SNAPSHOT'
 
-compileKotlin {
-    kotlinOptions {
-        freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "1.8"
+    compileKotlin {
+        kotlinOptions {
+            freeCompilerArgs = ["-Xjsr305=strict"]
+            jvmTarget = "1.8"
+        }
     }
-}
-compileTestKotlin {
-    kotlinOptions {
-        freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "1.8"
+
+    compileTestKotlin {
+        kotlinOptions {
+            freeCompilerArgs = ["-Xjsr305=strict"]
+            jvmTarget = "1.8"
+        }
     }
-}
 
-repositories {
-    mavenCentral()
-    jcenter()
-}
-
-
-dependencies {
-    //REST-API with SpringBoot
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('com.fasterxml.jackson.module:jackson-module-kotlin')
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    compile("org.jetbrains.kotlin:kotlin-reflect")
-
-    //REST-Client
-    compile("com.github.kittinunf.fuel:fuel:1.13.0")
-    compile("com.github.kittinunf.fuel:fuel-jackson:1.13.0")
-    compile("com.github.kittinunf.fuel:fuel-rxjava:1.13.0")
-
-    //DB
-    compile("org.postgresql:postgresql:42.2.1")
-    compile("org.jdbi:jdbi3-postgres:${jdbiVersion}")
-    compile("org.jdbi:jdbi3-core:${jdbiVersion}")
-    compile("org.jdbi:jdbi3-kotlin:${jdbiVersion}")
-    compile("org.jdbi:jdbi3-kotlin-sqlobject:${jdbiVersion}")
-    compile("org.jdbi:jdbi3-spring4:${jdbiVersion}")
-    compile('org.springframework.boot:spring-boot-starter-jdbc')
-    compile("org.flywaydb:flyway-core:5.0.7")
-//    runtime('org.springframework.boot:spring-boot-devtools')
-
-    //All purpose Unit testing stuff like JUnit, but also SpringBoot test classes
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-
-    testCompile("org.assertj:assertj-core:3.9.1")
-    testCompile("com.nhaarman:mockito-kotlin:1.5.0")
-
-    //Integration testing vs. an embedded Postgres using a JdbiRule
-    testCompile("org.jdbi:jdbi3-testing:${jdbiVersion}")
-    testCompile("com.opentable.components:otj-pg-embedded:0.11.3")
-    testCompile("org.flywaydb.flyway-test-extensions:flyway-test-extensions:5.0.0")
-
-}
-
-jar {
-    baseName = 'make-a-stats-api'
-    version = '0.1.0'
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
+        }
+    }
 }
