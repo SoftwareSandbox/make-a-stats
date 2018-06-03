@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
-@RequestMapping("leaderboard")
+@RequestMapping("api/leaderboard")
 class LeaderboardController(val leaderboardService: LeaderboardService) {
 
     @GetMapping("{id}")
@@ -23,8 +23,8 @@ class LeaderboardController(val leaderboardService: LeaderboardService) {
     fun createLeaderboard(@RequestBody cmd: CreateLeaderBoardCmd, uriBuilder: UriComponentsBuilder): ResponseEntity<Any> {
         val leaderboard = leaderboardService.handle(cmd)
 
-        val location = uriBuilder.path("leaderboard/{id}")
-                .buildAndExpand(leaderboard.lid)
+        val location = uriBuilder.path("api/leaderboard/{id}")
+                .buildAndExpand(leaderboard?.lid)
                 .toUri()
 
         return ResponseEntity.created(location)

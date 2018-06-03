@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(
-        classes = arrayOf(MakeAStatsApplication::class),
+        classes = [MakeAStatsApplication::class, HttpBaseConfig::class],
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 open class HttpBaseTest {
 

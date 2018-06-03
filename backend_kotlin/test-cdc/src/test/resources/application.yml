@@ -1,0 +1,16 @@
+spring:
+  flyway:
+    enabled: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:6667/MAS
+    username: makeastats
+    password: devMakeastats
+
+server:
+  servlet:
+    context-path: /api
+
+pubgapi:
+  baseurl: http://localhost:3000/pubg-stub/api
+  apikey: 12345678

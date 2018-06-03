@@ -15,7 +15,7 @@ class LeaderboardService(val leaderboardRepo: LeaderboardRepo,
 
     private val leaderboards: MutableMap<LeaderboardHashId, Optional<Leaderboard>> = HashMap()
 
-    fun handle(cmd: CreateLeaderBoardCmd): Leaderboard {
+    fun handle(cmd: CreateLeaderBoardCmd): Leaderboard? {
         val leaderboard = Leaderboard(cmd)
         val persistedLeaderboard = leaderboardRepo.insertAndFind(leaderboard)
         PlayerStats.fromPlayernames(cmd.playerNames).forEach(playerStatsRepo::insertIfNotExistsByName)

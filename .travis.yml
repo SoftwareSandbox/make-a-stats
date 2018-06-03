@@ -1,5 +1,7 @@
 sudo: required
 matrix:
+  services:
+    - docker
   include:
     - stage: publish contracts
       language: java
@@ -9,7 +11,7 @@ matrix:
       cache:
         directories:
           - "$HOME/.m2"
-    - stage: backend test
+    - stage: backend java test
       language: java
       before_install: cd backend_java
       script:
@@ -22,7 +24,7 @@ matrix:
           - "$HOME/.gradle/caches/"
           - "$HOME/.gradle/wrapper/"
           - "$HOME/.m2"
-    - stage: backend test
+    - stage: backend kotlin test
       language: java
       before_install: cd backend_kotlin
       script:
@@ -34,6 +36,7 @@ matrix:
         directories:
           - "$HOME/.gradle/caches/"
           - "$HOME/.gradle/wrapper/"
+          - "$HOME/.m2"
     - stage: frontend test
       language: node_js
       node_js: '7'
