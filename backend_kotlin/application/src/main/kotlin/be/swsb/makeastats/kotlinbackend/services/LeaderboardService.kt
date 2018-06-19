@@ -13,13 +13,11 @@ import java.util.*
 class LeaderboardService(val leaderboardRepo: LeaderboardRepo,
                          val playerStatsRepo: PlayerStatsRepo) {
 
-    private val leaderboards: MutableMap<LeaderboardHashId, Optional<Leaderboard>> = HashMap()
-
     fun handle(cmd: CreateLeaderBoardCmd): Leaderboard? {
         val leaderboard = Leaderboard(cmd)
         val persistedLeaderboard = leaderboardRepo.insertAndFind(leaderboard)
         PlayerStats.fromPlayernames(cmd.playerNames).forEach(playerStatsRepo::insertIfNotExistsByName)
-        return leaderboards.getOrPut(persistedLeaderboard.lid, { Optional.of(persistedLeaderboard) }).get()
+        return persistedLeaderboard
     }
 
     fun getById(lid: LeaderboardHashId): Leaderboard? {
