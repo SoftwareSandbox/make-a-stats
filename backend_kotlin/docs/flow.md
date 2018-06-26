@@ -49,7 +49,9 @@ his leaderboard will look like this:
 
 | Place | Player | Kills | Matches played | Average |  Last Update   |
 | ---  | ---    | ---   | ---            | ---     | ---       |
-| 1 | Evsx | 15 | 3 | 5 | 2018/06/21 18:07 (Updating) |
+| 1 | Evsx | 15 | 3 | 5 | 2018/06/21 18:07 |
+
+Evsx will know that this information is up to date or not by comparing the current time with the Last Update time, using: his eyes.
 
 ## An existing Leaderboard is requested
 Sch3lp refreshes his page to see if things are updated yet.
