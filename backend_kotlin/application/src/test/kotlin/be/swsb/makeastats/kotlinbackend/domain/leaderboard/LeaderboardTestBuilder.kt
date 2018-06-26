@@ -5,13 +5,17 @@ import java.util.*
 
 class LeaderboardTestBuilder private constructor() {
     companion object {
-        fun aLeaderboard(id:UUID, lid: LeaderboardHashId, name: String): Leaderboard {
+        fun aLeaderboardWithoutPlayers(id:UUID, lid: LeaderboardHashId, name: String): Leaderboard {
             return Leaderboard(id, lid, name, null)
         }
 
         fun aLeaderboard(): LeaderboardTestBuilder {
             return LeaderboardTestBuilder()
         }
+//        TODO
+//        fun create(id: UUID = UUID.randomUUID(), lid: LeaderboardHashId = "123456", name: String = "LeaderboardName"): Leaderboard {
+//            return Leaderboard(id, lid, name, emptyList())
+//        }
     }
 
     private var id: UUID? = null
