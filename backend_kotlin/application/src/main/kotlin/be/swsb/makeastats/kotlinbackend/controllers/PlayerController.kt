@@ -16,7 +16,7 @@ class PlayerController(val playerStatsStatsService: PlayerStatsService) {
     @GetMapping("{name}")
     fun getByName(@PathVariable("name") playerName: String): ResponseEntity<PlayerStats> {
         return playerStatsStatsService.getByName(playerName)
-                ?.let { ResponseEntity.accepted().body(it) }
+                ?. let { ResponseEntity.accepted().body(it) }
                 ?: ResponseEntity.notFound().build()
     }
 }

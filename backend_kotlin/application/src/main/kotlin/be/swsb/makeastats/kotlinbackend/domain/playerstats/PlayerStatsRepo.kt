@@ -25,7 +25,7 @@ interface PlayerStatsRepo {
         return findById(playerStats.id)!!
     }
 
-    fun insertIfNotExistsByName(playerStats: PlayerStats) {
-        this.findByName(playerStats.player) ?: this.insert(playerStats)
+    fun insertIfNotExistsByName(playerStats: PlayerStats): PlayerStats {
+        return this.findByName(playerStats.player) ?: this.insertAndFind(playerStats)
     }
 }
